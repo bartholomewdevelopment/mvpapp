@@ -13,6 +13,42 @@ const FAQItem: React.FC<FAQItemProps> = ({ question, answer, isOpen, onToggle, i
   // Split answer into paragraphs for better formatting
   const paragraphs = answer.split('\n\n').filter(p => p.trim());
 
+  // Function to render paragraph with bullet points
+  const renderParagraph = (paragraph: string, idx: number) => {
+    // Check if paragraph contains bullet points
+    if (paragraph.includes('•')) {
+      const lines = paragraph.split('\n').filter(line => line.trim());
+      const bulletLines = lines.filter(line => line.trim().startsWith('•'));
+      const nonBulletLines = lines.filter(line => !line.trim().startsWith('•'));
+
+      return (
+        <div key={idx} className="space-y-3">
+          {nonBulletLines.length > 0 && (
+            <p className="text-gray-300 leading-relaxed text-base">
+              {nonBulletLines.join(' ')}
+            </p>
+          )}
+          {bulletLines.length > 0 && (
+            <ul className="space-y-2 ml-4">
+              {bulletLines.map((line, lineIdx) => (
+                <li key={lineIdx} className="text-gray-300 leading-relaxed text-base flex items-start gap-2">
+                  <span className="text-[#fd6a62] font-bold flex-shrink-0">•</span>
+                  <span>{line.replace('•', '').trim()}</span>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      );
+    }
+
+    return (
+      <p key={idx} className="text-gray-300 leading-relaxed text-base">
+        {paragraph}
+      </p>
+    );
+  };
+
   return (
     <div 
       className="border border-slate-700/50 rounded-xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-[#fd6a62]/10 bg-gradient-to-br from-slate-800/80 to-gray-800/80 backdrop-blur-sm"
@@ -35,16 +71,12 @@ const FAQItem: React.FC<FAQItemProps> = ({ question, answer, isOpen, onToggle, i
       </button>
       <div 
         className={`overflow-hidden transition-all duration-500 ease-in-out ${
-          isOpen ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'
+          isOpen ? 'max-h-[1000px] opacity-100' : 'max-h-0 opacity-0'
         }`}
       >
         <div className="px-6 py-5 bg-gradient-to-br from-slate-900/50 to-gray-900/50 border-t border-[#fd6a62]/20">
           <div className="space-y-4">
-            {paragraphs.map((paragraph, idx) => (
-              <p key={idx} className="text-gray-300 leading-relaxed text-base">
-                {paragraph}
-              </p>
-            ))}
+            {paragraphs.map((paragraph, idx) => renderParagraph(paragraph, idx))}
           </div>
         </div>
       </div>
