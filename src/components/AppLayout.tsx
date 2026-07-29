@@ -6,8 +6,8 @@ import Process from './Process';
 import About from './About';
 import FAQ from './FAQ';
 import Portfolio from './Portfolio';
-import Testimonials from './Testimonials';
 import Footer from './Footer';
+import ScrollToTop from './ScrollToTop';
 import GetStartedModal from './GetStartedModal';
 import { useAppContext } from '@/contexts/AppContext';
 
@@ -20,9 +20,9 @@ const AppLayout: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-gradient-to-b from-slate-950 to-gray-900">
       <Navigation isOpen={mobileMenuOpen} onToggle={toggleMobileMenu} />
-      <div className="pt-16"> {/* Add padding for fixed nav */}
+      <div className="pt-16">
         <div id="hero">
           <Hero />
         </div>
@@ -35,9 +35,6 @@ const AppLayout: React.FC = () => {
         <div id="portfolio">
           <Portfolio />
         </div>
-        <div id="testimonials">
-          <Testimonials />
-        </div>
         <div id="about">
           <About />
         </div>
@@ -46,10 +43,11 @@ const AppLayout: React.FC = () => {
         </div>
       </div>
       <Footer />
-      
-      <GetStartedModal 
-        isOpen={isGetStartedModalOpen} 
-        onClose={closeGetStartedModal} 
+      <ScrollToTop />
+
+      <GetStartedModal
+        isOpen={isGetStartedModalOpen}
+        onClose={closeGetStartedModal}
       />
     </div>
   );
