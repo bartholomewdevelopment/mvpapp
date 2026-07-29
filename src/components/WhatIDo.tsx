@@ -164,23 +164,25 @@ const WhatIDo: React.FC = () => {
                   <strong className="text-white">Influence on Purpose culture quiz</strong> — understand your
                   founding team's working style before you scale it.{' '}
                   <a
-                    href="#"
+                    href="https://influenceonpurpose.com/assessment"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="text-[#fd6a62] underline underline-offset-2 hover:text-[#fc5951] transition-colors"
                   >
                     Take the quiz
                   </a>
-                  {/* TODO(founder): replace "#" with the live Influence on Purpose quiz URL */}
                 </p>
                 <p className="text-gray-300 text-sm leading-relaxed">
                   <strong className="text-white">Discounted founder coaching through Rebekah</strong> — an
                   exclusive rate on one-on-one coaching for package clients.{' '}
                   <a
-                    href="#"
+                    href="https://calendly.com/rebekah-iop/15-minute-meeting?month=2026-07"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="text-[#fd6a62] underline underline-offset-2 hover:text-[#fc5951] transition-colors"
                   >
-                    Learn more
+                    Book a 15-minute intro
                   </a>
-                  {/* TODO(founder): replace "#" with Rebekah's coaching link and confirm the discount terms */}
                 </p>
               </CardContent>
             </Card>

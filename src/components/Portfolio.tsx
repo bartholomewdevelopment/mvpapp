@@ -249,13 +249,16 @@ const Portfolio: React.FC = () => {
                       <FeaturePill icon={MessageSquare} label="Safe Chat" accentColor="#6366f1" />
                       <FeaturePill icon={CreditCard} label="Payments via Stripe" accentColor="#6366f1" />
                     </div>
-                    {/* TODO(founder): confirm how to present Overtime AM. overtimeam.com is no longer
-                        live, so the "View Live Site" link was removed and this is now shown as a past
-                        project / case study. Options: leave as-is, add a written case study, or retire it. */}
-                    <div className="inline-flex items-center gap-2.5 bg-white/5 border border-indigo-400/30 text-indigo-200 px-6 py-3 rounded-xl font-semibold text-base">
+                    <a
+                      href="https://overtimeam.com/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2.5 bg-gradient-to-r from-indigo-600 to-indigo-500 text-white px-6 py-3 rounded-xl font-semibold text-base shadow-xl shadow-indigo-500/25 hover:shadow-indigo-500/40 hover:scale-105 transition-all duration-300"
+                    >
                       <Sparkles className="w-4 h-4" />
-                      Past project — case study available on request
-                    </div>
+                      View Live Site
+                      <ExternalLink className="w-4 h-4" />
+                    </a>
                   </div>
                 </div>
 
