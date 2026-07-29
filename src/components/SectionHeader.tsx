@@ -38,6 +38,14 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
 
       <h2 className="display-2 text-ink">{title}</h2>
 
+      {/* Short brand-gradient underscore beneath every section heading — the
+          through-line that used to be the animated dot-dash divider, reduced to
+          one confident mark. */}
+      <div
+        className={`mt-5 h-[3px] w-16 rounded-full bg-brand-grad ${isCenter ? 'mx-auto' : ''}`}
+        aria-hidden="true"
+      />
+
       {lede && <p className={`lede mt-5 ${isCenter ? 'mx-auto' : ''}`}>{lede}</p>}
     </AnimatedSection>
   );

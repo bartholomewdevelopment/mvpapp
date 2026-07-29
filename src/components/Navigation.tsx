@@ -84,7 +84,7 @@ const Navigation: React.FC<NavigationProps> = ({ isOpen, onToggle }) => {
 
               <button
                 onClick={openGetStartedModal}
-                className="group inline-flex items-center gap-1.5 rounded-full bg-accent2027 px-5 py-2.5 text-sm font-semibold text-white transition-colors duration-150 ease-signature hover:bg-accent2027-hover"
+                className="group inline-flex items-center gap-1.5 rounded-full btn-brand !rounded-full px-5 py-2.5 text-sm font-semibold"
               >
                 Get started
                 <ArrowRight
@@ -138,7 +138,7 @@ const Navigation: React.FC<NavigationProps> = ({ isOpen, onToggle }) => {
                   onToggle();
                   openGetStartedModal();
                 }}
-                className="mt-4 flex w-full items-center justify-center gap-2 rounded-[var(--r-md)] bg-accent2027 px-6 py-4 text-base font-semibold text-white transition-colors duration-150 hover:bg-accent2027-hover"
+                className="mt-4 flex w-full items-center justify-center gap-2 rounded-[var(--r-md)] btn-brand px-6 py-4 text-base font-semibold"
               >
                 Get started
                 <ArrowRight className="h-4 w-4" aria-hidden="true" />

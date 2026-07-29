@@ -29,6 +29,7 @@ export default {
         canvas: {
           DEFAULT: 'var(--canvas)',
           raised: 'var(--canvas-raised)',
+          deep: 'var(--canvas-deep)',
         },
         ink: {
           DEFAULT: 'var(--ink)',
@@ -38,6 +39,7 @@ export default {
         },
         accent2027: {
           DEFAULT: 'var(--accent)',
+          two: 'var(--accent-2)',
           hover: 'var(--accent-hover)',
           ink: 'var(--accent-ink)',
           wash: 'var(--accent-wash)',
@@ -106,9 +108,16 @@ export default {
       boxShadow: {
         lift: 'var(--lift)',
         'lift-high': 'var(--lift-high)',
+        glow: 'var(--glow)',
+        'glow-high': 'var(--glow-high)',
+      },
+      backgroundImage: {
+        'brand-grad': 'var(--accent-grad)',
+        'brand-grad-soft': 'var(--accent-grad-soft)',
       },
       transitionTimingFunction: {
         signature: 'cubic-bezier(0.16, 1, 0.3, 1)',
+        spring: 'cubic-bezier(0.34, 1.4, 0.64, 1)',
       },
       maxWidth: {
         measure: '68ch',

@@ -43,7 +43,7 @@ const Testimonials: React.FC = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6 sm:gap-8">
           {projects.map((project, index) => (
-            <Card key={index} className="bg-white/[0.024] backdrop-blur-sm border border-white/10 shadow-lg shadow-[#fd6a62]/10 hover:shadow-lift-high transition-all duration-150 ease-signature transform hover:-translate-y-1 group">
+            <Card key={index} className="group card-lift bg-white/[0.032] backdrop-blur-sm border border-hairline">
               <CardContent className="p-6 sm:p-8">
                 <div className="mb-6 sm:mb-8 relative">
                   <div className="bg-gradient-to-br from-gray-900 to-gray-700 rounded-lg p-3 sm:p-4 shadow-lift-high transform group-hover:scale-105 transition-all duration-150 ease-signature">
@@ -67,7 +67,7 @@ const Testimonials: React.FC = () => {
                         />
                       </div>
                     ) : (
-                      <div className="bg-gradient-to-br from-[#fd6a62] to-[#fc5951] rounded aspect-video flex items-center justify-center">
+                      <div className="bg-brand-grad rounded aspect-video flex items-center justify-center">
                         <Globe className="w-8 h-8 sm:w-12 sm:h-12 text-white" />
                       </div>
                     )}
@@ -77,7 +77,7 @@ const Testimonials: React.FC = () => {
                         href={project.website}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="group/btn relative inline-flex items-center justify-center gap-2 w-full bg-gradient-to-r from-[#fd6a62] to-[#fc5951] text-white px-3 sm:px-4 py-2 sm:py-3 rounded-lg text-sm font-bold hover:shadow-xl transform hover:scale-105 transition-all duration-150 ease-signature overflow-hidden"
+                        className="group/btn relative inline-flex items-center justify-center gap-2 w-full bg-brand-grad text-white px-3 sm:px-4 py-2 sm:py-3 rounded-lg text-sm font-bold hover:shadow-xl transform hover:scale-105 transition-all duration-150 ease-signature overflow-hidden"
                       >
                         <div className="absolute inset-0 bg-gradient-to-r from-[#fc5951] to-[#fd6a62] opacity-0 group-hover/btn:opacity-100 transition-opacity duration-150 ease-signature"></div>
                         <Sparkles className="w-4 h-4 relative z-10" />
@@ -100,7 +100,7 @@ const Testimonials: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="border-t border-white/10 pt-4 flex items-center justify-between">
+                <div className="border-t border-hairline pt-4 flex items-center justify-between">
                   <div className="flex-1 min-w-0">
                     <p className="font-semibold text-white text-sm sm:text-base truncate">{project.company}</p>
                     <p className="text-xs sm:text-sm text-ink-subtle font-medium truncate">Live & Operational</p>
@@ -122,7 +122,7 @@ const Testimonials: React.FC = () => {
 
         {/* Honest Disclaimer */}
         <div className="mt-12 max-w-3xl mx-auto">
-          <div className="bg-slate-800/80 backdrop-blur-sm border-2 border-white/20 rounded-xl p-6 text-center">
+          <div className="bg-slate-800/80 backdrop-blur-sm border border-hairline-strong rounded-xl p-6 text-center">
             <p className="text-sm text-ink-muted leading-relaxed">
               <strong className="text-white">Full Transparency:</strong> These projects were built for family members exploring their business ideas.
               While we can't provide traditional client testimonials yet, these are real, live platforms that demonstrate

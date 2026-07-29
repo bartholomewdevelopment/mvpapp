@@ -35,6 +35,7 @@ const AppLayout: React.FC = () => {
       {/* Ambient layer — fixed so it doesn't repeat per section */}
       <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden" aria-hidden="true">
         <div className="aurora" />
+        <div className="aurora-base" />
         <div className="grain" />
       </div>
 

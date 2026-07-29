@@ -140,7 +140,7 @@ const Process: React.FC = () => {
               {currentSteps.map((step, index) => {
                 const IconComponent = step.icon;
                 return (
-                  <Card key={index} className="group hover:shadow-lift-high transition-all duration-200 ease-signature transform hover:-translate-y-1 border border-white/10 shadow-lg bg-white/[0.024] backdrop-blur-sm relative overflow-hidden">
+                  <Card key={index} className="group card-lift border border-hairline bg-white/[0.032] backdrop-blur-sm relative overflow-hidden">
                     <CardHeader className="pb-4">
                       <div className="flex items-start gap-4">
                         <div className="flex items-center gap-4">
@@ -178,7 +178,7 @@ const Process: React.FC = () => {
 
             {/* Combined Journey Callout */}
             {selectedPath === 'validation' && (
-              <div className="bg-gradient-to-r from-[#fd6a62] to-[#fc5951] rounded-panel p-8 mb-12 text-white relative overflow-hidden">
+              <div className="bg-brand-grad rounded-panel p-8 mb-12 text-white relative overflow-hidden">
                 <div className="absolute inset-0 bg-black/10"></div>
                 <div className="relative z-10">
                   <div className="flex items-center justify-center gap-4 mb-4">
@@ -231,7 +231,7 @@ const Process: React.FC = () => {
             </div>
             <Button
               size="lg"
-              className="group relative bg-gradient-to-r from-[#fd6a62] to-[#fc5951] hover:from-[#fc5951] hover:to-[#fd6a62] text-white px-12 py-4 text-lg font-semibold shadow-lift transform hover:scale-105 transition-all duration-150 ease-signature rounded-xl overflow-hidden"
+              className="group relative bg-brand-grad hover:from-[#fc5951] hover:to-[#fd6a62] text-white px-12 py-4 text-lg font-semibold shadow-lift transform hover:scale-105 transition-all duration-150 ease-signature rounded-xl overflow-hidden"
               onClick={handleGetStarted}
             >
               <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 opacity-0"></div>

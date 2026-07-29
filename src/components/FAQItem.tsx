@@ -51,7 +51,7 @@ const FAQItem: React.FC<FAQItemProps> = ({ question, answer, isOpen, onToggle, i
 
   return (
     <div 
-      className="border border-slate-700/50 rounded-xl overflow-hidden transition-all duration-150 ease-signature hover:shadow-lift-high hover:shadow-[#fd6a62]/10 bg-white/[0.024] backdrop-blur-sm"
+      className="border border-slate-700/50 rounded-xl overflow-hidden transition-all duration-150 ease-signature hover:shadow-lift-high hover:shadow-[#fd6a62]/10 bg-white/[0.032] backdrop-blur-sm"
       style={{ animationDelay: `${index * 100}ms` }}
     >
       <button

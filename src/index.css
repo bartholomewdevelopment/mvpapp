@@ -11,26 +11,37 @@
    primitives. See DESIGN_2027.md for the full direction.
    ═══════════════════════════════════════════════════════════════════ */
 :root {
-  /* ——— Surface ramp: one near-black canvas, elevation via hairlines ——— */
-  --canvas:          #08090c;
-  --canvas-raised:   #0c0e13;
-  --surface:         rgba(255, 255, 255, 0.024);
-  --surface-hover:   rgba(255, 255, 255, 0.045);
-  --hairline:        rgba(255, 255, 255, 0.08);
-  --hairline-strong: rgba(255, 255, 255, 0.14);
+  /* ——— Surface ramp — the EXISTING brand darks, kept ———
+     slate-950 / slate-900 / gray-900 are the colours the site already shipped
+     with. They stay. What changes is how they're used: one deep base with a
+     controlled ramp on top of it, instead of seven competing gradients. */
+  --canvas:          #020617;  /* slate-950 — the existing base */
+  --canvas-raised:   #0f172a;  /* slate-900 — the existing mid */
+  --canvas-deep:     #010309;  /* one step below slate-950, for contrast wells */
+  --surface:         rgba(255, 255, 255, 0.032);
+  --surface-hover:   rgba(255, 255, 255, 0.06);
+  --hairline:        rgba(255, 255, 255, 0.09);
+  --hairline-strong: rgba(255, 255, 255, 0.16);
 
-  /* ——— Ink ramp: all AA or better on --canvas ——— */
-  --ink:         #f4f5f7;  /* headings          ~18:1 */
-  --ink-muted:   #b6bcc8;  /* body              ~9:1  */
-  --ink-subtle:  #8b93a3;  /* captions          ~5.4:1 */
-  --ink-faint:   #6b7382;  /* non-essential     ~3.4:1 — decorative only */
+  /* ——— Ink ramp — slate-tinted to match the brand darks ——— */
+  --ink:         #f8fafc;  /* slate-50   headings   ~19:1 */
+  --ink-muted:   #cbd5e1;  /* slate-300  body       ~11:1 */
+  --ink-subtle:  #94a3b8;  /* slate-400  captions   ~6.5:1 */
+  --ink-faint:   #64748b;  /* slate-500  decorative ~3.6:1 */
 
-  /* ——— Accent: one colour, used once per section ——— */
+  /* ——— Brand accent — the existing coral, given more room, not less ——— */
   --accent:       #fd6a62;
+  --accent-2:     #fc5951;  /* the existing second stop */
   --accent-hover: #ff8078;
-  --accent-ink:   #ffb4ae;  /* accent-on-dark text, AA at body sizes */
-  --accent-wash:  rgba(253, 106, 98, 0.10);
-  --accent-line:  rgba(253, 106, 98, 0.28);
+  --accent-ink:   #ffb4ae;  /* coral for small text, AA on the brand darks */
+  --accent-wash:  rgba(253, 106, 98, 0.12);
+  --accent-line:  rgba(253, 106, 98, 0.32);
+
+  /* The brand's coral gradient, kept as a first-class token. This is the
+     site's signature — it belongs on the things that matter (primary CTAs,
+     featured cards, key numerals), just not on every heading at once. */
+  --accent-grad:      linear-gradient(135deg, #fd6a62 0%, #fc5951 100%);
+  --accent-grad-soft: linear-gradient(135deg, rgba(253, 106, 98, 0.18) 0%, rgba(252, 89, 81, 0.06) 100%);
 
   /* ——— Radius: one family ——— */
   --r-sm: 8px;
@@ -38,12 +49,17 @@
   --r-lg: 16px;
   --r-xl: 22px;
 
-  /* ——— Elevation: two tokens, not twelve ——— */
-  --lift:      0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 24px -12px rgba(0, 0, 0, 0.6);
-  --lift-high: 0 1px 2px rgba(0, 0, 0, 0.5), 0 24px 60px -20px rgba(0, 0, 0, 0.75);
+  /* ——— Elevation — layered, with a brand-coloured tier for focal elements ——— */
+  --lift:      0 1px 2px rgba(0, 0, 0, 0.45), 0 8px 24px -12px rgba(0, 0, 0, 0.7);
+  --lift-high: 0 1px 2px rgba(0, 0, 0, 0.5), 0 12px 32px -16px rgba(0, 0, 0, 0.7),
+               0 32px 72px -28px rgba(0, 0, 0, 0.85);
+  /* Coral glow — the "umph". Reserved for primary CTAs and the featured card. */
+  --glow:      0 6px 20px -6px rgba(253, 106, 98, 0.45), 0 0 0 1px rgba(253, 106, 98, 0.22) inset;
+  --glow-high: 0 10px 34px -8px rgba(253, 106, 98, 0.6), 0 0 60px -12px rgba(253, 106, 98, 0.35);
 
   /* ——— Motion: short, ease-out, one signature curve ——— */
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.4, 0.64, 1);
   --t-fast: 140ms;
   --t-base: 220ms;
   --t-slow: 420ms;
@@ -52,11 +68,31 @@
 /* ═══════════ Typography: fluid scale, optical tracking ═══════════ */
 .display-1 {
   font-family: 'Instrument Sans', 'Inter', sans-serif;
-  font-size: clamp(2.25rem, 1.6rem + 2.4vw, 3.75rem);
-  line-height: 1.02;
-  letter-spacing: -0.035em;
-  font-weight: 600;
+  font-size: clamp(2.5rem, 1.7rem + 2.9vw, 4.25rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  font-weight: 700;
   text-wrap: balance;
+}
+
+/* The brand coral gradient as text — the site's signature move, kept, but now
+   spent on a phrase inside a heading rather than the whole heading. One solid
+   near-white headline with one coral phrase punches harder than an all-over
+   gradient wash, and it keeps the heading itself at full contrast. */
+.text-brand-grad {
+  background: var(--accent-grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* Oversized brand numerals — for prices, stats, phase numbers */
+.numeral {
+  font-family: 'Instrument Sans', 'Inter', sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
 }
 
 .display-2 {
@@ -120,20 +156,134 @@
   border: 0;
 }
 
+/* ═══════════ "Umph": depth, brand glow, micro-interactions ═══════════ */
+
+/* Primary CTA — brand gradient + coral glow + a spring on press.
+   This is the loudest element on the page, and deliberately so. */
+.btn-brand {
+  position: relative;
+  background: var(--accent-grad);
+  color: #fff;
+  border-radius: var(--r-md);
+  box-shadow: var(--glow);
+  transition: box-shadow var(--t-base) var(--ease),
+              transform var(--t-base) var(--ease-spring),
+              filter var(--t-fast) var(--ease);
+}
+.btn-brand:hover {
+  box-shadow: var(--glow-high);
+  transform: translateY(-2px);
+  filter: saturate(1.08) brightness(1.04);
+}
+.btn-brand:active { transform: translateY(0) scale(0.985); }
+
+/* Featured panel — a real gradient border via mask, not a fake inset ring.
+   Used for the flagship pricing card so it reads as the hero object it is. */
+.brand-frame {
+  position: relative;
+  border-radius: var(--r-xl);
+  background: var(--canvas-raised);
+  box-shadow: var(--lift-high), 0 0 80px -30px rgba(253, 106, 98, 0.45);
+}
+.brand-frame::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: linear-gradient(150deg, var(--accent) 0%, rgba(252, 89, 81, 0.35) 38%, var(--hairline) 72%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* Interactive card: hairline warms toward coral, surface lifts. Cheap, and it
+   makes a grid of cards feel responsive rather than static. */
+.card-lift {
+  transition: transform var(--t-base) var(--ease),
+              border-color var(--t-base) var(--ease),
+              background var(--t-base) var(--ease),
+              box-shadow var(--t-base) var(--ease);
+}
+.card-lift:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent-line);
+  background: var(--surface-hover);
+  box-shadow: var(--lift-high);
+}
+
+/* Contrast well — a darker inset panel for prices and payment blocks, so the
+   numbers sit in a pocket instead of floating on the same value as everything. */
+.well {
+  background:
+    linear-gradient(180deg, rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.55)),
+    var(--canvas-deep);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-lg);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* Top-edge highlight — one crisp specular line. Reads expensive, costs nothing. */
+.edge-light { position: relative; }
+.edge-light::after {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.28), transparent);
+  pointer-events: none;
+}
+
+/* Underline that draws in on hover — for text links */
+.link-draw {
+  position: relative;
+  color: var(--accent-ink);
+  text-decoration: none;
+}
+.link-draw::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 1px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--t-base) var(--ease);
+}
+.link-draw:hover::after { transform: scaleX(1); }
+
 /* ═══════════ Ambient atmosphere ═══════════
    One slow aurora for the whole page + a fine grain layer, replacing
    the per-section pulsing blur blobs. */
+/* Brand-only atmosphere: coral over slate, no third hue introduced. Stronger
+   than a whisper — this is where the page gets its glow — but it lives here
+   once instead of being re-pasted into every section. */
 .aurora {
   position: absolute;
   inset: -20% -10% auto -10%;
-  height: 90vh;
+  height: 100vh;
   pointer-events: none;
   background:
-    radial-gradient(42% 48% at 22% 18%, rgba(253, 106, 98, 0.16), transparent 70%),
-    radial-gradient(38% 44% at 78% 8%,  rgba(120, 130, 255, 0.10), transparent 72%),
-    radial-gradient(46% 40% at 52% 44%, rgba(253, 106, 98, 0.07), transparent 74%);
-  filter: blur(24px);
+    radial-gradient(44% 50% at 20% 14%, rgba(253, 106, 98, 0.26), transparent 70%),
+    radial-gradient(40% 46% at 80% 6%,  rgba(252, 89, 81, 0.18), transparent 72%),
+    radial-gradient(52% 44% at 52% 46%, rgba(253, 106, 98, 0.10), transparent 74%);
+  filter: blur(28px);
   animation: aurora-drift 38s var(--ease) infinite alternate;
+}
+
+/* A second, deeper glow anchored to the bottom of the page so the footer
+   doesn't fall off into flat black. */
+.aurora-base {
+  position: absolute;
+  inset: auto -10% -10% -10%;
+  height: 60vh;
+  pointer-events: none;
+  background: radial-gradient(50% 60% at 50% 100%, rgba(253, 106, 98, 0.14), transparent 72%);
+  filter: blur(30px);
 }
 
 @keyframes aurora-drift {

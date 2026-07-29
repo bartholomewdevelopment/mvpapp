@@ -28,12 +28,14 @@ const WhatIDo: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
 
             {/* OFFERING 1: Complete Startup Lab + MVP Package */}
-            <Card className="relative overflow-hidden border-2 border-[#fd6a62] shadow-lift bg-white/[0.024] backdrop-blur-sm">
-              <div className="absolute top-0 right-0 bg-[#fd6a62] text-white px-4 py-1 text-sm font-bold">
+            {/* Flagship card: real gradient border + coral bloom, so the primary
+                offer reads as the hero object rather than one of two equals. */}
+            <Card className="brand-frame edge-light relative overflow-hidden border-0">
+              <div className="absolute right-0 top-0 bg-brand-grad px-4 py-1 text-sm font-bold text-white">
                 ⭐ ALL-INCLUSIVE
               </div>
-              <CardHeader className="bg-gradient-to-br from-[#fd6a62]/20 to-transparent pb-8 pt-12">
-                <div className="w-16 h-16 bg-gradient-to-br from-[#fd6a62] to-[#fc5951] rounded-card flex items-center justify-center mx-auto mb-4">
+              <CardHeader className="bg-brand-grad-soft pb-8 pt-12">
+                <div className="w-16 h-16 bg-brand-grad rounded-card flex items-center justify-center mx-auto mb-4">
                   <Target className="w-8 h-8 text-white" />
                 </div>
                 <CardTitle className="text-3xl font-bold text-white text-center mb-2">
@@ -45,7 +47,7 @@ const WhatIDo: React.FC = () => {
               </CardHeader>
               <CardContent className="pt-6">
                 <div className="mb-6">
-                  <div className="bg-black/30 text-white rounded-xl p-6 mb-6">
+                  <div className="well text-white p-6 mb-6">
                     <div className="text-center mb-4">
                       <div className="text-4xl font-bold mb-2">Starting at $8,500</div>
                       <div className="text-sm text-ink-muted">Phased payment structure</div>
@@ -100,7 +102,7 @@ const WhatIDo: React.FC = () => {
 
                 <Button
                   size="lg"
-                  className="w-full bg-[#fd6a62] hover:bg-[#fc5951] text-white py-6 text-lg font-semibold shadow-lg"
+                  className="btn-brand w-full py-6 text-lg font-semibold"
                   onClick={handleGetStarted}
                 >
                   Get Started
@@ -109,7 +111,7 @@ const WhatIDo: React.FC = () => {
             </Card>
 
             {/* OFFERING 2: MVP Development Only */}
-            <Card className="relative overflow-hidden border-2 border-white/20 shadow-lift bg-white/[0.024] backdrop-blur-sm">
+            <Card className="relative overflow-hidden border border-hairline-strong shadow-lift bg-white/[0.032] backdrop-blur-sm">
               <CardHeader className="bg-gradient-to-br from-white/10 to-transparent pb-8 pt-12">
                 <div className="w-16 h-16 bg-gradient-to-br from-gray-700 to-gray-900 rounded-card flex items-center justify-center mx-auto mb-4">
                   <Rocket className="w-8 h-8 text-white" />
@@ -123,7 +125,7 @@ const WhatIDo: React.FC = () => {
               </CardHeader>
               <CardContent className="pt-6">
                 <div className="mb-6">
-                  <div className="bg-black/30 text-white rounded-xl p-6 mb-6">
+                  <div className="well text-white p-6 mb-6">
                     <div className="text-center mb-4">
                       <div className="text-4xl font-bold mb-2">Starting at $6,000</div>
                       <div className="text-sm text-ink-muted">Phased payment structure</div>
@@ -200,9 +202,9 @@ const WhatIDo: React.FC = () => {
               Built on 10+ Years of Implementation Management Expertise
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
-              <Card className="group hover:shadow-lift-high transition-all duration-200 ease-signature transform hover:-translate-y-2 border border-white/10 shadow-lg bg-white/[0.024] backdrop-blur-sm">
+              <Card className="group card-lift border border-hairline bg-white/[0.032] backdrop-blur-sm">
                 <CardHeader className="text-center pb-4">
-                  <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-[#fd6a62] to-[#fc5951] rounded-xl sm:rounded-card flex items-center justify-center mx-auto mb-3 sm:mb-4 group-hover:scale-110 transition-transform duration-200 ease-signature">
+                  <div className="w-12 h-12 sm:w-16 sm:h-16 bg-brand-grad rounded-xl sm:rounded-card flex items-center justify-center mx-auto mb-3 sm:mb-4 group-hover:scale-110 transition-transform duration-200 ease-signature">
                     <Code className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
                   </div>
                   <CardTitle className="text-xl sm:text-2xl font-bold text-white">Clean, Scalable Code</CardTitle>
@@ -214,7 +216,7 @@ const WhatIDo: React.FC = () => {
                 </CardContent>
               </Card>
 
-              <Card className="group hover:shadow-lift-high transition-all duration-200 ease-signature transform hover:-translate-y-2 border border-white/10 shadow-lg bg-white/[0.024] backdrop-blur-sm">
+              <Card className="group card-lift border border-hairline bg-white/[0.032] backdrop-blur-sm">
                 <CardHeader className="text-center pb-4">
                   <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-gray-700 to-gray-900 rounded-xl sm:rounded-card flex items-center justify-center mx-auto mb-3 sm:mb-4 group-hover:scale-110 transition-transform duration-200 ease-signature">
                     <FileText className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
@@ -228,9 +230,9 @@ const WhatIDo: React.FC = () => {
                 </CardContent>
               </Card>
 
-              <Card className="group hover:shadow-lift-high transition-all duration-200 ease-signature transform hover:-translate-y-2 border border-white/10 shadow-lg bg-white/[0.024] backdrop-blur-sm">
+              <Card className="group card-lift border border-hairline bg-white/[0.032] backdrop-blur-sm">
                 <CardHeader className="text-center pb-4">
-                  <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-[#fd6a62] to-[#fc5951] rounded-xl sm:rounded-card flex items-center justify-center mx-auto mb-3 sm:mb-4 group-hover:scale-110 transition-transform duration-200 ease-signature">
+                  <div className="w-12 h-12 sm:w-16 sm:h-16 bg-brand-grad rounded-xl sm:rounded-card flex items-center justify-center mx-auto mb-3 sm:mb-4 group-hover:scale-110 transition-transform duration-200 ease-signature">
                     <Video className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
                   </div>
                   <CardTitle className="text-xl sm:text-2xl font-bold text-white">Live Training Included</CardTitle>
@@ -247,7 +249,7 @@ const WhatIDo: React.FC = () => {
           <div className="text-center px-4">
             <Button
               size="lg"
-              className="group relative bg-gradient-to-r from-[#fd6a62] to-[#fc5951] hover:from-[#fc5951] hover:to-[#fd6a62] text-white px-8 sm:px-12 py-3 sm:py-4 text-base sm:text-lg font-semibold shadow-lift transform hover:scale-105 transition-all duration-150 ease-signature w-full sm:w-auto rounded-xl overflow-hidden"
+              className="group relative bg-brand-grad hover:from-[#fc5951] hover:to-[#fd6a62] text-white px-8 sm:px-12 py-3 sm:py-4 text-base sm:text-lg font-semibold shadow-lift transform hover:scale-105 transition-all duration-150 ease-signature w-full sm:w-auto rounded-xl overflow-hidden"
               onClick={handleGetStarted}
             >
               <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 opacity-0"></div>

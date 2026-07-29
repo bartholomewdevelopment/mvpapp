@@ -161,7 +161,7 @@ const Portfolio: React.FC = () => {
               onClick={() => setActiveTab('products')}
               className={`flex items-center gap-2 px-5 sm:px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-150 ease-signature ${
                 activeTab === 'products'
-                  ? 'bg-gradient-to-r from-[#fd6a62] to-[#fc5951] text-white shadow-lg shadow-[#fd6a62]/30'
+                  ? 'bg-brand-grad text-white shadow-lg shadow-[#fd6a62]/30'
                   : 'text-ink-subtle hover:text-white'
               }`}
             >
@@ -172,7 +172,7 @@ const Portfolio: React.FC = () => {
               onClick={() => setActiveTab('clients')}
               className={`flex items-center gap-2 px-5 sm:px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-150 ease-signature ${
                 activeTab === 'clients'
-                  ? 'bg-gradient-to-r from-[#fd6a62] to-[#fc5951] text-white shadow-lg shadow-[#fd6a62]/30'
+                  ? 'bg-brand-grad text-white shadow-lg shadow-[#fd6a62]/30'
                   : 'text-ink-subtle hover:text-white'
               }`}
             >
@@ -429,7 +429,7 @@ const Portfolio: React.FC = () => {
                         href={project.website}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 w-full justify-center bg-gradient-to-r from-[#fd6a62] to-[#fc5951] text-white px-4 py-2.5 rounded-lg text-sm font-semibold hover:shadow-lg hover:shadow-[#fd6a62]/30 hover:scale-[1.02] transition-all duration-150 ease-signature"
+                        className="inline-flex items-center gap-2 w-full justify-center bg-brand-grad text-white px-4 py-2.5 rounded-lg text-sm font-semibold hover:shadow-lg hover:shadow-[#fd6a62]/30 hover:scale-[1.02] transition-all duration-150 ease-signature"
                       >
                         <Sparkles className="w-3.5 h-3.5" />
                         View Live Website

@@ -52,7 +52,7 @@ const Footer: React.FC = () => {
             <div className="mt-9">
               <button
                 onClick={handleScheduleCall}
-                className="group inline-flex items-center justify-center gap-2 rounded-[var(--r-md)] bg-accent2027 px-8 py-4 text-base font-semibold text-white transition-colors duration-150 ease-signature hover:bg-accent2027-hover"
+                className="group inline-flex items-center justify-center gap-2 rounded-[var(--r-md)] btn-brand px-8 py-4 text-base font-semibold"
               >
                 Schedule discovery call
                 <ArrowRight
@@ -64,7 +64,7 @@ const Footer: React.FC = () => {
           </div>
 
           {/* Footer Links */}
-          <div className="border-t border-white/10 pt-12">
+          <div className="border-t border-hairline pt-12">
             <div className="grid gap-10 lg:grid-cols-[1.2fr_1fr_1fr_1fr]">
               <div>
                 <div className="flex items-center gap-3 mb-4">
@@ -195,7 +195,7 @@ const Footer: React.FC = () => {
               </div>
             </div>
 
-            <div className="mt-12 border-t border-white/10 pt-8 flex flex-col items-center gap-6 text-center">
+            <div className="mt-12 border-t border-hairline pt-8 flex flex-col items-center gap-6 text-center">
               <button
                 onClick={openPrivacyModal}
                 className="text-ink-subtle hover:text-[#fd6a62] underline transition-colors duration-150 ease-signature text-sm"

@@ -34,8 +34,11 @@ const Hero: React.FC = () => {
               <span className="eyebrow">Validate first, build second</span>
             </div>
 
+            {/* The brand coral gradient lands on the payoff phrase, not the whole
+                headline — full contrast on the setup, brand punch on the promise. */}
             <h1 className="display-1 text-ink">
-              Don't build your startup until you know people will pay for it.
+              Don't build your startup until you know{' '}
+              <span className="text-brand-grad">people will pay for it.</span>
             </h1>
 
             <p className="lede mt-7">
@@ -47,7 +50,7 @@ const Hero: React.FC = () => {
             <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
               <button
                 onClick={handleGetStarted}
-                className="group inline-flex items-center justify-center gap-2 rounded-[var(--r-md)] bg-accent2027 px-7 py-3.5 text-base font-semibold text-white transition-colors duration-150 ease-signature hover:bg-accent2027-hover"
+                className="group inline-flex items-center justify-center gap-2 rounded-[var(--r-md)] btn-brand px-7 py-3.5 text-base font-semibold"
               >
                 Start with validation
                 <ArrowRight
@@ -72,10 +75,8 @@ const Hero: React.FC = () => {
             <dl className="mt-14 grid max-w-md grid-cols-3 gap-6 border-t border-hairline pt-7">
               {proof.map((item) => (
                 <div key={item.label}>
-                  <dd className="font-display text-2xl font-semibold tracking-tight text-ink">
-                    {item.value}
-                  </dd>
-                  <dt className="mt-1 text-xs leading-snug text-ink-subtle">{item.label}</dt>
+                  <dd className="numeral text-3xl text-ink sm:text-4xl">{item.value}</dd>
+                  <dt className="mt-1.5 text-xs leading-snug text-ink-subtle">{item.label}</dt>
                 </div>
               ))}
             </dl>
