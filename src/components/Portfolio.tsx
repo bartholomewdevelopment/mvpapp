@@ -6,6 +6,7 @@ import {
   Sparkles, Play, Monitor, Heart, Layers, Code
 } from 'lucide-react';
 import AnimatedSection from './AnimatedSection';
+import SectionHeader from './SectionHeader';
 
 /* ——— Browser Frame ——— */
 const BrowserFrame: React.FC<{
@@ -14,7 +15,7 @@ const BrowserFrame: React.FC<{
   accentColor: string;
 }> = ({ children, url, accentColor }) => (
   <div
-    className="rounded-xl overflow-hidden border border-white/10 transition-shadow duration-500"
+    className="rounded-xl overflow-hidden border border-hairline transition-shadow duration-200 ease-signature"
     style={{ boxShadow: `0 25px 60px -12px ${accentColor}25, 0 0 80px ${accentColor}08` }}
   >
     <div className="bg-gray-900/95 px-4 py-2.5 flex items-center gap-3 border-b border-white/5">
@@ -24,7 +25,7 @@ const BrowserFrame: React.FC<{
         <div className="w-2.5 h-2.5 rounded-full bg-[#28c840]" />
       </div>
       {url && (
-        <div className="bg-gray-800/60 rounded-md px-3 py-1 text-xs text-gray-500 font-mono truncate flex-1 max-w-xs">
+        <div className="bg-gray-800/60 rounded-md px-3 py-1 text-xs text-ink-faint font-mono truncate flex-1 max-w-xs">
           {url}
         </div>
       )}
@@ -42,7 +43,7 @@ const FeaturePill: React.FC<{
   accentColor: string;
 }> = ({ icon: Icon, label, accentColor }) => (
   <div
-    className="flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-medium border bg-white/5 text-gray-300 transition-all duration-300 hover:bg-white/10 cursor-default"
+    className="flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-medium border bg-white/5 text-ink-muted transition-all duration-150 ease-signature hover:bg-white/10 cursor-default"
     style={{ borderColor: `${accentColor}40` }}
   >
     <Icon className="w-3.5 h-3.5" style={{ color: accentColor }} />
@@ -57,11 +58,11 @@ const HighlightCard: React.FC<{
   accentColor: string;
 }> = ({ title, description, accentColor }) => (
   <div
-    className="bg-white/[0.03] backdrop-blur-sm border border-white/[0.06] rounded-xl p-5 sm:p-6 hover:bg-white/[0.06] transition-all duration-300"
+    className="bg-white/[0.03] backdrop-blur-sm border border-white/[0.06] rounded-xl p-5 sm:p-6 hover:bg-white/[0.06] transition-all duration-150 ease-signature"
     style={{ borderColor: `${accentColor}15` }}
   >
     <h4 className="text-base sm:text-lg font-bold text-white mb-2">{title}</h4>
-    <p className="text-gray-400 text-sm leading-relaxed">{description}</p>
+    <p className="text-ink-subtle text-sm leading-relaxed">{description}</p>
   </div>
 );
 
@@ -76,7 +77,7 @@ const GalleryThumb: React.FC<{
 }> = ({ src, label, active, accentColor, onClick, overlay }) => (
   <button
     onClick={onClick}
-    className={`flex-shrink-0 rounded-lg overflow-hidden border-2 transition-all duration-300 ${
+    className={`flex-shrink-0 rounded-lg overflow-hidden border-2 transition-all duration-150 ease-signature ${
       active
         ? 'scale-105'
         : 'border-white/10 opacity-60 hover:opacity-100'
@@ -88,7 +89,7 @@ const GalleryThumb: React.FC<{
       {overlay}
     </div>
     <div className={`text-[10px] font-medium text-center py-0.5 px-1 truncate ${
-      active ? 'bg-black/20' : 'text-gray-500 bg-gray-800/50'
+      active ? 'bg-black/20' : 'text-ink-faint bg-gray-800/50'
     }`} style={active ? { color: accentColor } : {}}>
       {label}
     </div>
@@ -142,61 +143,26 @@ const Portfolio: React.FC = () => {
   ];
 
   return (
-    <section className="py-16 sm:py-24 lg:py-32 bg-gradient-to-br from-slate-950 via-slate-900 to-gray-900 relative overflow-hidden">
-      {/* ——— Background decoration ——— */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-indigo-500/[0.03] rounded-full blur-[120px]" />
-        <div className="absolute top-1/3 right-0 w-[500px] h-[500px] bg-emerald-500/[0.03] rounded-full blur-[120px]" />
-        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-amber-500/[0.03] rounded-full blur-[120px]" />
-      </div>
-
-      {/* Subtle grid overlay */}
-      <div className="absolute inset-0 opacity-[0.03]">
-        <div className="absolute inset-0" style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.3'%3E%3Cpath d='M0 0h60v1H0zM0 0v60h1V0z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-          backgroundSize: '60px 60px'
-        }} />
-      </div>
-
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <section className="relative py-24 sm:py-32">
+      <div className="container relative mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* ═══════════ Section Header ═══════════ */}
+        <SectionHeader
+          eyebrow="Shipped software"
+          title="Our portfolio"
+          lede="Real software we've designed, built, and shipped."
+          className="mb-10 sm:mb-12"
+        />
+
         <AnimatedSection animation="fade-up" className="text-center mb-12 sm:mb-16">
-          <div className="inline-flex items-center gap-2 bg-white/[0.06] backdrop-blur-md border border-white/10 rounded-full px-5 py-2 mb-6">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#fd6a62] opacity-75" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#fd6a62]" />
-            </span>
-            <span className="text-sm font-medium text-gray-300">Shipped Software</span>
-          </div>
-
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-4 sm:mb-6 tracking-tight">
-            Our{' '}
-            <span className="bg-gradient-to-r from-[#fd6a62] via-[#fc5951] to-[#f97316] bg-clip-text text-transparent">
-              Portfolio
-            </span>
-          </h2>
-
-          <div className="flex justify-center items-center gap-3 mb-6">
-            <div className="w-12 h-0.5 bg-gradient-to-r from-transparent to-[#fd6a62]" />
-            <div className="w-2 h-2 rounded-full bg-[#fd6a62] animate-pulse" />
-            <div className="w-24 h-0.5 bg-gradient-to-r from-[#fd6a62] to-[#fc5951]" />
-            <div className="w-2 h-2 rounded-full bg-[#fc5951] animate-pulse" style={{ animationDelay: '0.5s' }} />
-            <div className="w-12 h-0.5 bg-gradient-to-r from-[#fc5951] to-transparent" />
-          </div>
-
-          <p className="text-lg sm:text-xl text-gray-400 max-w-2xl mx-auto mb-10">
-            Real software we've designed, built, and shipped
-          </p>
-
           {/* ——— Tab Toggle ——— */}
-          <div className="inline-flex bg-white/[0.06] backdrop-blur-md rounded-full p-1 border border-white/10">
+          <div className="inline-flex bg-white/[0.05] backdrop-blur-md rounded-full p-1 border border-hairline">
             <button
               onClick={() => setActiveTab('products')}
-              className={`flex items-center gap-2 px-5 sm:px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 ${
+              className={`flex items-center gap-2 px-5 sm:px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-150 ease-signature ${
                 activeTab === 'products'
                   ? 'bg-gradient-to-r from-[#fd6a62] to-[#fc5951] text-white shadow-lg shadow-[#fd6a62]/30'
-                  : 'text-gray-400 hover:text-white'
+                  : 'text-ink-subtle hover:text-white'
               }`}
             >
               <Layers className="w-4 h-4" />
@@ -204,10 +170,10 @@ const Portfolio: React.FC = () => {
             </button>
             <button
               onClick={() => setActiveTab('clients')}
-              className={`flex items-center gap-2 px-5 sm:px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 ${
+              className={`flex items-center gap-2 px-5 sm:px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-150 ease-signature ${
                 activeTab === 'clients'
                   ? 'bg-gradient-to-r from-[#fd6a62] to-[#fc5951] text-white shadow-lg shadow-[#fd6a62]/30'
-                  : 'text-gray-400 hover:text-white'
+                  : 'text-ink-subtle hover:text-white'
               }`}
             >
               <Code className="w-4 h-4" />
@@ -238,7 +204,7 @@ const Portfolio: React.FC = () => {
                     <p className="text-lg sm:text-xl font-semibold text-indigo-400 mb-5">
                       A full athletic management platform
                     </p>
-                    <p className="text-gray-400 text-base sm:text-lg leading-relaxed mb-6 max-w-lg">
+                    <p className="text-ink-subtle text-base sm:text-lg leading-relaxed mb-6 max-w-lg">
                       For directors, coaches, trainers, gym owners, and league admins to handle
                       registration, scheduling, communication, and payments.
                     </p>
@@ -253,7 +219,7 @@ const Portfolio: React.FC = () => {
                       href="https://overtimeam.com"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2.5 bg-gradient-to-r from-indigo-600 to-indigo-500 text-white px-6 py-3 rounded-xl font-semibold text-base shadow-xl shadow-indigo-500/25 hover:shadow-indigo-500/40 hover:scale-105 transition-all duration-300"
+                      className="inline-flex items-center gap-2.5 bg-gradient-to-r from-indigo-600 to-indigo-500 text-white px-6 py-3 rounded-xl font-semibold text-base shadow-xl shadow-indigo-500/25 hover:shadow-indigo-500/40 hover:scale-105 transition-all duration-150 ease-signature"
                     >
                       <Sparkles className="w-4 h-4" />
                       View Live Site
@@ -329,7 +295,7 @@ const Portfolio: React.FC = () => {
                   <div className="-mt-[50px] sm:-mt-[70px] lg:-mt-[90px]">
                     <h3 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-3 tracking-tight">SteadStack</h3>
                     <p className="text-lg sm:text-xl font-semibold text-emerald-400 mb-5">The operating system for modern farms and ranches</p>
-                    <p className="text-gray-400 text-base sm:text-lg leading-relaxed mb-6 max-w-lg">
+                    <p className="text-ink-subtle text-base sm:text-lg leading-relaxed mb-6 max-w-lg">
                       SteadStack connects tasks, inventory, purchasing, and accounting into one living system. Log the work once and stay audit-ready without spreadsheets. Free for tiny homesteads, scaling up to high-capacity ranch operations.
                     </p>
                     <div className="flex flex-wrap gap-2 mb-8">
@@ -339,7 +305,7 @@ const Portfolio: React.FC = () => {
                       <FeaturePill icon={BookOpen} label="Double-Entry Accounting" accentColor="#10b981" />
                       <FeaturePill icon={Globe} label="Multi-Site Management" accentColor="#10b981" />
                     </div>
-                    <a href="https://steadstack.com" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2.5 bg-gradient-to-r from-emerald-600 to-emerald-500 text-white px-6 py-3 rounded-xl font-semibold text-base shadow-xl shadow-emerald-500/25 hover:shadow-emerald-500/40 hover:scale-105 transition-all duration-300">
+                    <a href="https://steadstack.com" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2.5 bg-gradient-to-r from-emerald-600 to-emerald-500 text-white px-6 py-3 rounded-xl font-semibold text-base shadow-xl shadow-emerald-500/25 hover:shadow-emerald-500/40 hover:scale-105 transition-all duration-150 ease-signature">
                       <Sparkles className="w-4 h-4" />View Live Site<ExternalLink className="w-4 h-4" />
                     </a>
                   </div>
@@ -368,7 +334,7 @@ const Portfolio: React.FC = () => {
                   <div className="-mt-[50px] sm:-mt-[70px] lg:-mt-[90px]">
                     <h3 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-3 tracking-tight">Genealogy Tracker</h3>
                     <p className="text-lg sm:text-xl font-semibold text-amber-400 mb-5">Document and explore your family history</p>
-                    <p className="text-gray-400 text-base sm:text-lg leading-relaxed mb-6 max-w-lg">
+                    <p className="text-ink-subtle text-base sm:text-lg leading-relaxed mb-6 max-w-lg">
                       A full-featured genealogy application with individual profiles, family units, a navigatable family tree, and research tools. Upload docs and photos to each life event, import/export GEDCOM files, and use the Research bin to find end-of-the-line ancestors.
                     </p>
                     <div className="flex flex-wrap gap-2 mb-8">
@@ -424,7 +390,7 @@ const Portfolio: React.FC = () => {
                 {clientProjects.map((project, index) => (
                   <div
                     key={index}
-                    className="group bg-gradient-to-br from-slate-800/90 to-gray-800/90 backdrop-blur-sm border border-white/10 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl hover:shadow-[#fd6a62]/15 transition-all duration-500 hover:-translate-y-1"
+                    className="group bg-gradient-to-br from-slate-800/90 to-gray-800/90 backdrop-blur-sm border border-hairline rounded-xl overflow-hidden shadow-lg hover:shadow-lift-high hover:shadow-[#fd6a62]/15 transition-all duration-200 ease-signature hover:-translate-y-1"
                   >
                     {/* Browser frame screenshot */}
                     <div className="p-4 sm:p-5 pb-0">
@@ -435,7 +401,7 @@ const Portfolio: React.FC = () => {
                             <div className="w-2 h-2 rounded-full bg-[#febc2e]" />
                             <div className="w-2 h-2 rounded-full bg-[#28c840]" />
                           </div>
-                          <div className="bg-gray-800/60 rounded px-2 py-0.5 text-[10px] text-gray-500 font-mono truncate">
+                          <div className="bg-gray-800/60 rounded px-2 py-0.5 text-[10px] text-ink-faint font-mono truncate">
                             {project.website.replace('https://', '')}
                           </div>
                         </div>
@@ -458,12 +424,12 @@ const Portfolio: React.FC = () => {
                         )}
                         <h4 className="text-lg font-bold text-white">{project.company}</h4>
                       </div>
-                      <p className="text-gray-400 text-sm leading-relaxed mb-4">{project.description}</p>
+                      <p className="text-ink-subtle text-sm leading-relaxed mb-4">{project.description}</p>
                       <a
                         href={project.website}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 w-full justify-center bg-gradient-to-r from-[#fd6a62] to-[#fc5951] text-white px-4 py-2.5 rounded-lg text-sm font-semibold hover:shadow-lg hover:shadow-[#fd6a62]/30 hover:scale-[1.02] transition-all duration-300"
+                        className="inline-flex items-center gap-2 w-full justify-center bg-gradient-to-r from-[#fd6a62] to-[#fc5951] text-white px-4 py-2.5 rounded-lg text-sm font-semibold hover:shadow-lg hover:shadow-[#fd6a62]/30 hover:scale-[1.02] transition-all duration-150 ease-signature"
                       >
                         <Sparkles className="w-3.5 h-3.5" />
                         View Live Website

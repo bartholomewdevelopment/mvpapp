@@ -3,6 +3,8 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Phone, FileText, Users, Code, Zap, GraduationCap, CheckCircle, Target, Rocket, ArrowRight } from 'lucide-react';
 import { useAppContext } from '@/contexts/AppContext';
+import SectionHeader from './SectionHeader';
+import VisualSlot from './VisualSlot';
 
 const Process: React.FC = () => {
   const { openGetStartedModal } = useAppContext();
@@ -70,56 +72,33 @@ const Process: React.FC = () => {
 
   return (
     <>
-      <section className="py-24 bg-gradient-to-br from-slate-950 via-slate-900 to-gray-900 relative overflow-hidden">
-        {/* Animated background elements */}
-        <div className="absolute inset-0">
-          <div className="absolute top-20 left-20 w-96 h-96 bg-[#fd6a62]/15 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-20 right-20 w-[500px] h-[500px] bg-[#fd6a62]/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
-        </div>
-
-        {/* Grid pattern overlay */}
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute inset-0" style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.15'%3E%3Cpath d='M0 0h80v1H0zM0 0v80h1V0z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-            backgroundSize: '80px 80px'
-          }}></div>
-        </div>
-
-        <div className="container mx-auto px-6 relative z-10">
-          <div className="text-center mb-20">
-            <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-white via-gray-100 to-[#fd6a62] bg-clip-text text-transparent mb-6">
-              Our Process: Validation Before Development
-            </h2>
-            <div className="flex justify-center items-center gap-3 mb-8">
-              <div className="w-12 h-0.5 bg-gradient-to-r from-transparent to-[#fd6a62]"></div>
-              <div className="w-2 h-2 rounded-full bg-[#fd6a62] animate-pulse"></div>
-              <div className="w-24 h-0.5 bg-gradient-to-r from-[#fd6a62] to-[#fc5951]"></div>
-              <div className="w-2 h-2 rounded-full bg-[#fc5951] animate-pulse" style={{ animationDelay: '0.5s' }}></div>
-              <div className="w-12 h-0.5 bg-gradient-to-r from-[#fc5951] to-transparent"></div>
-            </div>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-              Choose your path based on where you are in your startup journey
-            </p>
-          </div>
+      <section className="relative py-24 sm:py-32">
+        <div className="container relative mx-auto px-6">
+          <SectionHeader
+            eyebrow="How it works"
+            title="Our process: validation before development"
+            lede="Choose your path based on where you are in your startup journey."
+            className="mb-16 sm:mb-20"
+          />
 
           {/* Path Selector */}
           <div className="max-w-2xl mx-auto mb-16">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <button
                 onClick={() => setSelectedPath('validation')}
-                className={`p-6 rounded-2xl border-2 transition-all duration-300 ${
+                className={`p-6 rounded-card border-2 transition-all duration-150 ease-signature ${
                   selectedPath === 'validation'
                     ? 'border-[#fd6a62] bg-[#fd6a62]/20 shadow-lg shadow-[#fd6a62]/20'
                     : 'border-white/20 bg-slate-800/50 hover:border-[#fd6a62]/50'
                 }`}
               >
                 <div className="flex items-center justify-center gap-3 mb-2">
-                  <Target className={`w-6 h-6 ${selectedPath === 'validation' ? 'text-[#fd6a62]' : 'text-gray-400'}`} />
+                  <Target className={`w-6 h-6 ${selectedPath === 'validation' ? 'text-[#fd6a62]' : 'text-ink-subtle'}`} />
                   <h3 className={`text-xl font-bold ${selectedPath === 'validation' ? 'text-[#fd6a62]' : 'text-white'}`}>
                     Validation Coaching
                   </h3>
                 </div>
-                <p className="text-sm text-gray-300">Start here if your idea isn't validated yet</p>
+                <p className="text-sm text-ink-muted">Start here if your idea isn't validated yet</p>
                 {selectedPath === 'validation' && (
                   <div className="mt-3 inline-block bg-[#fd6a62] text-white px-3 py-1 rounded-full text-xs font-semibold">
                     ⭐ RECOMMENDED
@@ -129,33 +108,43 @@ const Process: React.FC = () => {
 
               <button
                 onClick={() => setSelectedPath('mvp')}
-                className={`p-6 rounded-2xl border-2 transition-all duration-300 ${
+                className={`p-6 rounded-card border-2 transition-all duration-150 ease-signature ${
                   selectedPath === 'mvp'
                     ? 'border-white/40 bg-white/10 shadow-lg shadow-white/10'
                     : 'border-white/20 bg-slate-800/50 hover:border-white/30'
                 }`}
               >
                 <div className="flex items-center justify-center gap-3 mb-2">
-                  <Rocket className={`w-6 h-6 ${selectedPath === 'mvp' ? 'text-white' : 'text-gray-400'}`} />
+                  <Rocket className={`w-6 h-6 ${selectedPath === 'mvp' ? 'text-white' : 'text-ink-subtle'}`} />
                   <h3 className={`text-xl font-bold ${selectedPath === 'mvp' ? 'text-white' : 'text-white'}`}>
                     MVP Development
                   </h3>
                 </div>
-                <p className="text-sm text-gray-300">Already validated? Let's build it</p>
+                <p className="text-sm text-ink-muted">Already validated? Let's build it</p>
               </button>
             </div>
           </div>
 
           <div className="max-w-4xl mx-auto">
+            {/* Visual: the process is the product here — it deserves a real diagram */}
+            <div className="mb-14">
+              <VisualSlot
+                kind="Diagram"
+                ratio="aspect-[16/7]"
+                label="The validation → build timeline"
+                note="A horizontal timeline with the four phases, their durations, and the go/pivot/kill decision gate after validation. Show the data thresholds as small annotations on the gate. This is the single most persuasive graphic on the site: it makes the phased, evidence-gated method legible in one glance instead of five paragraphs."
+              />
+            </div>
+
             <div className="space-y-8 mb-16">
               {currentSteps.map((step, index) => {
                 const IconComponent = step.icon;
                 return (
-                  <Card key={index} className="group hover:shadow-2xl hover:shadow-[#fd6a62]/20 transition-all duration-500 transform hover:-translate-y-1 border border-white/10 shadow-lg bg-gradient-to-br from-slate-800/90 to-gray-800/90 backdrop-blur-sm relative overflow-hidden">
+                  <Card key={index} className="group hover:shadow-lift-high transition-all duration-200 ease-signature transform hover:-translate-y-1 border border-white/10 shadow-lg bg-white/[0.024] backdrop-blur-sm relative overflow-hidden">
                     <CardHeader className="pb-4">
                       <div className="flex items-start gap-4">
                         <div className="flex items-center gap-4">
-                          <span className={`bg-gradient-to-r ${step.color} text-white rounded-full w-12 h-12 flex items-center justify-center text-lg font-bold shadow-lg flex-shrink-0 group-hover:scale-110 transition-transform duration-300`}>
+                          <span className={`bg-gradient-to-r ${step.color} text-white rounded-full w-12 h-12 flex items-center justify-center text-lg font-bold shadow-lg flex-shrink-0 group-hover:scale-110 transition-transform duration-200 ease-signature`}>
                             {index + 1}
                           </span>
                           <div className={`w-8 h-8 bg-gradient-to-br ${step.color} rounded-lg flex items-center justify-center flex-shrink-0`}>
@@ -170,7 +159,7 @@ const Process: React.FC = () => {
                       </div>
                     </CardHeader>
                     <CardContent>
-                      <CardDescription className="text-gray-300 text-base leading-relaxed ml-20">
+                      <CardDescription className="text-ink-muted text-base leading-relaxed ml-20">
                         {step.description}
                       </CardDescription>
                     </CardContent>
@@ -189,7 +178,7 @@ const Process: React.FC = () => {
 
             {/* Combined Journey Callout */}
             {selectedPath === 'validation' && (
-              <div className="bg-gradient-to-r from-[#fd6a62] to-[#fc5951] rounded-3xl p-8 mb-12 text-white relative overflow-hidden">
+              <div className="bg-gradient-to-r from-[#fd6a62] to-[#fc5951] rounded-panel p-8 mb-12 text-white relative overflow-hidden">
                 <div className="absolute inset-0 bg-black/10"></div>
                 <div className="relative z-10">
                   <div className="flex items-center justify-center gap-4 mb-4">
@@ -208,7 +197,7 @@ const Process: React.FC = () => {
             )}
 
             {selectedPath === 'mvp' && (
-              <div className="bg-amber-900/20 border-2 border-amber-600/40 rounded-3xl p-8 mb-12">
+              <div className="bg-amber-900/20 border-2 border-amber-600/40 rounded-panel p-8 mb-12">
                 <div className="text-center">
                   <div className="inline-flex items-center justify-center w-16 h-16 bg-amber-900/30 rounded-full mb-4">
                     <CheckCircle className="w-8 h-8 text-amber-400" />
@@ -242,10 +231,10 @@ const Process: React.FC = () => {
             </div>
             <Button
               size="lg"
-              className="group relative bg-gradient-to-r from-[#fd6a62] to-[#fc5951] hover:from-[#fc5951] hover:to-[#fd6a62] text-white px-12 py-4 text-lg font-semibold shadow-2xl shadow-[#fd6a62]/50 hover:shadow-[#fd6a62]/70 transform hover:scale-105 transition-all duration-300 rounded-xl overflow-hidden"
+              className="group relative bg-gradient-to-r from-[#fd6a62] to-[#fc5951] hover:from-[#fc5951] hover:to-[#fd6a62] text-white px-12 py-4 text-lg font-semibold shadow-lift transform hover:scale-105 transition-all duration-150 ease-signature rounded-xl overflow-hidden"
               onClick={handleGetStarted}
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 opacity-0"></div>
               <span className="relative">Get Started</span>
             </Button>
           </div>

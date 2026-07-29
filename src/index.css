@@ -1,8 +1,212 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* ═══════════════════════════════════════════════════════════════════
+   2027 DESIGN TOKENS
+   A separate namespace from the shadcn hsl() vars below, so the
+   marketing surface can be restyled without touching form/dialog
+   primitives. See DESIGN_2027.md for the full direction.
+   ═══════════════════════════════════════════════════════════════════ */
+:root {
+  /* ——— Surface ramp: one near-black canvas, elevation via hairlines ——— */
+  --canvas:          #08090c;
+  --canvas-raised:   #0c0e13;
+  --surface:         rgba(255, 255, 255, 0.024);
+  --surface-hover:   rgba(255, 255, 255, 0.045);
+  --hairline:        rgba(255, 255, 255, 0.08);
+  --hairline-strong: rgba(255, 255, 255, 0.14);
+
+  /* ——— Ink ramp: all AA or better on --canvas ——— */
+  --ink:         #f4f5f7;  /* headings          ~18:1 */
+  --ink-muted:   #b6bcc8;  /* body              ~9:1  */
+  --ink-subtle:  #8b93a3;  /* captions          ~5.4:1 */
+  --ink-faint:   #6b7382;  /* non-essential     ~3.4:1 — decorative only */
+
+  /* ——— Accent: one colour, used once per section ——— */
+  --accent:       #fd6a62;
+  --accent-hover: #ff8078;
+  --accent-ink:   #ffb4ae;  /* accent-on-dark text, AA at body sizes */
+  --accent-wash:  rgba(253, 106, 98, 0.10);
+  --accent-line:  rgba(253, 106, 98, 0.28);
+
+  /* ——— Radius: one family ——— */
+  --r-sm: 8px;
+  --r-md: 12px;
+  --r-lg: 16px;
+  --r-xl: 22px;
+
+  /* ——— Elevation: two tokens, not twelve ——— */
+  --lift:      0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 24px -12px rgba(0, 0, 0, 0.6);
+  --lift-high: 0 1px 2px rgba(0, 0, 0, 0.5), 0 24px 60px -20px rgba(0, 0, 0, 0.75);
+
+  /* ——— Motion: short, ease-out, one signature curve ——— */
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --t-fast: 140ms;
+  --t-base: 220ms;
+  --t-slow: 420ms;
+}
+
+/* ═══════════ Typography: fluid scale, optical tracking ═══════════ */
+.display-1 {
+  font-family: 'Instrument Sans', 'Inter', sans-serif;
+  font-size: clamp(2.25rem, 1.6rem + 2.4vw, 3.75rem);
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+  font-weight: 600;
+  text-wrap: balance;
+}
+
+.display-2 {
+  font-family: 'Instrument Sans', 'Inter', sans-serif;
+  font-size: clamp(1.875rem, 1.4rem + 1.9vw, 3rem);
+  line-height: 1.08;
+  letter-spacing: -0.028em;
+  font-weight: 600;
+  text-wrap: balance;
+}
+
+.display-3 {
+  font-family: 'Instrument Sans', 'Inter', sans-serif;
+  font-size: clamp(1.375rem, 1.1rem + 1.1vw, 1.875rem);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  font-weight: 600;
+  text-wrap: balance;
+}
+
+/* Mono micro-label — replaces the old dot-and-dash divider ornament */
+.eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-subtle);
+}
+
+.lede {
+  font-size: clamp(1.0625rem, 1rem + 0.35vw, 1.25rem);
+  line-height: 1.6;
+  color: var(--ink-muted);
+  max-width: 62ch;
+  text-wrap: pretty;
+}
+
+.prose-measure { max-width: 68ch; }
+
+/* ═══════════ Surfaces ═══════════ */
+.surface {
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-lg);
+  transition: background var(--t-base) var(--ease),
+              border-color var(--t-base) var(--ease),
+              transform var(--t-base) var(--ease);
+}
+
+.surface-interactive:hover {
+  background: var(--surface-hover);
+  border-color: var(--hairline-strong);
+  transform: translateY(-2px);
+}
+
+/* A single hairline rule, used instead of the repeated dot-dash divider */
+.rule {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--hairline-strong), transparent);
+  border: 0;
+}
+
+/* ═══════════ Ambient atmosphere ═══════════
+   One slow aurora for the whole page + a fine grain layer, replacing
+   the per-section pulsing blur blobs. */
+.aurora {
+  position: absolute;
+  inset: -20% -10% auto -10%;
+  height: 90vh;
+  pointer-events: none;
+  background:
+    radial-gradient(42% 48% at 22% 18%, rgba(253, 106, 98, 0.16), transparent 70%),
+    radial-gradient(38% 44% at 78% 8%,  rgba(120, 130, 255, 0.10), transparent 72%),
+    radial-gradient(46% 40% at 52% 44%, rgba(253, 106, 98, 0.07), transparent 74%);
+  filter: blur(24px);
+  animation: aurora-drift 38s var(--ease) infinite alternate;
+}
+
+@keyframes aurora-drift {
+  from { transform: translate3d(-2%, 0, 0) scale(1); }
+  to   { transform: translate3d(3%, 2%, 0) scale(1.08); }
+}
+
+.grain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.035;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Hairline grid — kept, but far quieter than the 2024 version */
+.mesh {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.5;
+  background-image:
+    linear-gradient(to right, var(--hairline) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--hairline) 1px, transparent 1px);
+  background-size: 96px 96px;
+  mask-image: radial-gradient(70% 55% at 50% 30%, black, transparent 78%);
+  -webkit-mask-image: radial-gradient(70% 55% at 50% 30%, black, transparent 78%);
+}
+
+/* ═══════════ Focus + reduced motion ═══════════ */
+:where(a, button, [role='button'], input, select, textarea, [tabindex]):focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: var(--r-sm);
+}
+
+.skip-link {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translate(-50%, -120%);
+  z-index: 100;
+  padding: 0.625rem 1.25rem;
+  border-radius: 0 0 var(--r-md) var(--r-md);
+  background: var(--accent);
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.875rem;
+  transition: transform var(--t-fast) var(--ease);
+}
+.skip-link:focus { transform: translate(-50%, 0); }
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .scroll-fade-up,
+  .scroll-fade-left,
+  .scroll-fade-right,
+  .scroll-fade-in,
+  .scroll-scale-in,
+  .stagger-children > * {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
 
 @layer base {
   :root {
@@ -91,8 +295,17 @@
     @apply border-border;
   }
 
+  /* The marketing surface is dark end-to-end. Setting this on html/body too
+     keeps overscroll, the address-bar area on mobile, and any gap between
+     sections from flashing the light shadcn --background. */
+  html {
+    background-color: var(--canvas);
+  }
+
   body {
-    @apply bg-background text-foreground font-sans dark:bg-background dark:text-foreground;
+    @apply font-sans;
+    background-color: var(--canvas);
+    color: var(--ink);
   }
 
   pre, code {
