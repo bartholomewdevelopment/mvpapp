@@ -97,15 +97,19 @@ const GetStartedModal: React.FC<GetStartedModalProps> = ({ isOpen, onClose }) =>
    * rather than sent as blanks.
    */
   const calendlyUrl = (() => {
-    const params = new URLSearchParams();
-    const name = formData.user_name.trim();
-    const email = formData.user_email.trim();
-    const phone = formData.user_phone.trim();
-    if (name) params.set('name', name);
-    if (email) params.set('email', email);
-    if (phone) params.set(CALENDLY_PHONE_PARAM, phone);
-    const qs = params.toString();
-    return qs ? `${CALENDLY_EVENT}?${qs}` : CALENDLY_EVENT;
+    // encodeURIComponent, deliberately NOT URLSearchParams: URLSearchParams
+    // serialises with form encoding, which turns a space into "+". Calendly's
+    // prefill drops that straight into the field, so "Live Founder" arrived as
+    // the literal "Live+Founder". Percent-encoding (%20) decodes to a real space.
+    const parts: string[] = [];
+    const add = (key: string, raw: string) => {
+      const value = raw.trim();
+      if (value) parts.push(`${key}=${encodeURIComponent(value)}`);
+    };
+    add('name', formData.user_name);
+    add('email', formData.user_email);
+    add(CALENDLY_PHONE_PARAM, formData.user_phone);
+    return parts.length ? `${CALENDLY_EVENT}?${parts.join('&')}` : CALENDLY_EVENT;
   })();
 
   const handleNext = () => {
