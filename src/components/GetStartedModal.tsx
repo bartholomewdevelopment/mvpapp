@@ -15,7 +15,7 @@ const TOTAL_STEPS = 11;
 
 /** Header names the step you're on, so the counter isn't the only orientation. */
 const STEP_LABELS = [
-  'Your email',
+  'Your details',
   'Direction',
   'Validation',
   'Recommendation',
@@ -27,6 +27,30 @@ const STEP_LABELS = [
   'Timeline',
   'Schedule',
 ];
+
+const CALENDLY_EVENT = 'https://calendly.com/joseph-bartholomewdevelopment/pre-validation';
+
+/**
+ * Which Calendly prefill parameter carries the phone number.
+ *
+ * Calendly prefills `name` and `email` from those exact param names, but a
+ * phone number has no universal one — where it lands depends on how the event
+ * asks for it:
+ *
+ *   'a1'       — phone is a CUSTOM QUESTION on the event. Answers are addressed
+ *                positionally: a1 is the first custom question, a2 the second,
+ *                and so on. This is the default here, and it is only correct if
+ *                phone is the FIRST custom question on the Pre-Validation event.
+ *   'location' — the event's location type is "Phone call" and the invitee
+ *                supplies the number. Then the number belongs in `location`.
+ *
+ * If Calendly's built-in SMS/text-reminder field is the only phone field, it
+ * cannot be prefilled from the URL at all — it is collected by Calendly itself.
+ *
+ * The phone param is only appended when the visitor actually entered a number,
+ * so a wrong setting here can never overwrite an answer with an empty value.
+ */
+const CALENDLY_PHONE_PARAM = 'a1';
 
 const GetStartedModal: React.FC<GetStartedModalProps> = ({ isOpen, onClose }) => {
   const [step, setStep] = useState(1);
@@ -67,9 +91,33 @@ const GetStartedModal: React.FC<GetStartedModalProps> = ({ isOpen, onClose }) =>
     }
   }, [step, calendlyLoaded]);
 
+  /**
+   * Calendly embed URL with whatever we already know prefilled, so the visitor
+   * doesn't retype it on the last step. Empty answers are left off entirely
+   * rather than sent as blanks.
+   */
+  const calendlyUrl = (() => {
+    const params = new URLSearchParams();
+    const name = formData.user_name.trim();
+    const email = formData.user_email.trim();
+    const phone = formData.user_phone.trim();
+    if (name) params.set('name', name);
+    if (email) params.set('email', email);
+    if (phone) params.set(CALENDLY_PHONE_PARAM, phone);
+    const qs = params.toString();
+    return qs ? `${CALENDLY_EVENT}?${qs}` : CALENDLY_EVENT;
+  })();
+
   const handleNext = () => {
     if (step === 1 && formData.user_email && !emailSent && formData.user_email.includes('@')) {
-      sendEmailNotification({ user_email: formData.user_email }, 'initial');
+      sendEmailNotification(
+        {
+          user_email: formData.user_email,
+          user_name: formData.user_name,
+          user_phone: formData.user_phone,
+        },
+        'initial'
+      );
       setEmailSent(true);
     }
 
@@ -170,25 +218,66 @@ const GetStartedModal: React.FC<GetStartedModalProps> = ({ isOpen, onClose }) =>
         return (
           <Step>
             <StepHeading
-              title="Let's start with your email."
-              hint="We'll use it to send your recommendation and confirm your call — nothing else."
+              title="First, how do we reach you?"
+              hint="We'll use this to send your recommendation and confirm your call — nothing else."
             />
-            <div className="space-y-2.5">
-              <Label
-                htmlFor="email"
-                className="text-sm font-medium text-[color:var(--p-ink)]"
-              >
-                Email address
-              </Label>
-              <input
-                id="email"
-                type="email"
-                autoComplete="email"
-                value={formData.user_email}
-                onChange={(e) => setFormData({ ...formData, user_email: e.target.value })}
-                placeholder="your@email.com"
-                className="field"
-              />
+            <div className="space-y-5">
+              <div className="space-y-2.5">
+                <Label
+                  htmlFor="name"
+                  className="text-sm font-medium text-[color:var(--p-ink)]"
+                >
+                  Your name
+                </Label>
+                <input
+                  id="name"
+                  type="text"
+                  autoComplete="name"
+                  value={formData.user_name}
+                  onChange={(e) => setFormData({ ...formData, user_name: e.target.value })}
+                  placeholder="Jane Founder"
+                  className="field"
+                />
+              </div>
+
+              <div className="space-y-2.5">
+                <Label
+                  htmlFor="email"
+                  className="text-sm font-medium text-[color:var(--p-ink)]"
+                >
+                  Email address
+                </Label>
+                <input
+                  id="email"
+                  type="email"
+                  autoComplete="email"
+                  value={formData.user_email}
+                  onChange={(e) => setFormData({ ...formData, user_email: e.target.value })}
+                  placeholder="your@email.com"
+                  className="field"
+                />
+              </div>
+
+              <div className="space-y-2.5">
+                <Label
+                  htmlFor="phone"
+                  className="flex items-center gap-2 text-sm font-medium text-[color:var(--p-ink)]"
+                >
+                  Phone
+                  <span className="text-xs font-normal text-[color:var(--p-ink-subtle)]">
+                    optional
+                  </span>
+                </Label>
+                <input
+                  id="phone"
+                  type="tel"
+                  autoComplete="tel"
+                  value={formData.user_phone}
+                  onChange={(e) => setFormData({ ...formData, user_phone: e.target.value })}
+                  placeholder="(555) 012-3456"
+                  className="field"
+                />
+              </div>
             </div>
           </Step>
         );
@@ -352,7 +441,7 @@ const GetStartedModal: React.FC<GetStartedModalProps> = ({ isOpen, onClose }) =>
             {/* Calendly Embed */}
             <div
               className="calendly-inline-widget overflow-hidden rounded-[var(--r-md)] border border-[color:var(--p-hairline)]"
-              data-url={`https://calendly.com/joseph-bartholomewdevelopment/pre-validation?name=${encodeURIComponent(formData.user_name || '')}&email=${encodeURIComponent(formData.user_email || '')}`}
+              data-url={calendlyUrl}
               style={{ minWidth: '320px', height: '700px' }}
             />
           </Step>
@@ -365,7 +454,9 @@ const GetStartedModal: React.FC<GetStartedModalProps> = ({ isOpen, onClose }) =>
 
   const canProceed = () => {
     switch (step) {
-      case 1: return formData.user_email.trim() !== '';
+      case 1:
+        // Name and email are required; phone is optional.
+        return formData.user_name.trim() !== '' && formData.user_email.trim() !== '';
       case 2: return formData.interested_in !== '';
       case 3: return formData.validation_status !== '';
       case 4: return recommendedPath !== null || formData.planning_stage !== '';
