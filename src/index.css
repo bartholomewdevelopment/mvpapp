@@ -443,6 +443,14 @@
   border-radius: var(--r-sm);
 }
 
+/* Radix moves focus to the dialog container itself on open, which the rule above
+   then paints with a full-size accent ring. The container isn't a user-navigable
+   stop — the controls inside it are, and they keep their own rings. */
+[role='dialog']:focus,
+[role='dialog']:focus-visible {
+  outline: none;
+}
+
 .skip-link {
   position: absolute;
   left: 50%;

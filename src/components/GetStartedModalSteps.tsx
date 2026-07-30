@@ -12,7 +12,6 @@ interface StepProps {
 export const Step4: React.FC<StepProps> = ({ formData, setFormData }) => (
   <Step>
     <StepHeading
-      eyebrow="Traction"
       title="Do you have any paying or active users yet?"
     />
     <Choices
@@ -33,7 +32,6 @@ export const Step4: React.FC<StepProps> = ({ formData, setFormData }) => (
 export const Step5: React.FC<StepProps> = ({ formData, setFormData }) => (
   <Step>
     <StepHeading
-      eyebrow="Budget"
       title="What's your approximate budget for this project?"
       hint="Ranges start at the $18,000 build floor."
     />
@@ -56,7 +54,6 @@ export const Step5: React.FC<StepProps> = ({ formData, setFormData }) => (
 export const Step6: React.FC<StepProps> = ({ formData, setFormData }) => (
   <Step>
     <StepHeading
-      eyebrow="Objective"
       title="What is your main goal for building this software?"
     />
     <Choices
@@ -76,7 +73,7 @@ export const Step6: React.FC<StepProps> = ({ formData, setFormData }) => (
 
 export const Step7: React.FC<StepProps> = ({ formData, setFormData }) => (
   <Step>
-    <StepHeading eyebrow="About you" title="What best describes your role?" />
+    <StepHeading title="What best describes your role?" />
     <Choices
       name="role"
       value={formData.role}
@@ -96,7 +93,7 @@ export const Step7: React.FC<StepProps> = ({ formData, setFormData }) => (
    straight to scheduling, so formData.timeline is never collected. Kept as-is. */
 export const Step8: React.FC<StepProps> = ({ formData, setFormData }) => (
   <Step>
-    <StepHeading eyebrow="Timing" title="How soon are you looking to get started?" />
+    <StepHeading title="How soon are you looking to get started?" />
     <Choices
       name="timeline"
       value={formData.timeline}

@@ -169,7 +169,6 @@ const GetStartedModal: React.FC<GetStartedModalProps> = ({ isOpen, onClose }) =>
         return (
           <Step>
             <StepHeading
-              eyebrow="Step one"
               title="Let's start with your email."
               hint="We'll use it to send your recommendation and confirm your call — nothing else."
             />
@@ -197,7 +196,6 @@ const GetStartedModal: React.FC<GetStartedModalProps> = ({ isOpen, onClose }) =>
         return (
           <Step>
             <StepHeading
-              eyebrow="Direction"
               title="Which option are you interested in?"
               hint="Choose the path that fits your current stage."
             />
@@ -238,7 +236,6 @@ const GetStartedModal: React.FC<GetStartedModalProps> = ({ isOpen, onClose }) =>
         return (
           <Step>
             <StepHeading
-              eyebrow="Validation"
               title="Have you validated your idea with real customers?"
               hint="This is the answer that decides which path we recommend."
             />
@@ -307,7 +304,7 @@ const GetStartedModal: React.FC<GetStartedModalProps> = ({ isOpen, onClose }) =>
       case 5:
         return (
           <Step>
-            <StepHeading eyebrow="Funding" title="What's your current funding status?" />
+            <StepHeading title="What's your current funding status?" />
             <Choices
               name="funding_status"
               value={formData.funding_status}
@@ -333,7 +330,9 @@ const GetStartedModal: React.FC<GetStartedModalProps> = ({ isOpen, onClose }) =>
       case 10:
         return (
           <Step>
-            <div className="mb-6 flex items-start justify-between gap-6">
+            {/* No close button here — the header now renders on this step too,
+                and its X is the single close control. */}
+            <div className="mb-6">
               <div>
                 <p className="paper-eyebrow mb-3">Last step</p>
                 <h3 className="paper-title text-[1.5rem] sm:text-[1.75rem]">
@@ -345,13 +344,6 @@ const GetStartedModal: React.FC<GetStartedModalProps> = ({ isOpen, onClose }) =>
                   time that works — we'll have your answers in front of us.
                 </p>
               </div>
-              <button
-                onClick={handleClose}
-                className="-mt-1 flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-[color:var(--p-hairline-strong)] transition-colors duration-150 hover:bg-[color:var(--p-surface)]"
-                aria-label="Close"
-              >
-                <X className="h-4 w-4 text-[color:var(--p-ink-muted)]" aria-hidden="true" />
-              </button>
             </div>
 
             {/* Calendly Embed */}
