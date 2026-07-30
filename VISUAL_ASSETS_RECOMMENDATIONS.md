@@ -10,8 +10,9 @@ the rest of this list is where to add more.
 
 ## Art direction (applies to everything below)
 
-- **Dark-native.** Assets must sit on `#08090c`. Ask for transparent PNG/SVG or
-  dark-background exports — light-background stock will punch a hole in the page.
+- **Dark-native.** Assets must sit on `#020617` (slate-950, the existing brand dark).
+  Ask for transparent PNG/SVG or dark-background exports — light-background stock will
+  punch a hole in the page.
 - **Monochrome + one coral accent** (`#fd6a62`). If a visual needs three colours to
   work, it's the wrong visual.
 - **Evidence, not aspiration.** The whole pitch is "we measure before we build."

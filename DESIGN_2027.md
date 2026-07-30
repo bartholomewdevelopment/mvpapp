@@ -33,12 +33,14 @@ Worth naming precisely, because these are the things the redesign undoes:
 spent deliberately. Motion only where it carries information.**
 
 ### 1. One canvas
-A single near-black surface (`--canvas: #08090c`) set on `html`, `body`, and the app
+A single deep surface — the site's existing slate-950 (`--canvas: #020617`), with
+slate-900 (`--canvas-raised: #0f172a`) above it — set on `html`, `body`, and the app
 shell. Sections are transparent and separated by vertical rhythm alone. Atmosphere
-is now a single **fixed** layer in `AppLayout`: one slow 38s aurora drift behind the
-fold plus a 3.5% grain overlay for a filmic, non-flat feel. Depth comes from a
-surface ramp (`--surface` → `--surface-hover`) and hairline borders
-(`--hairline: rgba(255,255,255,0.08)`), not from colour.
+is now a single **fixed** layer in `AppLayout`: one slow 38s coral aurora drift behind
+the fold, a second glow anchored at the page base, plus a 3.5% grain overlay for a
+filmic, non-flat feel. Depth comes from a surface ramp (`--surface` →
+`--surface-hover`) and hairline borders (`--hairline: rgba(255,255,255,0.09)`), plus a
+reserved coral glow tier for focal elements.
 
 ### 2. Type as the main event
 - **Instrument Sans** for display, **Inter** for body, **JetBrains Mono** for
