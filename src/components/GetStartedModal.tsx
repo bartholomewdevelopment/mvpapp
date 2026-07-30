@@ -158,7 +158,7 @@ const GetStartedModal: React.FC<GetStartedModalProps> = ({ isOpen, onClose }) =>
         </ul>
       </div>
       <p className="paper-hint mt-5 text-sm">
-        Continue to add a few details and book your consultation call.
+        Continue to add a few details and book your free Pre-Validation.
       </p>
     </Step>
   );
@@ -337,10 +337,12 @@ const GetStartedModal: React.FC<GetStartedModalProps> = ({ isOpen, onClose }) =>
               <div>
                 <p className="paper-eyebrow mb-3">Last step</p>
                 <h3 className="paper-title text-[1.5rem] sm:text-[1.75rem]">
-                  Schedule your discovery call
+                  Book your free Pre-Validation
                 </h3>
                 <p className="paper-hint mt-2.5 text-[0.9375rem] leading-relaxed">
-                  Pick a time that works for you. We'll have your answers in front of us.
+                  60 minutes, free. Think of it as getting pre-approved: we pressure-test your idea
+                  together, and passing Pre-Validation is what qualifies you for paid Validation. Pick a
+                  time that works — we'll have your answers in front of us.
                 </p>
               </div>
               <button
@@ -456,7 +458,7 @@ const GetStartedModal: React.FC<GetStartedModalProps> = ({ isOpen, onClose }) =>
               disabled={!canProceed()}
               className="btn-brand group inline-flex h-11 items-center gap-2 px-7 text-sm font-semibold disabled:pointer-events-none disabled:opacity-40 disabled:shadow-none"
             >
-              {step === 9 ? 'Book my call' : 'Continue'}
+              {step === 9 ? 'Book my Pre-Validation' : 'Continue'}
               <ArrowRight
                 className="h-4 w-4 transition-transform duration-200 ease-signature group-hover:translate-x-0.5"
                 aria-hidden="true"

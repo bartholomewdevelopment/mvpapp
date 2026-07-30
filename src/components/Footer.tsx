@@ -45,8 +45,8 @@ const Footer: React.FC = () => {
             <h2 className="display-2 text-ink">Ready to launch your MVP?</h2>
 
             <p className="lede mx-auto mt-5">
-              Let's turn your idea into a launchable product. We'll help you build smart, launch fast, and
-              grow with confidence.
+              Start with a free 60-minute Pre-Validation — pass it, and paid Validation is the next step.
+              We'll help you build smart, launch fast, and grow with confidence.
             </p>
 
             <div className="mt-9">
@@ -54,7 +54,7 @@ const Footer: React.FC = () => {
                 onClick={handleScheduleCall}
                 className="group inline-flex items-center justify-center gap-2 rounded-[var(--r-md)] btn-brand px-8 py-4 text-base font-semibold"
               >
-                Schedule discovery call
+                Book free Pre-Validation
                 <ArrowRight
                   className="h-4 w-4 transition-transform duration-200 ease-signature group-hover:translate-x-0.5"
                   aria-hidden="true"
@@ -177,7 +177,7 @@ const Footer: React.FC = () => {
                       onClick={handleScheduleCall}
                       className="hover:text-white transition-colors duration-150 ease-signature"
                     >
-                      Schedule a Call
+                      Book Pre-Validation
                     </button>
                   </li>
                   <li>

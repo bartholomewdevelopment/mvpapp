@@ -86,7 +86,7 @@ export const sendEmailNotification = async (
 📅 Submitted: ${new Date().toLocaleString()}
 
 ---
-This lead completed the full intake form and booked a discovery call.
+This lead completed the full intake form and booked a free Pre-Validation.
       `.trim();
 
     // Template parameters - these match your EmailJS template variables

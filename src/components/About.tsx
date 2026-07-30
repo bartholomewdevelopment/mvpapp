@@ -71,7 +71,7 @@ const About: React.FC = () => {
               </div>
               <h3 className="text-2xl sm:text-3xl font-bold text-white mb-4">What's Next?</h3>
               <p className="text-lg sm:text-xl text-ink-muted mb-8 max-w-3xl mx-auto leading-relaxed px-4">
-                If you're ready to build your MVP, click below. We'll review your idea, walk you through our process, and help you get clear on what to build first.
+                If you're ready to build your MVP, start where everyone starts: a free 60-minute Pre-Validation. Like getting pre-approved before a lender's real decision, it's the gate you pass before paid Validation begins — we'll pressure-test your idea and get you clear on what to build first.
               </p>
               <div className="px-4">
                 <Button
@@ -82,7 +82,7 @@ const About: React.FC = () => {
                   <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 opacity-0"></div>
                   <span className="relative flex items-center justify-center gap-2 whitespace-nowrap">
                     <Calendar className="w-5 h-5" />
-                    Schedule a Discovery Call
+                    Book Free Pre-Validation
                   </span>
                 </Button>
               </div>

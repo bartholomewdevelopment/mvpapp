@@ -6,6 +6,11 @@ export interface FAQData {
 
 export const faqData: FAQData[] = [
   {
+    id: 14,
+    question: "What is Pre-Validation, and what does it cost?",
+    answer: "Pre-Validation is a free 60-minute working session, and it's where every engagement starts.\n\nThink of it the way lenders think about credit. Pre-approval is quick, free, and tells you whether it's worth starting a real application. Approval is the real decision, and it costs something to get there. Pre-Validation is the pre-approval step: we pressure-test your idea, your customer, and your evidence together, and you leave knowing whether this is worth pursuing.\n\nYou have to pass Pre-Validation before we'll take you into paid Validation. That isn't a sales gate — it protects you. If your idea isn't ready, an hour tells you that, instead of $4,500 and seven weeks.\n\nPre-Validation is free. Validation is paid: Discovery & Research ($1,500) and Validation Coaching ($3,000)."
+  },
+  {
     id: 1,
     question: "What's included in the Complete Startup Package?",
     answer: "One path, one package: Discovery, Validation Coaching, Design, and full MVP Development. Starting at $22,500 total, paid in phases over 13-23 weeks.\n\nEvery engagement runs through validation first—building before validating is the #1 reason 90% of startups fail. We don't sell build-only projects.\n\nAlready validated? If you've done 20+ interviews and have 5–10 paying commitments, we review your evidence and fast-track you to build. Your validation phase becomes a quick paid review, credited toward your build."
