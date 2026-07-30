@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Generated showcase screenshots (regenerate with design-showcase/capture.mjs)
+design-showcase/screens/

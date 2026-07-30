@@ -30,7 +30,7 @@ const Process: React.FC = () => {
     {
       icon: Users,
       title: "Real Customer Evidence",
-      description: "Conduct 15-20 customer interviews with strangers (not friends who lie). Test pricing, get paying commitments, and prove people will pay BEFORE you build. We provide scripts, templates, and expert feedback on every interview. The thresholds are explicit: 60%+ rate the problem 8/10 or higher on severity, 50%+ already spend money trying to solve it, and 5-10 paying commitments before a line of code is written.",
+      description: "Conduct 20+ customer interviews with strangers (not friends who lie). Test pricing, get paying commitments, and prove people will pay BEFORE you build. We provide scripts, templates, and expert feedback on every interview. The thresholds are explicit: 60%+ rate the problem 8/10 or higher on severity, 50%+ already spend money trying to solve it, and 5–10 paying commitments before a line of code is written.",
       color: "from-gray-700 to-gray-900"
     },
     {
@@ -127,7 +127,7 @@ const Process: React.FC = () => {
                   Already Validated? Fast-Track Your Build
                 </h3>
                 <p className="text-ink-muted leading-relaxed max-w-2xl mx-auto">
-                  If you've already done 15+ interviews and have 5+ paying commitments, we review your evidence
+                  If you've already done 20+ interviews and have 5–10 paying commitments, we review your evidence
                   and fast-track you to build — your validation phase becomes a quick paid review, credited
                   toward your build. It's the same path, just a shorter first leg.
                 </p>

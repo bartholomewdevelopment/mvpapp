@@ -105,7 +105,7 @@ const WhatIDo: React.FC = () => {
                       <strong className="text-white">Already validated?</strong>
                     </p>
                     <p className="text-xs text-ink-muted leading-relaxed">
-                      If you've already done 15+ interviews and have 5+ paying commitments, we review your
+                      If you've already done 20+ interviews and have 5–10 paying commitments, we review your
                       evidence and fast-track you to build — your validation phase becomes a quick paid
                       review, credited toward your build.
                     </p>
