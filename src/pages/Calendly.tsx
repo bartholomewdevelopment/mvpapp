@@ -23,17 +23,19 @@ const Calendly: React.FC = () => {
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-8">
             <h1 className="text-3xl font-bold text-gray-900 mb-4">
-              Book Your Discovery Call
+              Book Your Free Pre-Validation
             </h1>
             <p className="text-lg text-gray-600">
-              Let's discuss your project and see how we can help bring your vision to life.
+              60 minutes, free. Like getting pre-approved before a lender's real decision,
+              Pre-Validation is the gate you pass before paid Validation begins — we'll pressure-test
+              your idea and see how we can help bring your vision to life.
             </p>
           </div>
           
           <div className="bg-white rounded-lg shadow-lg overflow-hidden">
             <div 
               className="calendly-inline-widget" 
-              data-url="https://calendly.com/joseph-bartholomewdevelopment/discovery-strategy-meeting"
+              data-url="https://calendly.com/joseph-bartholomewdevelopment/pre-validation"
               style={{ minWidth: '320px', height: '700px' }}
             ></div>
           </div>

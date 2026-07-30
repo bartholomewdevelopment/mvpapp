@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
-import { Step4, Step5, Step6, Step7 } from './GetStartedModalSteps';
+import { Step4, Step5, Step6, Step7, Step8 } from './GetStartedModalSteps';
 import { Choices, StepHeading, Step } from './GetStartedModalUI';
 import { sendEmailNotification } from '@/lib/emailService';
 import { AlertCircle, CheckCircle, ArrowRight, ArrowLeft, Target, Rocket, X } from 'lucide-react';
@@ -11,7 +11,7 @@ interface GetStartedModalProps {
   onClose: () => void;
 }
 
-const TOTAL_STEPS = 10;
+const TOTAL_STEPS = 11;
 
 /** Header names the step you're on, so the counter isn't the only orientation. */
 const STEP_LABELS = [
@@ -24,6 +24,7 @@ const STEP_LABELS = [
   'Budget',
   'Objective',
   'About you',
+  'Timeline',
   'Schedule',
 ];
 
@@ -47,9 +48,9 @@ const GetStartedModal: React.FC<GetStartedModalProps> = ({ isOpen, onClose }) =>
     user_phone: ''
   });
 
-  // Load Calendly script when step 10 is reached
+  // Load Calendly script when the scheduling step (11) is reached
   useEffect(() => {
-    if (step === 10 && !calendlyLoaded) {
+    if (step === 11 && !calendlyLoaded) {
       const script = document.createElement('script');
       script.src = 'https://assets.calendly.com/assets/external/widget.js';
       script.async = true;
@@ -85,11 +86,11 @@ const GetStartedModal: React.FC<GetStartedModalProps> = ({ isOpen, onClose }) =>
     }
 
     // Send notification before moving to Calendly step
-    if (step === 9) {
+    if (step === 10) {
       sendEmailNotification(formData, 'progress');
     }
 
-    if (step < 10) {
+    if (step < 11) {
       setStep(step + 1);
     }
   };
@@ -101,7 +102,7 @@ const GetStartedModal: React.FC<GetStartedModalProps> = ({ isOpen, onClose }) =>
   };
 
   const handleClose = () => {
-    if (step > 1 && step < 10 && formData.user_email) {
+    if (step > 1 && step < 11 && formData.user_email) {
       sendEmailNotification(formData, 'progress');
     }
     setStep(1);
@@ -328,6 +329,8 @@ const GetStartedModal: React.FC<GetStartedModalProps> = ({ isOpen, onClose }) =>
       case 9:
         return <Step7 formData={formData} setFormData={setFormData} />;
       case 10:
+        return <Step8 formData={formData} setFormData={setFormData} />;
+      case 11:
         return (
           <Step>
             {/* No close button here — the header now renders on this step too,
@@ -349,7 +352,7 @@ const GetStartedModal: React.FC<GetStartedModalProps> = ({ isOpen, onClose }) =>
             {/* Calendly Embed */}
             <div
               className="calendly-inline-widget overflow-hidden rounded-[var(--r-md)] border border-[color:var(--p-hairline)]"
-              data-url={`https://calendly.com/joseph-bartholomewdevelopment/idea-sprint?name=${encodeURIComponent(formData.user_name || '')}&email=${encodeURIComponent(formData.user_email || '')}`}
+              data-url={`https://calendly.com/joseph-bartholomewdevelopment/pre-validation?name=${encodeURIComponent(formData.user_name || '')}&email=${encodeURIComponent(formData.user_email || '')}`}
               style={{ minWidth: '320px', height: '700px' }}
             />
           </Step>
@@ -371,19 +374,20 @@ const GetStartedModal: React.FC<GetStartedModalProps> = ({ isOpen, onClose }) =>
       case 7: return formData.budget !== '';
       case 8: return formData.main_goal !== '';
       case 9: return formData.role !== '';
-      case 10: return false; // Hide Next button on Calendly step
+      case 10: return formData.timeline !== '';
+      case 11: return false; // Hide Next button on Calendly step
       default: return true;
     }
   };
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
-      {/* hideCloseButton: the header renders its own close control (and the
-          scheduling step renders one inline), so the built-in one would stack
+      {/* hideCloseButton: the header renders its own close control on every
+          step, including the scheduling step, so the built-in one would stack
           on top of it. */}
       <DialogContent
         hideCloseButton
-        className={`paper ${step === 10 ? 'sm:max-w-[900px]' : 'sm:max-w-[620px]'} max-h-[90vh] max-w-[95vw] overflow-hidden border-0 bg-white p-0 gap-0 shadow-2xl`}
+        className={`paper ${step === 11 ? 'sm:max-w-[900px]' : 'sm:max-w-[620px]'} max-h-[90vh] max-w-[95vw] overflow-hidden border-0 bg-white p-0 gap-0 shadow-2xl`}
       >
         {/* ——— Header: one flat plane of the site's own canvas colour, not a
             three-stop gradient with a coral wash over it. The step is named,
@@ -405,7 +409,7 @@ const GetStartedModal: React.FC<GetStartedModalProps> = ({ isOpen, onClose }) =>
 
             <button
               onClick={handleClose}
-              className="-mr-1 -mt-1 flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-hairline transition-colors duration-150 hover:bg-white/10"
+              className="-mr-1 -mt-1 flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-hairline transition-colors duration-150 hover:bg-white/10"
               aria-label="Close"
             >
               <X className="h-4 w-4 text-ink-subtle" aria-hidden="true" />
@@ -427,14 +431,14 @@ const GetStartedModal: React.FC<GetStartedModalProps> = ({ isOpen, onClose }) =>
         {/* ——— Content ——— */}
         <div
           className={`overflow-y-auto bg-white px-6 py-8 ${
-            step === 10 ? 'max-h-[85vh]' : 'max-h-[calc(90vh-232px)]'
+            step === 11 ? 'max-h-[85vh]' : 'max-h-[calc(90vh-232px)]'
           }`}
         >
           {renderStep()}
         </div>
 
         {/* ——— Footer: hairline, not a gray gradient slab ——— */}
-        {step < 10 && (
+        {step < 11 && (
           <div className="flex items-center justify-between gap-4 border-t border-[color:var(--p-hairline)] bg-white px-6 py-5">
             <button
               onClick={handleBack}
@@ -450,7 +454,7 @@ const GetStartedModal: React.FC<GetStartedModalProps> = ({ isOpen, onClose }) =>
               disabled={!canProceed()}
               className="btn-brand group inline-flex h-11 items-center gap-2 px-7 text-sm font-semibold disabled:pointer-events-none disabled:opacity-40 disabled:shadow-none"
             >
-              {step === 9 ? 'Book my Pre-Validation' : 'Continue'}
+              {step === 10 ? 'Book my Pre-Validation' : 'Continue'}
               <ArrowRight
                 className="h-4 w-4 transition-transform duration-200 ease-signature group-hover:translate-x-0.5"
                 aria-hidden="true"

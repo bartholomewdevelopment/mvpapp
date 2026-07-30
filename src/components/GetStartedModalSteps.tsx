@@ -89,8 +89,7 @@ export const Step7: React.FC<StepProps> = ({ formData, setFormData }) => (
   </Step>
 );
 
-/* Not currently rendered by GetStartedModal — the flow jumps from role (step 9)
-   straight to scheduling, so formData.timeline is never collected. Kept as-is. */
+/* Step 10 of 11 — the last question before scheduling. */
 export const Step8: React.FC<StepProps> = ({ formData, setFormData }) => (
   <Step>
     <StepHeading title="How soon are you looking to get started?" />

@@ -244,22 +244,137 @@ const WhatIDo: React.FC = () => {
             </p>
           </div>
 
-          {/* Visual: what the deliverables physically look like — the manual, the
-              staging build, the wireframes, shot from above on a dark surface.
-              Displayed at its own 1818×865 ratio so nothing crops; width/height
-              are set to hold the space before it decodes. */}
-          <div className="mb-16 overflow-hidden rounded-panel border border-hairline">
+          {/* ═══════════ What You Receive ═══════════
+              Photograph on top, full-bleed at 21:9 with square corners — no card,
+              border, or radius around it. Copy sits BELOW the frame, never over it:
+              the three objects fill the frame edge to edge, so a text plate would
+              wash out the thing worth showing. All type here is live HTML, not
+              baked into the image, and nothing carries a scroll-reveal opacity-0
+              class — the band renders fully without JS.
+
+              The source file is 1818×865; object-cover takes the 21:9 window from
+              its centre, which trims ~43px top and bottom and leaves the manual,
+              laptop and tablet fully in frame. No separate 21:9 crop is needed. */}
+          <div className="mb-16">
             <picture>
               <source srcSet="/images/deliverables-flatlay.webp" type="image/webp" />
               <img
                 src="/images/deliverables-flatlay.png"
                 alt="The project deliverables laid out on a dark surface: a bound MVP Applications manual, a laptop showing the staging build's dashboard, and a tablet showing the project timeline."
-                className="w-full h-auto"
+                className="block aspect-[21/9] w-full object-cover"
                 width={1818}
-                height={865}
+                height={779}
                 loading="lazy"
               />
             </picture>
+
+            <div
+              className="flex flex-wrap items-start"
+              style={{
+                gap: 'clamp(28px, 4%, 80px)',
+                paddingTop: 'clamp(20px, 2.4vw, 40px)',
+                borderTop: '1px solid var(--hairline-strong)',
+              }}
+            >
+              {/* Left column */}
+              <div
+                className="flex flex-col"
+                style={{ flex: '0 0 clamp(220px, 26%, 340px)', gap: '12px' }}
+              >
+                <p
+                  style={{
+                    fontFamily: "'JetBrains Mono', monospace",
+                    fontWeight: 500,
+                    fontSize: 'clamp(10px, .7vw, 12px)',
+                    letterSpacing: '.2em',
+                    textTransform: 'uppercase',
+                    color: 'var(--accent-ink)',
+                  }}
+                >
+                  At the end of development
+                </p>
+                <h2
+                  style={{
+                    fontFamily: "'Instrument Sans', 'Inter', sans-serif",
+                    fontWeight: 700,
+                    fontSize: 'clamp(24px, 2.4vw, 42px)',
+                    letterSpacing: '-.035em',
+                    lineHeight: 1.04,
+                    color: 'var(--ink)',
+                  }}
+                >
+                  Everything you walk away with
+                </h2>
+              </div>
+
+              {/* Right grid — 01–05. Items 04 and 05 carry a coral left border:
+                  they're the differentiating value-adds, and colour is the only
+                  thing marking them. */}
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(190px, 1fr))',
+                  gap: 'clamp(18px, 2vw, 34px)',
+                  flex: 1,
+                  minWidth: '300px',
+                }}
+              >
+                {[
+                  { n: '01', accent: false, body: <>The finished application, deployed and yours</> },
+                  { n: '02', accent: false, body: <>A printed manual — how it works, how to run it</> },
+                  { n: '03', accent: false, body: <>Design files and wireframes, handed over in full</> },
+                  {
+                    n: '04',
+                    accent: true,
+                    body: (
+                      <>
+                        <span style={{ fontWeight: 600 }}>3 hours of recorded training</span> — walkthroughs you keep
+                      </>
+                    ),
+                  },
+                  {
+                    n: '05',
+                    accent: true,
+                    body: (
+                      <>
+                        <span style={{ fontWeight: 600 }}>30 days of free support</span> after handoff
+                      </>
+                    ),
+                  },
+                ].map((item) => (
+                  <div
+                    key={item.n}
+                    className="flex flex-col"
+                    style={{
+                      gap: '8px',
+                      paddingLeft: 'clamp(14px, 1.1vw, 20px)',
+                      borderLeft: `1px solid ${item.accent ? 'var(--accent)' : 'var(--hairline-strong)'}`,
+                    }}
+                  >
+                    <span
+                      style={{
+                        fontFamily: "'JetBrains Mono', monospace",
+                        fontSize: 'clamp(9px, .64vw, 11px)',
+                        letterSpacing: '.14em',
+                        color: 'var(--accent-ink)',
+                      }}
+                    >
+                      {item.n}
+                    </span>
+                    <p
+                      style={{
+                        fontFamily: "'Inter', sans-serif",
+                        fontSize: 'clamp(14px, 1.05vw, 18px)',
+                        lineHeight: 1.4,
+                        color: 'var(--ink)',
+                      }}
+                    >
+                      {item.body}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
 
           {/* What's Included */}

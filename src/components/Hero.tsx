@@ -53,7 +53,7 @@ const Hero: React.FC = () => {
                 onClick={handleGetStarted}
                 className="group inline-flex items-center justify-center gap-2 rounded-[var(--r-md)] btn-brand px-7 py-3.5 text-base font-semibold"
               >
-                Start with validation
+                Start with Pre-Validation
                 <ArrowRight
                   className="h-4 w-4 transition-transform duration-200 ease-signature group-hover:translate-x-0.5"
                   aria-hidden="true"
