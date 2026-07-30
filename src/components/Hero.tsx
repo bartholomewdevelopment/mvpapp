@@ -1,7 +1,8 @@
 import React from 'react';
 import { ArrowRight, ArrowDown } from 'lucide-react';
 import { useAppContext } from '@/contexts/AppContext';
-import VisualSlot from './VisualSlot';
+import InlineVisual from './InlineVisual';
+import heroEvidenceSvg from '@/assets/visuals/hero-evidence.svg?raw';
 
 const Hero: React.FC = () => {
   const { openGetStartedModal } = useAppContext();
@@ -92,14 +93,9 @@ const Hero: React.FC = () => {
               }}
               aria-hidden="true"
             />
-            <div className="relative rounded-panel border border-hairline bg-white/[0.02] p-3 shadow-lift-high backdrop-blur-sm">
-              <VisualSlot
-                kind="Illustration"
-                ratio="aspect-[4/5]"
-                label="Hero visual — the validation-to-build sequence"
-                note="Recommended: a spare, technical line illustration or isometric diagram showing evidence (interview notes, pricing tests, signed commitments) converging into a shipped product screen. Monochrome with a single coral accent. Avoid stock photography and generic 3D blobs — this is the one image that has to say 'we measure before we build'."
-              />
-            </div>
+            {/* Authored at 4:5 with a transparent background — no panel or border
+                around it, so the aurora reads through the glass. */}
+            <InlineVisual markup={heroEvidenceSvg} className="relative" />
           </div>
         </div>
       </div>

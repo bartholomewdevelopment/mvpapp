@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>MVP Applications — The 2027 Refresh</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --canvas:#020617; --raised:#0f172a; --deep:#010309;
+    --hair:rgba(255,255,255,.09); --hair2:rgba(255,255,255,.16);
+    --ink:#f8fafc; --muted:#cbd5e1; --subtle:#94a3b8; --faint:#64748b;
+    --coral:#fd6a62; --coral2:#fc5951; --coralink:#ffb4ae;
+    --grad:linear-gradient(135deg,#fd6a62 0%,#fc5951 100%);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  body{background:var(--canvas);color:var(--ink);font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased}
+  .page{width:1123px;height:794px;position:relative;overflow:hidden;background:var(--canvas);page-break-after:always}
+  .page:last-child{page-break-after:auto}
+
+  /* atmosphere, same recipe as the site */
+  .glow{position:absolute;pointer-events:none}
+  .glow-tr{inset:-30% -20% auto 30%;height:120%;background:radial-gradient(45% 50% at 70% 20%,rgba(253,106,98,.22),transparent 70%);filter:blur(30px)}
+  .glow-bl{inset:auto 40% -35% -20%;height:90%;background:radial-gradient(45% 50% at 30% 80%,rgba(252,89,81,.16),transparent 72%);filter:blur(34px)}
+  .mesh{position:absolute;inset:0;pointer-events:none;opacity:.5;
+    background-image:linear-gradient(to right,var(--hair) 1px,transparent 1px),linear-gradient(to bottom,var(--hair) 1px,transparent 1px);
+    background-size:88px 88px;
+    -webkit-mask-image:radial-gradient(70% 60% at 50% 35%,#000,transparent 78%)}
+
+  .display{font-family:'Instrument Sans',sans-serif;font-weight:700;letter-spacing:-.04em;line-height:1}
+  .eyebrow{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--subtle)}
+  .grad-text{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .rule{height:3px;width:56px;border-radius:99px;background:var(--grad)}
+  .dot{width:5px;height:5px;border-radius:99px;background:var(--coral);display:inline-block;vertical-align:middle}
+
+  .pad{position:relative;z-index:2;height:100%;padding:52px 60px;display:flex;flex-direction:column}
+  .foot{position:absolute;left:60px;right:60px;bottom:26px;display:flex;justify-content:space-between;align-items:center;
+    font-size:9px;letter-spacing:.09em;text-transform:uppercase;color:var(--faint);
+    border-top:1px solid var(--hair);padding-top:11px;z-index:3;font-family:'JetBrains Mono',monospace}
+
+  .frame{border:1px solid var(--hair);border-radius:12px;overflow:hidden;background:var(--deep);
+    box-shadow:0 1px 2px rgba(0,0,0,.5),0 24px 60px -24px rgba(0,0,0,.85)}
+  .frame img{display:block;width:100%;object-fit:cover;object-position:top center}
+  .frame.hot{border-color:rgba(253,106,98,.34);box-shadow:0 24px 60px -24px rgba(0,0,0,.85),0 0 70px -26px rgba(253,106,98,.5)}
+
+  .chip{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--hair);background:rgba(255,255,255,.045);
+    border-radius:99px;padding:4px 11px;font-size:9.5px;font-family:'JetBrains Mono',monospace;letter-spacing:.13em;text-transform:uppercase;color:var(--muted)}
+  .chip.hot{border-color:rgba(253,106,98,.4);color:var(--coralink);background:rgba(253,106,98,.1)}
+
+  .card{border:1px solid var(--hair);border-radius:13px;background:rgba(255,255,255,.032);padding:15px 16px}
+  .card h4{font-family:'Instrument Sans',sans-serif;font-size:13.5px;font-weight:600;letter-spacing:-.015em;margin-bottom:5px;color:var(--ink)}
+  .card p{font-size:10.3px;line-height:1.5;color:var(--subtle)}
+  .card .n{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--coral);letter-spacing:.14em;margin-bottom:7px;display:block}
+
+  .swatch{height:44px;border-radius:7px;border:1px solid var(--hair);position:relative}
+  .swatch span{position:absolute;bottom:-15px;left:0;font-family:'JetBrains Mono',monospace;font-size:7.6px;color:var(--faint);letter-spacing:.04em}
+
+  .phone{border:5px solid #1c2231;border-radius:20px;overflow:hidden;background:#000;height:452px;
+    box-shadow:0 20px 46px -18px rgba(0,0,0,.9),0 0 44px -22px rgba(253,106,98,.32)}
+  .phone img{display:block;width:100%;height:auto}
+
+  .note{border:1px solid rgba(253,106,98,.32);background:rgba(253,106,98,.075);border-radius:11px;padding:13px 15px}
+  .note strong{color:var(--coralink)}
+  .note p{font-size:10.2px;line-height:1.55;color:var(--muted)}
+
+  table.plan{width:100%;border-collapse:collapse;font-size:10px}
+  table.plan th{text-align:left;font-family:'JetBrains Mono',monospace;font-size:8.4px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--faint);padding:0 8px 7px 0;border-bottom:1px solid var(--hair);font-weight:500}
+  table.plan td{padding:6.5px 8px 6.5px 0;border-bottom:1px solid rgba(255,255,255,.05);color:var(--muted);vertical-align:top}
+  table.plan td.k{color:var(--ink);font-weight:600;white-space:nowrap}
+  .pill{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:.08em;padding:2px 7px;border-radius:99px;
+    border:1px solid var(--hair2);color:var(--subtle)}
+  .pill.hi{border-color:rgba(253,106,98,.45);color:var(--coralink);background:rgba(253,106,98,.1)}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════ 1 · COVER ══════════════════ -->
+<div class="page">
+  <div class="mesh"></div>
+  <div class="glow glow-tr"></div>
+  <!-- Hero capture as a panel bleeding off the right edge -->
+  <div style="position:absolute;top:96px;left:566px;width:700px;border-radius:14px 0 0 14px;overflow:hidden;
+              border:1px solid rgba(253,106,98,.3);border-right:0;
+              box-shadow:0 34px 80px -28px rgba(0,0,0,.95),0 0 90px -30px rgba(253,106,98,.5)">
+    <img src="./screens/desktop-hero.png" style="display:block;width:100%;height:560px;object-fit:cover;object-position:top left" />
+  </div>
+  <div style="position:absolute;inset:0;background:linear-gradient(96deg,var(--canvas) 0%,var(--canvas) 40%,rgba(2,6,23,.86) 50%,rgba(2,6,23,.12) 62%,transparent 74%)"></div>
+  <div class="pad">
+    <div style="display:flex;align-items:center;gap:11px">
+      <div style="width:24px;height:24px;border-radius:6px;background:var(--grad)"></div>
+      <span style="font-family:'Instrument Sans',sans-serif;font-weight:700;font-size:15px;letter-spacing:-.02em">MVP Applications</span>
+    </div>
+
+    <div style="margin-top:auto;max-width:530px;position:relative;z-index:3">
+      <div class="chip hot" style="margin-bottom:19px"><span class="dot"></span> Design refresh · ready for review</div>
+      <h1 class="display" style="font-size:66px;margin-bottom:20px">
+        The 2027<br /><span class="grad-text">Refresh.</span>
+      </h1>
+      <div class="rule" style="margin-bottom:20px"></div>
+      <p style="font-size:15px;line-height:1.55;color:var(--muted);max-width:470px">
+        Same brand. Same coral. Sharper everything else — type, depth, motion, and hierarchy
+        rebuilt to read like 2027 instead of 2024.
+      </p>
+      <div style="display:flex;gap:9px;margin-top:24px;flex-wrap:wrap">
+        <span class="chip">Brand palette kept</span>
+        <span class="chip">Coral promoted</span>
+        <span class="chip">Real depth</span>
+        <span class="chip">Quiet motion</span>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>Branch · site-redesign-2027</span><span>Not deployed · for review</span></div>
+</div>
+
+<!-- ══════════════════ 2 · BEFORE / AFTER ══════════════════ -->
+<div class="page">
+  <div class="glow glow-tr"></div>
+  <div class="pad">
+    <div style="display:flex;align-items:center;gap:9px;margin-bottom:9px"><span class="dot"></span><span class="eyebrow">Side by side</span></div>
+    <h2 class="display" style="font-size:37px;margin-bottom:9px">Same brand. <span class="grad-text">More presence.</span></h2>
+    <p style="font-size:11.6px;color:var(--subtle);max-width:660px;margin-bottom:22px">
+      Nothing about the identity changed — the coral, the slate darks, the logo, the voice are all
+      untouched. What changed is how much work the design makes them do.
+    </p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+      <div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:9px">
+          <span class="pill">Now live</span><span style="font-size:9px;color:var(--faint);font-family:'JetBrains Mono',monospace">BEFORE</span>
+        </div>
+        <div class="frame"><img src="./screens/before-hero.png" style="height:326px" /></div>
+        <ul style="list-style:none;margin-top:12px;font-size:10px;line-height:1.75;color:var(--subtle)">
+          <li>· Centred headline, gradient washed across every word</li>
+          <li>· Five-element animated divider, repeated in 7 places</li>
+          <li>· Pulsing blur blobs on every section</li>
+          <li>· No visual anchor — copy floats in the middle</li>
+        </ul>
+      </div>
+      <div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:9px">
+          <span class="pill hi">Proposed</span><span style="font-size:9px;color:var(--coralink);font-family:'JetBrains Mono',monospace">AFTER</span>
+        </div>
+        <div class="frame hot"><img src="./screens/desktop-hero.png" style="height:326px" /></div>
+        <ul style="list-style:none;margin-top:12px;font-size:10px;line-height:1.75;color:var(--muted)">
+          <li>· Left-aligned, editorial two-column composition</li>
+          <li>· Coral gradient spent on the payoff phrase only</li>
+          <li>· One mono eyebrow, one confident brand underscore</li>
+          <li>· Proof numerals + a real slot for the hero artwork</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>01 · Hero</span><span>MVP Applications · The 2027 Refresh</span></div>
+</div>
+
+<!-- ══════════════════ 3 · THE UPGRADES ══════════════════ -->
+<div class="page">
+  <div class="glow glow-bl"></div>
+  <div class="pad">
+    <div style="display:flex;align-items:center;gap:9px;margin-bottom:9px"><span class="dot"></span><span class="eyebrow">What changed</span></div>
+    <h2 class="display" style="font-size:37px;margin-bottom:22px">Five upgrades, <span class="grad-text">zero rebrand.</span></h2>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;grid-template-rows:1fr 1fr;gap:14px;flex:1">
+      <div class="card"><span class="n">01</span><h4>Your colours, kept</h4>
+        <p>Slate-950 and slate-900 stay as the base. The coral stays the accent. Nothing new was introduced — the palette below is lifted straight from the existing CSS.</p></div>
+      <div class="card"><span class="n">02</span><h4>Coral, promoted</h4>
+        <p>The coral gradient became a first-class token instead of wallpaper. It now owns the primary CTA, the flagship card's border, and one phrase per headline.</p></div>
+      <div class="card"><span class="n">03</span><h4>Type with a spine</h4>
+        <p>Instrument Sans display face on a fluid scale up to 68px at 700 weight, −0.04em tracking, mono micro-labels, and body copy capped at a readable measure.</p></div>
+      <div class="card"><span class="n">04</span><h4>Depth you can feel</h4>
+        <p>Coral glow on primary actions, a true gradient border on the flagship card, and darker inset wells so prices sit in a pocket instead of floating.</p></div>
+      <div class="card"><span class="n">05</span><h4>Motion with a point</h4>
+        <p>Every idle pulse and CTA shimmer removed. What's left: one slow ambient drift, 140ms hovers, a spring on press, and reduced-motion fully respected.</p></div>
+      <div class="card" style="border-color:rgba(253,106,98,.3);background:rgba(253,106,98,.07)">
+        <span class="n">+</span><h4 style="color:var(--coralink)">Polish that ships</h4>
+        <p style="color:var(--muted)">Skip link, visible focus rings, aria states, 44px tap targets, and a contrast-checked ink ramp — none of which existed before.</p></div>
+    </div>
+
+    <div style="margin-top:24px">
+      <span class="eyebrow">The palette — unchanged</span>
+      <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-top:11px">
+        <div class="swatch" style="background:#020617"><span>#020617 canvas</span></div>
+        <div class="swatch" style="background:#0f172a"><span>#0f172a raised</span></div>
+        <div class="swatch" style="background:#fd6a62"><span>#fd6a62 coral</span></div>
+        <div class="swatch" style="background:#fc5951"><span>#fc5951 coral 2</span></div>
+        <div class="swatch" style="background:#f8fafc"><span>#f8fafc ink</span></div>
+        <div class="swatch" style="background:#cbd5e1"><span>#cbd5e1 body</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>02 · System</span><span>MVP Applications · The 2027 Refresh</span></div>
+</div>
+
+<!-- ══════════════════ 4 · PACKAGE + PROCESS ══════════════════ -->
+<div class="page">
+  <div class="glow glow-tr"></div>
+  <div class="pad">
+    <div style="display:flex;align-items:center;gap:9px;margin-bottom:9px"><span class="dot"></span><span class="eyebrow">Sections</span></div>
+    <h2 class="display" style="font-size:34px;margin-bottom:18px">The offer, <span class="grad-text">framed like the hero object.</span></h2>
+
+    <div style="display:grid;grid-template-columns:1.25fr 1fr;gap:20px;flex:1;padding-bottom:34px;min-height:0">
+      <div class="frame hot" style="height:100%;min-height:0"><img src="./screens/desktop-services-package.png" style="height:100%" /></div>
+      <div style="display:flex;flex-direction:column;gap:11px;justify-content:space-between;min-height:0">
+        <div class="card"><h4>A real gradient border</h4>
+          <p>The flagship card uses a masked coral gradient border and a soft bloom, so the primary offer reads as <em>the</em> object on the page rather than one of two equals.</p></div>
+        <div class="card"><h4>Prices in a pocket</h4>
+          <p>The price block sits in a darker inset well with a specular top edge. The number stops competing with the body copy around it.</p></div>
+        <div class="card"><h4>One heading treatment</h4>
+          <p>Mono eyebrow → display heading → brand underscore → lede. Applied from a single component, so section headings can never drift apart again.</p></div>
+        <div class="frame" style="height:182px"><img src="./screens/desktop-process.png" style="height:182px" /></div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>03 · Package &amp; process</span><span>MVP Applications · The 2027 Refresh</span></div>
+</div>
+
+<!-- ══════════════════ 5 · PORTFOLIO + FAQ ══════════════════ -->
+<div class="page">
+  <div class="glow glow-bl"></div>
+  <div class="pad">
+    <div style="display:flex;align-items:center;gap:9px;margin-bottom:9px"><span class="dot"></span><span class="eyebrow">Sections</span></div>
+    <h2 class="display" style="font-size:34px;margin-bottom:18px">Portfolio and FAQ, <span class="grad-text">quieted down.</span></h2>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+      <div>
+        <div class="frame" style="margin-bottom:12px"><img src="./screens/desktop-portfolio.png" style="height:352px" /></div>
+        <div class="card"><h4>The screenshots do the talking</h4>
+          <p>Browser-framed product shots were already the strongest visual system on the site. They stay — now on one calm canvas instead of three competing coloured washes.</p></div>
+      </div>
+      <div>
+        <div class="frame" style="margin-bottom:12px"><img src="./screens/desktop-faq.png" style="height:352px" /></div>
+        <div class="card"><h4>Answers you can actually read</h4>
+          <p>Contrast-checked ink ramp, a tighter measure, and hairline separators replace the old low-contrast grey-on-slate. The icon-and-sparkle header cluster is gone.</p></div>
+      </div>
+    </div>
+
+    <div class="note" style="margin-top:20px">
+      <p><strong>Note on the copy in these screens.</strong> These captures come from the design branch, which has
+      not been rebased onto the newly-deployed pricing yet — so the prices and the two-card layout shown here are
+      the <em>old</em> content. Deploying the design is a separate step from the pricing, and the rebase brings the
+      live $22,500 single-path content into these exact layouts. Judge the design here, not the numbers.</p>
+    </div>
+  </div>
+  <div class="foot"><span>04 · Portfolio &amp; FAQ</span><span>MVP Applications · The 2027 Refresh</span></div>
+</div>
+
+<!-- ══════════════════ 6 · MOBILE ══════════════════ -->
+<div class="page">
+  <div class="glow glow-tr"></div>
+  <div class="pad">
+    <div style="display:flex;align-items:center;gap:9px;margin-bottom:9px"><span class="dot"></span><span class="eyebrow">Responsive</span></div>
+    <h2 class="display" style="font-size:34px;margin-bottom:6px">Built mobile-out, <span class="grad-text">not mobile-after.</span></h2>
+    <p style="font-size:11.4px;color:var(--subtle);max-width:640px;margin-bottom:20px">Captured at 390&nbsp;px on a real headless browser — the same device width as an iPhone 15.</p>
+
+    <div style="display:grid;grid-template-columns:214px 214px 214px 1fr;gap:16px;align-items:start">
+      <div><div class="phone"><img src="./screens/mobile-hero.png" /></div>
+        <p style="font-size:9.4px;color:var(--faint);margin-top:9px;text-align:center;font-family:'JetBrains Mono',monospace;letter-spacing:.1em">HERO</p></div>
+      <div><div class="phone"><img src="./screens/mobile-services-package.png" /></div>
+        <p style="font-size:9.4px;color:var(--faint);margin-top:9px;text-align:center;font-family:'JetBrains Mono',monospace;letter-spacing:.1em">PACKAGE</p></div>
+      <div><div class="phone"><img src="./screens/mobile-faq.png" /></div>
+        <p style="font-size:9.4px;color:var(--faint);margin-top:9px;text-align:center;font-family:'JetBrains Mono',monospace;letter-spacing:.1em">FAQ</p></div>
+      <div style="display:flex;flex-direction:column;gap:11px">
+        <div class="card"><h4>Fluid, not stepped</h4>
+          <p>Every display size is a <code style="font-family:'JetBrains Mono',monospace;font-size:9.4px;color:var(--coralink)">clamp()</code> — headings scale with the viewport instead of jumping at breakpoints.</p></div>
+        <div class="card"><h4>Nav that reacts</h4>
+          <p>Transparent over the hero, hairline + blur once you scroll. The menu button is a 44px target with proper aria state.</p></div>
+        <div class="card"><h4>Reduced motion honoured</h4>
+          <p>Users with motion sensitivity get the full page instantly — including a rule that forces reveal content visible, which the old build could leave stuck invisible.</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>05 · Mobile</span><span>MVP Applications · The 2027 Refresh</span></div>
+</div>
+
+<!-- ══════════════════ 7 · WHERE THE GRAPHICS GO ══════════════════ -->
+<div class="page">
+  <div class="glow glow-bl"></div>
+  <div class="pad">
+    <div style="display:flex;align-items:center;gap:9px;margin-bottom:9px"><span class="dot"></span><span class="eyebrow">Next</span></div>
+    <h2 class="display" style="font-size:34px;margin-bottom:8px">Where your <span class="grad-text">graphics and photos</span> go.</h2>
+    <p style="font-size:11.4px;color:var(--subtle);max-width:700px;margin-bottom:18px">
+      Three labelled placeholder frames are already live in the layout — you saw two of them on the previous
+      pages. Each one swaps for a real asset independently, so artwork can land one piece at a time.
+    </p>
+
+    <div style="display:grid;grid-template-columns:1.5fr 1fr;gap:22px;flex:1">
+      <table class="plan">
+        <tr><th style="width:26px">#</th><th>Asset</th><th>Where</th><th>Effort</th><th>Impact</th></tr>
+        <tr><td class="k">1</td><td class="k">Validation → build timeline diagram</td><td>Process</td><td>Low · in-house SVG</td><td><span class="pill hi">Very high</span></td></tr>
+        <tr><td class="k">2</td><td class="k">Hero illustration</td><td>Hero</td><td>Medium · commission</td><td><span class="pill hi">Very high</span></td></tr>
+        <tr><td class="k">3</td><td class="k">Environmental founder portrait</td><td>About</td><td>Low · half-day shoot</td><td><span class="pill">High</span></td></tr>
+        <tr><td class="k">4</td><td class="k">Deliverables flat-lay photo</td><td>Services</td><td>Low · same shoot</td><td><span class="pill">High</span></td></tr>
+        <tr><td class="k">5</td><td class="k">Dark-mode logo SVGs</td><td>Nav / footer</td><td>Low</td><td><span class="pill">Medium</span></td></tr>
+        <tr><td class="k">6</td><td class="k">Re-captured product screenshots</td><td>Portfolio</td><td>Low</td><td><span class="pill">Medium</span></td></tr>
+        <tr><td class="k">7</td><td class="k">Short product screen-recording</td><td>Portfolio</td><td>Medium</td><td><span class="pill">Medium</span></td></tr>
+        <tr><td class="k">8</td><td class="k">Validation threshold chart</td><td>Methodology</td><td>Low</td><td><span class="pill">Medium</span></td></tr>
+        <tr><td class="k">9</td><td class="k">Client headshots &amp; logo strip</td><td>Social proof</td><td>Needs permission</td><td><span class="pill">High</span></td></tr>
+      </table>
+
+      <div style="display:flex;flex-direction:column;gap:11px">
+        <div class="card"><h4>Art direction, in one line</h4>
+          <p>Dark-native exports, monochrome plus one coral accent, and <em>evidence over aspiration</em> — charts, notes, and timelines. No stock photos, no gradient blobs, no rocket ships.</p></div>
+        <div class="card" style="border-color:rgba(253,106,98,.3);background:rgba(253,106,98,.07)">
+          <h4 style="color:var(--coralink)">Cheapest real win</h4>
+          <p style="color:var(--muted)">Items 1, 3 and 4 are low-effort and in-house, and together they close most of the visual gap. Worth doing before commissioning anything.</p></div>
+        <div class="card"><h4>Status</h4>
+          <p>Branch <code style="font-family:'JetBrains Mono',monospace;font-size:9.4px;color:var(--coralink)">site-redesign-2027</code> · pushed, unmerged, not deployed. Build is clean. Next step is a rebase onto the live pricing, then your approval.</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>06 · Graphics plan</span><span>MVP Applications · The 2027 Refresh</span></div>
+</div>
+
+</body>
+</html>

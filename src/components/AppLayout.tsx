@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Navigation from './Navigation';
 import Hero from './Hero';
 import WhatIDo from './WhatIDo';
+import BaseRate from './BaseRate';
 import Process from './Process';
 import About from './About';
 import FAQ from './FAQ';
@@ -48,6 +49,9 @@ const AppLayout: React.FC = () => {
           </div>
           <div id="what-i-do">
             <WhatIDo />
+          </div>
+          <div id="methodology">
+            <BaseRate />
           </div>
           <div id="process">
             <Process />

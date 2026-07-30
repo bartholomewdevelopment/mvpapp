@@ -225,19 +225,19 @@ const GetStartedModal: React.FC<GetStartedModalProps> = ({ isOpen, onClose }) =>
               <div className={`relative flex items-start p-4 border-2 rounded-xl cursor-pointer transition-all duration-300 ${formData.validation_status === 'few-interviews' ? 'border-[#fd6a62] bg-[#fd6a62]/5 shadow-lg shadow-[#fd6a62]/20' : 'border-gray-200 hover:border-[#fd6a62]/50 bg-white'}`}>
                 <RadioGroupItem value="few-interviews" id="few-interviews" className="mt-1" />
                 <Label htmlFor="few-interviews" className="ml-4 cursor-pointer flex-1 text-sm leading-relaxed text-gray-700">
-                  Did a few interviews (less than 15 strangers)
+                  Did a few interviews (less than 20 strangers)
                 </Label>
               </div>
               <div className={`relative flex items-start p-4 border-2 rounded-xl cursor-pointer transition-all duration-300 ${formData.validation_status === 'validated-committed' ? 'border-green-500 bg-green-50 shadow-lg shadow-green-500/20' : 'border-gray-200 hover:border-green-500/50 bg-white'}`}>
                 <RadioGroupItem value="validated-committed" id="validated-committed" className="mt-1" />
                 <Label htmlFor="validated-committed" className="ml-4 cursor-pointer flex-1 text-sm leading-relaxed text-gray-700">
-                  15+ interviews with strangers + 5+ paying commitments
+                  20+ interviews with strangers + 5–10 paying commitments
                 </Label>
               </div>
               <div className={`relative flex items-start p-4 border-2 rounded-xl cursor-pointer transition-all duration-300 ${formData.validation_status === 'validated-paying' ? 'border-green-500 bg-green-50 shadow-lg shadow-green-500/20' : 'border-gray-200 hover:border-green-500/50 bg-white'}`}>
                 <RadioGroupItem value="validated-paying" id="validated-paying" className="mt-1" />
                 <Label htmlFor="validated-paying" className="ml-4 cursor-pointer flex-1 text-sm leading-relaxed text-gray-700">
-                  15+ interviews + paying customers already using a prototype
+                  20+ interviews + paying customers already using a prototype
                 </Label>
               </div>
             </RadioGroup>

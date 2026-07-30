@@ -98,40 +98,44 @@ const About: React.FC = () => {
 
             <div className="grid lg:grid-cols-[340px_1fr] gap-10 lg:gap-16 items-center">
               {/* Photo side */}
-              <div className="relative mx-auto lg:mx-0">
-                {/* Glow behind photo */}
-                <div className="absolute -inset-4 bg-gradient-to-br from-[#fd6a62]/30 to-[#fc5951]/20 rounded-panel blur-2xl opacity-60"></div>
-                {/* Diagonal accent line */}
-                <div className="absolute -top-6 -left-6 w-24 h-24 border-t-2 border-l-2 border-[#fd6a62]/40 rounded-tl-3xl"></div>
-                <div className="absolute -bottom-6 -right-6 w-24 h-24 border-b-2 border-r-2 border-[#fc5951]/40 rounded-br-3xl"></div>
+              <div className="mx-auto w-64 sm:w-72 lg:mx-0">
+                <div className="relative">
+                  {/* Glow behind photo */}
+                  <div className="absolute -inset-4 bg-gradient-to-br from-[#fd6a62]/30 to-[#fc5951]/20 rounded-panel blur-2xl opacity-60"></div>
+                  {/* Diagonal accent line */}
+                  <div className="absolute -top-6 -left-6 w-24 h-24 border-t-2 border-l-2 border-[#fd6a62]/40 rounded-tl-3xl"></div>
+                  <div className="absolute -bottom-6 -right-6 w-24 h-24 border-b-2 border-r-2 border-[#fc5951]/40 rounded-br-3xl"></div>
 
-                {/* Photo container */}
-                <div className="relative w-64 h-80 sm:w-72 sm:h-[22rem] rounded-card overflow-hidden shadow-lift-high shadow-black/40 border border-hairline">
-                  <img
-                    src="/images/joseph-bartholomew.jpg"
-                    alt="Joseph Bartholomew - Founder of MVP Applications"
-                    className="w-full h-full object-cover object-top"
-                    loading="lazy"
-                  />
-                  {/* Gradient overlay at bottom */}
-                  <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-slate-950 via-slate-950/70 to-transparent"></div>
-                  {/* Name on photo */}
-                  <div className="absolute bottom-4 left-5 right-5">
-                    <h4 className="text-xl font-bold text-white leading-tight">Joseph Bartholomew</h4>
-                    <p className="text-[#fd6a62] font-semibold text-sm mt-0.5">Founder & Lead Developer</p>
+                  {/* Photo container — the portrait ships as shot: square, uncropped,
+                      full colour. No duotone and no scrim over the face, so the name
+                      sits below the frame rather than on top of it. */}
+                  <div className="relative aspect-square w-full rounded-card overflow-hidden shadow-lift-high shadow-black/40 border border-hairline">
+                    <img
+                      src="/images/portrait-joseph.jpeg"
+                      alt="Joseph Bartholomew - Founder of MVP Applications"
+                      className="w-full h-full object-cover"
+                      width={1024}
+                      height={1024}
+                      loading="lazy"
+                    />
+                  </div>
+
+                  {/* Floating stat badge - top right */}
+                  <div className="absolute -top-3 -right-3 sm:-right-5 bg-brand-grad rounded-xl px-4 py-2.5 shadow-lift z-10">
+                    <p className="text-white font-bold text-lg leading-none">10+</p>
+                    <p className="text-white/80 text-[10px] font-medium uppercase tracking-wider">Years</p>
+                  </div>
+
+                  {/* Floating stat badge - bottom left */}
+                  <div className="absolute -bottom-5 -left-3 sm:-left-5 bg-gradient-to-br from-slate-700 to-slate-800 border border-hairline rounded-xl px-4 py-2.5 shadow-lg z-10">
+                    <p className="text-white font-bold text-lg leading-none">100%</p>
+                    <p className="text-ink-subtle text-[10px] font-medium uppercase tracking-wider">U.S. Based</p>
                   </div>
                 </div>
 
-                {/* Floating stat badge - top right */}
-                <div className="absolute -top-3 -right-3 sm:-right-5 bg-brand-grad rounded-xl px-4 py-2.5 shadow-lift z-10">
-                  <p className="text-white font-bold text-lg leading-none">10+</p>
-                  <p className="text-white/80 text-[10px] font-medium uppercase tracking-wider">Years</p>
-                </div>
-
-                {/* Floating stat badge - bottom left */}
-                <div className="absolute -bottom-12 -left-3 sm:-left-5 bg-gradient-to-br from-slate-700 to-slate-800 border border-hairline rounded-xl px-4 py-2.5 shadow-lg z-10">
-                  <p className="text-white font-bold text-lg leading-none">100%</p>
-                  <p className="text-ink-subtle text-[10px] font-medium uppercase tracking-wider">U.S. Based</p>
+                <div className="mt-8">
+                  <h4 className="text-xl font-bold text-white leading-tight">Joseph Bartholomew</h4>
+                  <p className="text-[#fd6a62] font-semibold text-sm mt-0.5">Founder &amp; Lead Developer</p>
                 </div>
               </div>
 

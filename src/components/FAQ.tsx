@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import FAQItem from './FAQItem';
 import { faqData } from './FAQData';
 import SectionHeader from './SectionHeader';
+import InlineVisual from './InlineVisual';
+import checklistSvg from '@/assets/visuals/validation-checklist.svg?raw';
 
 const FAQ: React.FC = () => {
   const [openItems, setOpenItems] = useState<number[]>([]);
@@ -23,6 +25,12 @@ const FAQ: React.FC = () => {
           lede="Everything you need to know about launching your MVP with confidence."
           className="mb-14 sm:mb-16"
         />
+
+        {/* The "is my idea validated yet?" answer, as a graphic instead of a
+            bulleted paragraph. Authored at 25:18 on a transparent ground. */}
+        <div className="mb-14 sm:mb-16">
+          <InlineVisual markup={checklistSvg} />
+        </div>
 
         {/* FAQ Items */}
         <div className="space-y-4">

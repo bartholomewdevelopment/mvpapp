@@ -8,7 +8,7 @@ export const faqData: FAQData[] = [
   {
     id: 1,
     question: "What's the difference between the Complete Startup Package and MVP Development Only?",
-    answer: "Complete Startup Package is all-inclusive: Discovery, Validation Coaching, Design, and full MVP Development. Perfect for entrepreneurs with unvalidated ideas. Starting at $8,500 total, paid in phases over 13-23 weeks.\n\nMVP Development Only is for entrepreneurs who've already validated their idea with 15+ customer interviews and 5+ paying commitments. Starting at $6,000, paid in phases over 9-19 weeks.\n\nMost first-time founders should choose the Complete Startup Package—building before validation is the #1 reason 90% of startups fail."
+    answer: "Complete Startup Package is all-inclusive: Discovery, Validation Coaching, Design, and full MVP Development. Perfect for entrepreneurs with unvalidated ideas. Starting at $8,500 total, paid in phases over 13-23 weeks.\n\nMVP Development Only is for entrepreneurs who've already validated their idea with 20+ customer interviews and 5–10 paying commitments. Starting at $6,000, paid in phases over 9-19 weeks.\n\nMost first-time founders should choose the Complete Startup Package—building before validation is the #1 reason 90% of startups fail."
   },
   {
     id: 2,
@@ -18,7 +18,7 @@ export const faqData: FAQData[] = [
   {
     id: 3,
     question: "What if I'm not sure if my idea is validated yet?",
-    answer: "If you haven't done ALL of these, your idea is not validated:\n\n• Conducted 15-20 customer interviews with STRANGERS (not friends/family)\n• 60%+ rated the problem as 8/10 or higher in severity\n• 50%+ are currently spending money trying to solve this problem\n• Gotten 5-10 people to pre-pay, deposit, or commit with signed agreements\n• Tested pricing with 40%+ conversion rate\n\nIf you can't check all these boxes, choose the Complete Startup Package. Building an unvalidated idea is how you waste $50K+ and 6-18 months on something nobody wants."
+    answer: "If you haven't done ALL of these, your idea is not validated:\n\n• You have spoken with 20+ people who have the problem — strangers, not friends or family\n• 60% of them rate its severity 8/10 or higher\n• Half are already paying for a workaround\n• 5–10 people have committed money, not praise\n• You can say plainly who this is not for\n\nThe middle three are the numbers we measure at the decision gate. The other two are judgement calls. All five have to hold, or it is still an assumption.\n\nIf you can't check all five boxes, choose the Complete Startup Package. Building an unvalidated idea is how you waste $50K+ and 6-18 months on something nobody wants."
   },
   {
     id: 4,

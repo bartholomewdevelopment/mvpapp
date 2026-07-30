@@ -4,7 +4,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Code, FileText, Video, Users, Zap, Clock, DollarSign, CheckCircle, Target, Rocket } from 'lucide-react';
 import { useAppContext } from '@/contexts/AppContext';
 import SectionHeader from './SectionHeader';
-import VisualSlot from './VisualSlot';
 
 const WhatIDo: React.FC = () => {
   const { openGetStartedModal } = useAppContext();
@@ -166,7 +165,7 @@ const WhatIDo: React.FC = () => {
 
                   <div className="bg-amber-900/20 border border-amber-600/40 rounded-lg p-4 mb-6">
                     <p className="text-sm text-amber-200 mb-2">
-                      <strong className="text-amber-100">Prerequisites:</strong> Idea must be validated with 15+ customer interviews and 5+ paying commitments
+                      <strong className="text-amber-100">Prerequisites:</strong> Idea must be validated with 20+ customer interviews and 5–10 paying commitments
                     </p>
                     <p className="text-xs text-amber-300 mt-2">
                       <strong className="text-amber-100">Payment:</strong> $1,000 Discovery → $5,000 Development Start → Milestone payments
@@ -186,14 +185,22 @@ const WhatIDo: React.FC = () => {
             </Card>
           </div>
 
-          {/* Visual: what the deliverables physically look like */}
-          <div className="mb-16">
-            <VisualSlot
-              kind="Photo"
-              ratio="aspect-[21/9]"
-              label="Deliverables, photographed flat-lay"
-              note="The three things a client actually receives, shot from above on a dark surface: the printed PDF manual, a laptop showing the staging build, and a tablet with the Figma wireframes. Makes an abstract package feel like a physical object. Alternative: a single wide screenshot montage of a real delivered app."
-            />
+          {/* Visual: what the deliverables physically look like — the manual, the
+              staging build, the wireframes, shot from above on a dark surface.
+              Displayed at its own 1818×865 ratio so nothing crops; width/height
+              are set to hold the space before it decodes. */}
+          <div className="mb-16 overflow-hidden rounded-panel border border-hairline">
+            <picture>
+              <source srcSet="/images/deliverables-flatlay.webp" type="image/webp" />
+              <img
+                src="/images/deliverables-flatlay.png"
+                alt="The project deliverables laid out on a dark surface: a bound MVP Applications manual, a laptop showing the staging build's dashboard, and a tablet showing the project timeline."
+                className="w-full h-auto"
+                width={1818}
+                height={865}
+                loading="lazy"
+              />
+            </picture>
           </div>
 
           {/* What's Included in Both */}

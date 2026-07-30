@@ -4,7 +4,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Phone, FileText, Users, Code, Zap, GraduationCap, CheckCircle, Target, Rocket, ArrowRight } from 'lucide-react';
 import { useAppContext } from '@/contexts/AppContext';
 import SectionHeader from './SectionHeader';
-import VisualSlot from './VisualSlot';
+import InlineVisual from './InlineVisual';
+import timelineSvg from '@/assets/visuals/process-timeline.svg?raw';
 
 const Process: React.FC = () => {
   const { openGetStartedModal } = useAppContext();
@@ -24,7 +25,7 @@ const Process: React.FC = () => {
     {
       icon: Users,
       title: "Real Customer Validation",
-      description: "Conduct 15-20 customer interviews with strangers (not friends who lie). Test pricing, get paying commitments, and prove people will pay BEFORE you build. We provide scripts, templates, and expert feedback on every interview.",
+      description: "Conduct 20+ customer interviews with strangers (not friends who lie). Test pricing, get paying commitments, and prove people will pay BEFORE you build. We provide scripts, templates, and expert feedback on every interview.",
       color: "from-gray-700 to-gray-900"
     },
     {
@@ -125,17 +126,15 @@ const Process: React.FC = () => {
             </div>
           </div>
 
-          <div className="max-w-4xl mx-auto">
-            {/* Visual: the process is the product here — it deserves a real diagram */}
-            <div className="mb-14">
-              <VisualSlot
-                kind="Diagram"
-                ratio="aspect-[16/7]"
-                label="The validation → build timeline"
-                note="A horizontal timeline with the four phases, their durations, and the go/pivot/kill decision gate after validation. Show the data thresholds as small annotations on the gate. This is the single most persuasive graphic on the site: it makes the phased, evidence-gated method legible in one glance instead of five paragraphs."
-              />
-            </div>
+          {/* Visual: the process is the product here — it deserves a real diagram.
+              Kept outside the max-w-4xl column: its small type is 16px in a 1600px
+              canvas, so below ~1100px of display width the labels fall under 11px.
+              Narrow viewports scroll it rather than shrink it. */}
+          <div className="mb-14 -mx-6 overflow-x-auto px-6 sm:mx-0 sm:px-0">
+            <InlineVisual markup={timelineSvg} className="min-w-[1100px]" />
+          </div>
 
+          <div className="max-w-4xl mx-auto">
             <div className="space-y-8 mb-16">
               {currentSteps.map((step, index) => {
                 const IconComponent = step.icon;
@@ -206,7 +205,7 @@ const Process: React.FC = () => {
                     Not Validated Yet?
                   </h3>
                   <p className="text-amber-200 leading-relaxed max-w-2xl mx-auto mb-6">
-                    90% of startups fail because they build before validating. If you haven't completed 15+ customer interviews and gotten 5+ paying commitments, start with Validation Coaching instead.
+                    90% of startups fail because they build before validating. If you haven't completed 20+ customer interviews and gotten 5–10 paying commitments, start with Validation Coaching instead.
                   </p>
                   <Button
                     variant="outline"
