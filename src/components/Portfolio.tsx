@@ -216,7 +216,7 @@ const Portfolio: React.FC = () => {
                       <FeaturePill icon={CreditCard} label="Payments via Stripe" accentColor="#6366f1" />
                     </div>
                     <a
-                      href="https://overtimeam.com"
+                      href="https://overtimeam.com/"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-2.5 bg-gradient-to-r from-indigo-600 to-indigo-500 text-white px-6 py-3 rounded-xl font-semibold text-base shadow-xl shadow-indigo-500/25 hover:shadow-indigo-500/40 hover:scale-105 transition-all duration-150 ease-signature"

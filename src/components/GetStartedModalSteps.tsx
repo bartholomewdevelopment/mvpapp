@@ -39,17 +39,18 @@ export const Step5: React.FC<StepProps> = ({ formData, setFormData }) => (
   <div className="space-y-6">
     <h3 className="text-xl font-semibold text-gray-900 mb-4">What's your approximate budget for this project?</h3>
     <RadioGroup value={formData.budget} onValueChange={(value) => setFormData({ ...formData, budget: value })}>
+      {/* TODO(founder): brackets realigned to the $18,000 build floor — confirm these ranges. */}
       <div className="flex items-center space-x-2">
-        <RadioGroupItem value="less-5k" id="less-5k" />
-        <Label htmlFor="less-5k">Less than $5,000</Label>
+        <RadioGroupItem value="less-18k" id="less-18k" />
+        <Label htmlFor="less-18k">Less than $18,000</Label>
       </div>
       <div className="flex items-center space-x-2">
-        <RadioGroupItem value="5k-15k" id="5k-15k" />
-        <Label htmlFor="5k-15k">$5,000–$15,000</Label>
+        <RadioGroupItem value="18k-30k" id="18k-30k" />
+        <Label htmlFor="18k-30k">$18,000–$30,000</Label>
       </div>
       <div className="flex items-center space-x-2">
-        <RadioGroupItem value="15k-50k" id="15k-50k" />
-        <Label htmlFor="15k-50k">$15,000–$50,000</Label>
+        <RadioGroupItem value="30k-50k" id="30k-50k" />
+        <Label htmlFor="30k-50k">$30,000–$50,000</Label>
       </div>
       <div className="flex items-center space-x-2">
         <RadioGroupItem value="50k-100k" id="50k-100k" />
@@ -69,7 +70,7 @@ export const Step6: React.FC<StepProps> = ({ formData, setFormData }) => (
     <RadioGroup value={formData.main_goal} onValueChange={(value) => setFormData({ ...formData, main_goal: value })}>
       <div className="flex items-center space-x-2">
         <RadioGroupItem value="validate-idea" id="validate-idea" />
-        <Label htmlFor="validate-idea">Validate an idea (MVP only)</Label>
+        <Label htmlFor="validate-idea">Validate an idea before building</Label>
       </div>
       <div className="flex items-center space-x-2">
         <RadioGroupItem value="launch-product" id="launch-product" />

@@ -64,7 +64,7 @@ const Hero: React.FC = () => {
                 onClick={scrollToWhatIDo}
                 className="group inline-flex items-center justify-center gap-2 rounded-[var(--r-md)] border border-hairline-strong bg-white/[0.03] px-7 py-3.5 text-base font-semibold text-ink transition-all duration-150 ease-signature hover:border-hairline-strong hover:bg-white/[0.07]"
               >
-                See the path
+                Already validated? Fast-track your build
                 <ArrowDown
                   className="h-4 w-4 transition-transform duration-200 ease-signature group-hover:translate-y-0.5"
                   aria-hidden="true"

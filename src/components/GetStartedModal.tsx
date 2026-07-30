@@ -297,10 +297,10 @@ const GetStartedModal: React.FC<GetStartedModalProps> = ({ isOpen, onClose }) =>
                     </div>
                     <div className="flex-1">
                       <h3 className="text-xl font-bold text-gray-900 mb-2">
-                        Great! You're Ready for MVP Development
+                        Great! You're Ready to Fast-Track Your Build
                       </h3>
                       <p className="text-sm text-gray-700 leading-relaxed">
-                        Based on your validation work, you're ready to build. We'll help you launch a clean, scalable MVP.
+                        Based on your validation work, we'll review your evidence and fast-track you to build. Your validation phase becomes a quick paid review, credited toward your build.
                       </p>
                     </div>
                   </div>
@@ -319,7 +319,7 @@ const GetStartedModal: React.FC<GetStartedModalProps> = ({ isOpen, onClose }) =>
                     </div>
                     <div className="flex items-start gap-3 bg-white/80 backdrop-blur-sm rounded-lg p-3">
                       <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
-                      <span className="text-sm text-gray-700">Investment: $6,000-$21,000 based on scope</span>
+                      <span className="text-sm text-gray-700">Investment: $18,000-$50,000 based on scope</span>
                     </div>
                   </div>
                 </div>
