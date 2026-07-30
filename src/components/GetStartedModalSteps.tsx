@@ -1,149 +1,113 @@
 import React from 'react';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { Label } from '@/components/ui/label';
+import { Choices, StepHeading, Step } from './GetStartedModalUI';
 
 interface StepProps {
   formData: any;
   setFormData: (data: any) => void;
 }
 
+/* Question values are unchanged from the previous version — emailService reads
+   them, so only the presentation moved onto the .choice / StepHeading system. */
+
 export const Step4: React.FC<StepProps> = ({ formData, setFormData }) => (
-  <div className="space-y-6">
-    <h3 className="text-xl font-semibold text-gray-900 mb-4">Do you have any paying or active users yet?</h3>
-    <RadioGroup value={formData.active_users} onValueChange={(value) => setFormData({ ...formData, active_users: value })}>
-      <div className="flex items-center space-x-2">
-        <RadioGroupItem value="no-users" id="no-users" />
-        <Label htmlFor="no-users">No users yet — still validating the idea</Label>
-      </div>
-      <div className="flex items-center space-x-2">
-        <RadioGroupItem value="waitlist" id="waitlist" />
-        <Label htmlFor="waitlist">Small waitlist / email signups only</Label>
-      </div>
-      <div className="flex items-center space-x-2">
-        <RadioGroupItem value="beta-users" id="beta-users" />
-        <Label htmlFor="beta-users">Beta users testing the product</Label>
-      </div>
-      <div className="flex items-center space-x-2">
-        <RadioGroupItem value="paying-early" id="paying-early" />
-        <Label htmlFor="paying-early">Paying early customers</Label>
-      </div>
-      <div className="flex items-center space-x-2">
-        <RadioGroupItem value="hundreds-paying" id="hundreds-paying" />
-        <Label htmlFor="hundreds-paying">Hundreds of paying customers</Label>
-      </div>
-    </RadioGroup>
-  </div>
+  <Step>
+    <StepHeading
+      eyebrow="Traction"
+      title="Do you have any paying or active users yet?"
+    />
+    <Choices
+      name="active_users"
+      value={formData.active_users}
+      onChange={(value) => setFormData({ ...formData, active_users: value })}
+      options={[
+        { value: 'no-users', label: 'No users yet — still validating the idea' },
+        { value: 'waitlist', label: 'Small waitlist / email signups only' },
+        { value: 'beta-users', label: 'Beta users testing the product' },
+        { value: 'paying-early', label: 'Paying early customers' },
+        { value: 'hundreds-paying', label: 'Hundreds of paying customers' },
+      ]}
+    />
+  </Step>
 );
 
 export const Step5: React.FC<StepProps> = ({ formData, setFormData }) => (
-  <div className="space-y-6">
-    <h3 className="text-xl font-semibold text-gray-900 mb-4">What's your approximate budget for this project?</h3>
-    <RadioGroup value={formData.budget} onValueChange={(value) => setFormData({ ...formData, budget: value })}>
-      {/* TODO(founder): brackets realigned to the $18,000 build floor — confirm these ranges. */}
-      <div className="flex items-center space-x-2">
-        <RadioGroupItem value="less-18k" id="less-18k" />
-        <Label htmlFor="less-18k">Less than $18,000</Label>
-      </div>
-      <div className="flex items-center space-x-2">
-        <RadioGroupItem value="18k-30k" id="18k-30k" />
-        <Label htmlFor="18k-30k">$18,000–$30,000</Label>
-      </div>
-      <div className="flex items-center space-x-2">
-        <RadioGroupItem value="30k-50k" id="30k-50k" />
-        <Label htmlFor="30k-50k">$30,000–$50,000</Label>
-      </div>
-      <div className="flex items-center space-x-2">
-        <RadioGroupItem value="50k-100k" id="50k-100k" />
-        <Label htmlFor="50k-100k">$50,000–$100,000</Label>
-      </div>
-      <div className="flex items-center space-x-2">
-        <RadioGroupItem value="100k-plus" id="100k-plus" />
-        <Label htmlFor="100k-plus">$100,000+</Label>
-      </div>
-    </RadioGroup>
-  </div>
+  <Step>
+    <StepHeading
+      eyebrow="Budget"
+      title="What's your approximate budget for this project?"
+      hint="Ranges start at the $18,000 build floor."
+    />
+    {/* TODO(founder): brackets realigned to the $18,000 build floor — confirm these ranges. */}
+    <Choices
+      name="budget"
+      value={formData.budget}
+      onChange={(value) => setFormData({ ...formData, budget: value })}
+      options={[
+        { value: 'less-18k', label: 'Less than $18,000' },
+        { value: '18k-30k', label: '$18,000–$30,000' },
+        { value: '30k-50k', label: '$30,000–$50,000' },
+        { value: '50k-100k', label: '$50,000–$100,000' },
+        { value: '100k-plus', label: '$100,000+' },
+      ]}
+    />
+  </Step>
 );
 
 export const Step6: React.FC<StepProps> = ({ formData, setFormData }) => (
-  <div className="space-y-6">
-    <h3 className="text-xl font-semibold text-gray-900 mb-4">What is your main goal for building this software?</h3>
-    <RadioGroup value={formData.main_goal} onValueChange={(value) => setFormData({ ...formData, main_goal: value })}>
-      <div className="flex items-center space-x-2">
-        <RadioGroupItem value="validate-idea" id="validate-idea" />
-        <Label htmlFor="validate-idea">Validate an idea before building</Label>
-      </div>
-      <div className="flex items-center space-x-2">
-        <RadioGroupItem value="launch-product" id="launch-product" />
-        <Label htmlFor="launch-product">Launch a full product for real customers</Label>
-      </div>
-      <div className="flex items-center space-x-2">
-        <RadioGroupItem value="upgrade-system" id="upgrade-system" />
-        <Label htmlFor="upgrade-system">Upgrade or replace an existing system</Label>
-      </div>
-      <div className="flex items-center space-x-2">
-        <RadioGroupItem value="raise-funds" id="raise-funds" />
-        <Label htmlFor="raise-funds">Raise funds with a working prototype</Label>
-      </div>
-      <div className="flex items-center space-x-2">
-        <RadioGroupItem value="other" id="other" />
-        <Label htmlFor="other">Other</Label>
-      </div>
-    </RadioGroup>
-  </div>
+  <Step>
+    <StepHeading
+      eyebrow="Objective"
+      title="What is your main goal for building this software?"
+    />
+    <Choices
+      name="main_goal"
+      value={formData.main_goal}
+      onChange={(value) => setFormData({ ...formData, main_goal: value })}
+      options={[
+        { value: 'validate-idea', label: 'Validate an idea before building' },
+        { value: 'launch-product', label: 'Launch a full product for real customers' },
+        { value: 'upgrade-system', label: 'Upgrade or replace an existing system' },
+        { value: 'raise-funds', label: 'Raise funds with a working prototype' },
+        { value: 'other', label: 'Other' },
+      ]}
+    />
+  </Step>
 );
 
 export const Step7: React.FC<StepProps> = ({ formData, setFormData }) => (
-  <div className="space-y-6">
-    <h3 className="text-xl font-semibold text-gray-900 mb-4">What best describes your role?</h3>
-    <RadioGroup value={formData.role} onValueChange={(value) => setFormData({ ...formData, role: value })}>
-      <div className="flex items-center space-x-2">
-        <RadioGroupItem value="solo-founder" id="solo-founder" />
-        <Label htmlFor="solo-founder">Solo founder</Label>
-      </div>
-      <div className="flex items-center space-x-2">
-        <RadioGroupItem value="co-founder" id="co-founder" />
-        <Label htmlFor="co-founder">Co-founder or partner team</Label>
-      </div>
-      <div className="flex items-center space-x-2">
-        <RadioGroupItem value="product-manager" id="product-manager" />
-        <Label htmlFor="product-manager">Product manager</Label>
-      </div>
-      <div className="flex items-center space-x-2">
-        <RadioGroupItem value="technical-lead" id="technical-lead" />
-        <Label htmlFor="technical-lead">Technical lead/CTO</Label>
-      </div>
-      <div className="flex items-center space-x-2">
-        <RadioGroupItem value="investor" id="investor" />
-        <Label htmlFor="investor">Investor or advisor</Label>
-      </div>
-    </RadioGroup>
-  </div>
+  <Step>
+    <StepHeading eyebrow="About you" title="What best describes your role?" />
+    <Choices
+      name="role"
+      value={formData.role}
+      onChange={(value) => setFormData({ ...formData, role: value })}
+      options={[
+        { value: 'solo-founder', label: 'Solo founder' },
+        { value: 'co-founder', label: 'Co-founder or partner team' },
+        { value: 'product-manager', label: 'Product manager' },
+        { value: 'technical-lead', label: 'Technical lead/CTO' },
+        { value: 'investor', label: 'Investor or advisor' },
+      ]}
+    />
+  </Step>
 );
 
+/* Not currently rendered by GetStartedModal — the flow jumps from role (step 9)
+   straight to scheduling, so formData.timeline is never collected. Kept as-is. */
 export const Step8: React.FC<StepProps> = ({ formData, setFormData }) => (
-  <div className="space-y-6">
-    <h3 className="text-xl font-semibold text-gray-900 mb-4">How soon are you looking to get started?</h3>
-    <RadioGroup value={formData.timeline} onValueChange={(value) => setFormData({ ...formData, timeline: value })}>
-      <div className="flex items-center space-x-2">
-        <RadioGroupItem value="immediately" id="immediately" />
-        <Label htmlFor="immediately">Immediately — ready to start</Label>
-      </div>
-      <div className="flex items-center space-x-2">
-        <RadioGroupItem value="within-1-month" id="within-1-month" />
-        <Label htmlFor="within-1-month">Within 1 month</Label>
-      </div>
-      <div className="flex items-center space-x-2">
-        <RadioGroupItem value="1-3-months" id="1-3-months" />
-        <Label htmlFor="1-3-months">1–3 months from now</Label>
-      </div>
-      <div className="flex items-center space-x-2">
-        <RadioGroupItem value="3-6-months" id="3-6-months" />
-        <Label htmlFor="3-6-months">3–6 months from now</Label>
-      </div>
-      <div className="flex items-center space-x-2">
-        <RadioGroupItem value="gathering-info" id="gathering-info" />
-        <Label htmlFor="gathering-info">Just gathering info — not sure yet</Label>
-      </div>
-    </RadioGroup>
-  </div>
+  <Step>
+    <StepHeading eyebrow="Timing" title="How soon are you looking to get started?" />
+    <Choices
+      name="timeline"
+      value={formData.timeline}
+      onChange={(value) => setFormData({ ...formData, timeline: value })}
+      options={[
+        { value: 'immediately', label: 'Immediately — ready to start' },
+        { value: 'within-1-month', label: 'Within 1 month' },
+        { value: '1-3-months', label: '1–3 months from now' },
+        { value: '3-6-months', label: '3–6 months from now' },
+        { value: 'gathering-info', label: 'Just gathering info — not sure yet' },
+      ]}
+    />
+  </Step>
 );

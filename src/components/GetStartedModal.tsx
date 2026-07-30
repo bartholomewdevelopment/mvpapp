@@ -1,17 +1,31 @@
 import React, { useState, useEffect } from 'react';
-import { Dialog, DialogContent } from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { Step4, Step5, Step6, Step7, Step8 } from './GetStartedModalSteps';
+import { Step4, Step5, Step6, Step7 } from './GetStartedModalSteps';
+import { Choices, StepHeading, Step } from './GetStartedModalUI';
 import { sendEmailNotification } from '@/lib/emailService';
-import { AlertCircle, CheckCircle, ArrowRight, ArrowLeft, Sparkles, Mail, Target, Rocket, X } from 'lucide-react';
+import { AlertCircle, CheckCircle, ArrowRight, ArrowLeft, Target, Rocket, X } from 'lucide-react';
 
 interface GetStartedModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
+
+const TOTAL_STEPS = 10;
+
+/** Header names the step you're on, so the counter isn't the only orientation. */
+const STEP_LABELS = [
+  'Your email',
+  'Direction',
+  'Validation',
+  'Recommendation',
+  'Funding',
+  'Traction',
+  'Budget',
+  'Objective',
+  'About you',
+  'Schedule',
+];
 
 const GetStartedModal: React.FC<GetStartedModalProps> = ({ isOpen, onClose }) => {
   const [step, setStep] = useState(1);
@@ -111,278 +125,201 @@ const GetStartedModal: React.FC<GetStartedModalProps> = ({ isOpen, onClose }) =>
     onClose();
   };
 
+  /**
+   * The recommendation panel after validation. Both outcomes use coral rather
+   * than coral-vs-green: the design system is monochrome plus one accent, and
+   * the two results are already distinguished by what they say.
+   */
+  const renderRecommendation = (
+    eyebrow: string,
+    title: string,
+    body: string,
+    points: string[],
+  ) => (
+    <Step>
+      <div className="rounded-[var(--r-lg)] border border-[color:var(--accent)] bg-[color:var(--p-accent-wash)] p-6">
+        <p className="paper-eyebrow" style={{ color: 'var(--p-accent-ink)' }}>{eyebrow}</p>
+        <h3 className="paper-title mt-3 text-[1.375rem]">{title}</h3>
+        <p className="paper-hint mt-3 text-[0.9375rem] leading-relaxed">{body}</p>
+
+        <ul className="mt-6 space-y-px border-t border-[color:var(--p-hairline)] pt-1">
+          {points.map((point) => (
+            <li
+              key={point}
+              className="flex items-start gap-3 border-b border-[color:var(--p-hairline)] py-3 last:border-b-0"
+            >
+              <CheckCircle
+                className="mt-0.5 h-4 w-4 shrink-0 text-[color:var(--accent)]"
+                aria-hidden="true"
+              />
+              <span className="text-[0.9375rem] leading-snug text-[color:var(--p-ink)]">{point}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <p className="paper-hint mt-5 text-sm">
+        Continue to add a few details and book your consultation call.
+      </p>
+    </Step>
+  );
+
   const renderStep = () => {
     switch (step) {
       case 1:
         return (
-          <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
-            <div className="text-center mb-8">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-brand-grad rounded-2xl mb-4 mx-auto shadow-lg shadow-[#fd6a62]/50">
-                <Mail className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent mb-3">
-                Let's Get Started!
-              </h3>
-              <p className="text-gray-600 text-base leading-relaxed max-w-md mx-auto">
-                Enter your email to begin your journey toward a successful MVP launch.
-              </p>
-            </div>
-            <div className="space-y-3">
-              <Label htmlFor="email" className="text-base font-semibold text-gray-900">
-                Email Address
+          <Step>
+            <StepHeading
+              eyebrow="Step one"
+              title="Let's start with your email."
+              hint="We'll use it to send your recommendation and confirm your call — nothing else."
+            />
+            <div className="space-y-2.5">
+              <Label
+                htmlFor="email"
+                className="text-sm font-medium text-[color:var(--p-ink)]"
+              >
+                Email address
               </Label>
-              <div className="relative">
-                <Input
-                  id="email"
-                  type="email"
-                  value={formData.user_email}
-                  onChange={(e) => setFormData({ ...formData, user_email: e.target.value })}
-                  placeholder="your@email.com"
-                  className="w-full h-14 px-4 text-base border-2 border-gray-200 focus:border-[#fd6a62] focus:ring-2 focus:ring-[#fd6a62]/20 rounded-xl transition-all duration-300"
-                />
-              </div>
+              <input
+                id="email"
+                type="email"
+                autoComplete="email"
+                value={formData.user_email}
+                onChange={(e) => setFormData({ ...formData, user_email: e.target.value })}
+                placeholder="your@email.com"
+                className="field"
+              />
             </div>
-          </div>
+          </Step>
         );
 
       case 2:
         return (
-          <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
-            <div className="text-center mb-6">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-brand-grad rounded-2xl mb-4 mx-auto shadow-lg shadow-[#fd6a62]/50">
-                <Sparkles className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3">
-                Which option are you interested in?
-              </h3>
-              <p className="text-gray-600 text-sm">Choose the path that fits your current stage</p>
-            </div>
-            <RadioGroup value={formData.interested_in} onValueChange={(value) => setFormData({ ...formData, interested_in: value })}>
-              <div className={`relative flex items-start p-5 border-2 rounded-xl cursor-pointer transition-all duration-300 ${formData.interested_in === 'startup-lab' ? 'border-[#fd6a62] bg-[#fd6a62]/5 shadow-lg shadow-[#fd6a62]/20' : 'border-gray-200 hover:border-[#fd6a62]/50 bg-white'}`}>
-                <RadioGroupItem value="startup-lab" id="startup-lab" className="mt-1" />
-                <Label htmlFor="startup-lab" className="ml-4 cursor-pointer flex-1">
-                  <div className="flex items-center gap-2 mb-1">
-                    <Target className="w-5 h-5 text-[#fd6a62]" />
-                    <span className="font-bold text-gray-900">BartDev Startup Lab</span>
-                  </div>
-                  <p className="text-sm text-gray-600 leading-relaxed">
-                    Validate my idea before building
-                  </p>
-                </Label>
-              </div>
-              <div className={`relative flex items-start p-5 border-2 rounded-xl cursor-pointer transition-all duration-300 ${formData.interested_in === 'mvp-dev' ? 'border-[#fd6a62] bg-[#fd6a62]/5 shadow-lg shadow-[#fd6a62]/20' : 'border-gray-200 hover:border-[#fd6a62]/50 bg-white'}`}>
-                <RadioGroupItem value="mvp-dev" id="mvp-dev" className="mt-1" />
-                <Label htmlFor="mvp-dev" className="ml-4 cursor-pointer flex-1">
-                  <div className="flex items-center gap-2 mb-1">
-                    <Rocket className="w-5 h-5 text-[#fd6a62]" />
-                    <span className="font-bold text-gray-900">MVP Development</span>
-                  </div>
-                  <p className="text-sm text-gray-600 leading-relaxed">
-                    My idea is already validated
-                  </p>
-                </Label>
-              </div>
-              <div className={`relative flex items-start p-5 border-2 rounded-xl cursor-pointer transition-all duration-300 ${formData.interested_in === 'not-sure' ? 'border-[#fd6a62] bg-[#fd6a62]/5 shadow-lg shadow-[#fd6a62]/20' : 'border-gray-200 hover:border-[#fd6a62]/50 bg-white'}`}>
-                <RadioGroupItem value="not-sure" id="not-sure" className="mt-1" />
-                <Label htmlFor="not-sure" className="ml-4 cursor-pointer flex-1">
-                  <div className="flex items-center gap-2 mb-1">
-                    <AlertCircle className="w-5 h-5 text-gray-600" />
-                    <span className="font-bold text-gray-900">Not sure</span>
-                  </div>
-                  <p className="text-sm text-gray-600 leading-relaxed">
-                    Help me decide which path is right
-                  </p>
-                </Label>
-              </div>
-            </RadioGroup>
-          </div>
+          <Step>
+            <StepHeading
+              eyebrow="Direction"
+              title="Which option are you interested in?"
+              hint="Choose the path that fits your current stage."
+            />
+            <Choices
+              name="interested_in"
+              value={formData.interested_in}
+              onChange={(value) => setFormData({ ...formData, interested_in: value })}
+              options={[
+                {
+                  value: 'startup-lab',
+                  label: 'BartDev Startup Lab',
+                  detail: 'Validate my idea before building',
+                  icon: <Target className="h-4 w-4 text-[color:var(--accent)]" aria-hidden="true" />,
+                },
+                {
+                  value: 'mvp-dev',
+                  label: 'MVP Development',
+                  detail: 'My idea is already validated',
+                  icon: <Rocket className="h-4 w-4 text-[color:var(--accent)]" aria-hidden="true" />,
+                },
+                {
+                  value: 'not-sure',
+                  label: 'Not sure',
+                  detail: 'Help me decide which path is right',
+                  icon: (
+                    <AlertCircle
+                      className="h-4 w-4 text-[color:var(--p-ink-subtle)]"
+                      aria-hidden="true"
+                    />
+                  ),
+                },
+              ]}
+            />
+          </Step>
         );
 
       case 3:
         return (
-          <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
-            <div className="text-center mb-6">
-              <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3">
-                Have you validated your idea with real customers?
-              </h3>
-              <p className="text-sm text-gray-600">
-                This helps us recommend the best path for you.
-              </p>
-            </div>
-            <RadioGroup value={formData.validation_status} onValueChange={(value) => setFormData({ ...formData, validation_status: value })}>
-              <div className={`relative flex items-start p-4 border-2 rounded-xl cursor-pointer transition-all duration-300 ${formData.validation_status === 'not-validated' ? 'border-[#fd6a62] bg-[#fd6a62]/5 shadow-lg shadow-[#fd6a62]/20' : 'border-gray-200 hover:border-[#fd6a62]/50 bg-white'}`}>
-                <RadioGroupItem value="not-validated" id="not-validated" className="mt-1" />
-                <Label htmlFor="not-validated" className="ml-4 cursor-pointer flex-1 text-sm leading-relaxed text-gray-700">
-                  No - I haven't talked to potential customers yet
-                </Label>
-              </div>
-              <div className={`relative flex items-start p-4 border-2 rounded-xl cursor-pointer transition-all duration-300 ${formData.validation_status === 'friends-family' ? 'border-[#fd6a62] bg-[#fd6a62]/5 shadow-lg shadow-[#fd6a62]/20' : 'border-gray-200 hover:border-[#fd6a62]/50 bg-white'}`}>
-                <RadioGroupItem value="friends-family" id="friends-family" className="mt-1" />
-                <Label htmlFor="friends-family" className="ml-4 cursor-pointer flex-1 text-sm leading-relaxed text-gray-700">
-                  Only validated with friends/family
-                </Label>
-              </div>
-              <div className={`relative flex items-start p-4 border-2 rounded-xl cursor-pointer transition-all duration-300 ${formData.validation_status === 'few-interviews' ? 'border-[#fd6a62] bg-[#fd6a62]/5 shadow-lg shadow-[#fd6a62]/20' : 'border-gray-200 hover:border-[#fd6a62]/50 bg-white'}`}>
-                <RadioGroupItem value="few-interviews" id="few-interviews" className="mt-1" />
-                <Label htmlFor="few-interviews" className="ml-4 cursor-pointer flex-1 text-sm leading-relaxed text-gray-700">
-                  Did a few interviews (less than 20 strangers)
-                </Label>
-              </div>
-              <div className={`relative flex items-start p-4 border-2 rounded-xl cursor-pointer transition-all duration-300 ${formData.validation_status === 'validated-committed' ? 'border-green-500 bg-green-50 shadow-lg shadow-green-500/20' : 'border-gray-200 hover:border-green-500/50 bg-white'}`}>
-                <RadioGroupItem value="validated-committed" id="validated-committed" className="mt-1" />
-                <Label htmlFor="validated-committed" className="ml-4 cursor-pointer flex-1 text-sm leading-relaxed text-gray-700">
-                  20+ interviews with strangers + 5–10 paying commitments
-                </Label>
-              </div>
-              <div className={`relative flex items-start p-4 border-2 rounded-xl cursor-pointer transition-all duration-300 ${formData.validation_status === 'validated-paying' ? 'border-green-500 bg-green-50 shadow-lg shadow-green-500/20' : 'border-gray-200 hover:border-green-500/50 bg-white'}`}>
-                <RadioGroupItem value="validated-paying" id="validated-paying" className="mt-1" />
-                <Label htmlFor="validated-paying" className="ml-4 cursor-pointer flex-1 text-sm leading-relaxed text-gray-700">
-                  20+ interviews + paying customers already using a prototype
-                </Label>
-              </div>
-            </RadioGroup>
-          </div>
+          <Step>
+            <StepHeading
+              eyebrow="Validation"
+              title="Have you validated your idea with real customers?"
+              hint="This is the answer that decides which path we recommend."
+            />
+            <Choices
+              name="validation_status"
+              value={formData.validation_status}
+              onChange={(value) => setFormData({ ...formData, validation_status: value })}
+              options={[
+                { value: 'not-validated', label: "No — I haven't talked to potential customers yet" },
+                { value: 'friends-family', label: 'Only validated with friends/family' },
+                { value: 'few-interviews', label: 'Did a few interviews (less than 20 strangers)' },
+                { value: 'validated-committed', label: '20+ interviews with strangers + 5–10 paying commitments' },
+                { value: 'validated-paying', label: '20+ interviews + paying customers already using a prototype' },
+              ]}
+            />
+          </Step>
         );
 
       case 4:
         if (recommendedPath === 'startup-lab') {
-          return (
-            <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
-              <div className="relative overflow-hidden bg-gradient-to-br from-[#fd6a62]/10 via-[#fc5951]/5 to-transparent border-2 border-[#fd6a62] rounded-2xl p-6 shadow-xl">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-[#fd6a62]/10 rounded-full blur-3xl"></div>
-                <div className="relative">
-                  <div className="flex items-start gap-4 mb-4">
-                    <div className="flex-shrink-0 w-12 h-12 bg-brand-grad rounded-xl flex items-center justify-center shadow-lg shadow-[#fd6a62]/50">
-                      <AlertCircle className="w-6 h-6 text-white" />
-                    </div>
-                    <div className="flex-1">
-                      <h3 className="text-xl font-bold text-gray-900 mb-2">
-                        We Recommend: BartDev Startup Lab
-                      </h3>
-                      <p className="text-sm text-gray-700 leading-relaxed">
-                        Based on your answers, your idea needs validation before building. This is the #1 way to avoid wasting $50K+ on something nobody wants.
-                      </p>
-                    </div>
-                  </div>
-                  <div className="grid gap-3 mt-6">
-                    <div className="flex items-start gap-3 bg-white/80 backdrop-blur-sm rounded-lg p-3">
-                      <CheckCircle className="w-5 h-5 text-[#fd6a62] flex-shrink-0 mt-0.5" />
-                      <span className="text-sm text-gray-700">8-16 weeks of structured validation coaching</span>
-                    </div>
-                    <div className="flex items-start gap-3 bg-white/80 backdrop-blur-sm rounded-lg p-3">
-                      <CheckCircle className="w-5 h-5 text-[#fd6a62] flex-shrink-0 mt-0.5" />
-                      <span className="text-sm text-gray-700">Prove people will pay BEFORE you build</span>
-                    </div>
-                    <div className="flex items-start gap-3 bg-white/80 backdrop-blur-sm rounded-lg p-3">
-                      <CheckCircle className="w-5 h-5 text-[#fd6a62] flex-shrink-0 mt-0.5" />
-                      <span className="text-sm text-gray-700">50% of coaching fees credited toward MVP build</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <p className="text-sm text-gray-600 text-center">
-                Continue to provide more details and book your consultation call
-              </p>
-            </div>
+          return renderRecommendation(
+            'Our recommendation',
+            'Start with the BartDev Startup Lab',
+            'Based on your answers, your idea needs validation before building. This is the single best way to avoid spending $50K+ on something nobody wants.',
+            [
+              '8–16 weeks of structured validation coaching',
+              'Prove people will pay before you build',
+              '50% of coaching fees credited toward your MVP build',
+            ],
           );
-        } else if (recommendedPath === 'mvp') {
-          return (
-            <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
-              <div className="relative overflow-hidden bg-gradient-to-br from-green-50 via-emerald-50/50 to-transparent border-2 border-green-500 rounded-2xl p-6 shadow-xl">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-green-500/10 rounded-full blur-3xl"></div>
-                <div className="relative">
-                  <div className="flex items-start gap-4 mb-4">
-                    <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center shadow-lg shadow-green-500/50">
-                      <CheckCircle className="w-6 h-6 text-white" />
-                    </div>
-                    <div className="flex-1">
-                      <h3 className="text-xl font-bold text-gray-900 mb-2">
-                        Great! You're Ready to Fast-Track Your Build
-                      </h3>
-                      <p className="text-sm text-gray-700 leading-relaxed">
-                        Based on your validation work, we'll review your evidence and fast-track you to build. Your validation phase becomes a quick paid review, credited toward your build.
-                      </p>
-                    </div>
-                  </div>
-                  <div className="grid gap-3 mt-6">
-                    <div className="flex items-start gap-3 bg-white/80 backdrop-blur-sm rounded-lg p-3">
-                      <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
-                      <span className="text-sm text-gray-700">6-12 weeks from discovery to launch</span>
-                    </div>
-                    <div className="flex items-start gap-3 bg-white/80 backdrop-blur-sm rounded-lg p-3">
-                      <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
-                      <span className="text-sm text-gray-700">Professional training & documentation included</span>
-                    </div>
-                    <div className="flex items-start gap-3 bg-white/80 backdrop-blur-sm rounded-lg p-3">
-                      <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
-                      <span className="text-sm text-gray-700">100% code ownership + 30 days support</span>
-                    </div>
-                    <div className="flex items-start gap-3 bg-white/80 backdrop-blur-sm rounded-lg p-3">
-                      <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
-                      <span className="text-sm text-gray-700">Investment: $18,000-$50,000 based on scope</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <p className="text-sm text-gray-600 text-center">
-                Continue to provide more details and book your consultation call
-              </p>
-            </div>
+        }
+        if (recommendedPath === 'mvp') {
+          return renderRecommendation(
+            'Our recommendation',
+            "You're ready to fast-track your build",
+            'Based on your validation work, we review your evidence and fast-track you to build. Your validation phase becomes a quick paid review, credited toward the build.',
+            [
+              '6–12 weeks from discovery to launch',
+              'Professional training and documentation included',
+              '100% code ownership + 30 days support',
+              'Investment: $18,000–$50,000 based on scope',
+            ],
           );
         }
         return (
-          <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
-            <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-4">
-              Where are you in the planning process?
-            </h3>
-            <RadioGroup value={formData.planning_stage} onValueChange={(value) => setFormData({ ...formData, planning_stage: value })}>
-              <div className={`flex items-start p-4 border-2 rounded-xl cursor-pointer transition-all ${formData.planning_stage === 'initial-concept' ? 'border-[#fd6a62] bg-[#fd6a62]/5' : 'border-gray-200 hover:border-[#fd6a62]/50'}`}>
-                <RadioGroupItem value="initial-concept" id="initial-concept" className="mt-1" />
-                <Label htmlFor="initial-concept" className="ml-4 cursor-pointer text-sm leading-relaxed">Just an initial concept — no clear plan yet</Label>
-              </div>
-              <div className={`flex items-start p-4 border-2 rounded-xl cursor-pointer transition-all ${formData.planning_stage === 'problem-defined' ? 'border-[#fd6a62] bg-[#fd6a62]/5' : 'border-gray-200 hover:border-[#fd6a62]/50'}`}>
-                <RadioGroupItem value="problem-defined" id="problem-defined" className="mt-1" />
-                <Label htmlFor="problem-defined" className="ml-4 cursor-pointer text-sm leading-relaxed">Problem defined, but solution still in brainstorm</Label>
-              </div>
-              <div className={`flex items-start p-4 border-2 rounded-xl cursor-pointer transition-all ${formData.planning_stage === 'solution-defined' ? 'border-[#fd6a62] bg-[#fd6a62]/5' : 'border-gray-200 hover:border-[#fd6a62]/50'}`}>
-                <RadioGroupItem value="solution-defined" id="solution-defined" className="mt-1" />
-                <Label htmlFor="solution-defined" className="ml-4 cursor-pointer text-sm leading-relaxed">Solution defined — working on feature list</Label>
-              </div>
-              <div className={`flex items-start p-4 border-2 rounded-xl cursor-pointer transition-all ${formData.planning_stage === 'wireframes-created' ? 'border-[#fd6a62] bg-[#fd6a62]/5' : 'border-gray-200 hover:border-[#fd6a62]/50'}`}>
-                <RadioGroupItem value="wireframes-created" id="wireframes-created" className="mt-1" />
-                <Label htmlFor="wireframes-created" className="ml-4 cursor-pointer text-sm leading-relaxed">Wireframes or prototypes created</Label>
-              </div>
-              <div className={`flex items-start p-4 border-2 rounded-xl cursor-pointer transition-all ${formData.planning_stage === 'requirements-complete' ? 'border-[#fd6a62] bg-[#fd6a62]/5' : 'border-gray-200 hover:border-[#fd6a62]/50'}`}>
-                <RadioGroupItem value="requirements-complete" id="requirements-complete" className="mt-1" />
-                <Label htmlFor="requirements-complete" className="ml-4 cursor-pointer text-sm leading-relaxed">Detailed requirements and user stories complete</Label>
-              </div>
-            </RadioGroup>
-          </div>
+          <Step>
+            <StepHeading
+              eyebrow="Planning"
+              title="Where are you in the planning process?"
+            />
+            <Choices
+              name="planning_stage"
+              value={formData.planning_stage}
+              onChange={(value) => setFormData({ ...formData, planning_stage: value })}
+              options={[
+                { value: 'initial-concept', label: 'Just an initial concept — no clear plan yet' },
+                { value: 'problem-defined', label: 'Problem defined, but solution still in brainstorm' },
+                { value: 'solution-defined', label: 'Solution defined — working on feature list' },
+                { value: 'wireframes-created', label: 'Wireframes or prototypes created' },
+                { value: 'requirements-complete', label: 'Detailed requirements and user stories complete' },
+              ]}
+            />
+          </Step>
         );
 
       case 5:
         return (
-          <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
-            <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-4">What's your current funding status?</h3>
-            <RadioGroup value={formData.funding_status} onValueChange={(value) => setFormData({ ...formData, funding_status: value })}>
-              <div className={`flex items-start p-4 border-2 rounded-xl cursor-pointer transition-all ${formData.funding_status === 'idea-only' ? 'border-[#fd6a62] bg-[#fd6a62]/5' : 'border-gray-200 hover:border-[#fd6a62]/50'}`}>
-                <RadioGroupItem value="idea-only" id="idea-only" className="mt-1" />
-                <Label htmlFor="idea-only" className="ml-4 cursor-pointer text-sm leading-relaxed">Idea only — no funding yet</Label>
-              </div>
-              <div className={`flex items-start p-4 border-2 rounded-xl cursor-pointer transition-all ${formData.funding_status === 'bootstrapped' ? 'border-[#fd6a62] bg-[#fd6a62]/5' : 'border-gray-200 hover:border-[#fd6a62]/50'}`}>
-                <RadioGroupItem value="bootstrapped" id="bootstrapped" className="mt-1" />
-                <Label htmlFor="bootstrapped" className="ml-4 cursor-pointer text-sm leading-relaxed">Bootstrapped (using personal savings/friends & family)</Label>
-              </div>
-              <div className={`flex items-start p-4 border-2 rounded-xl cursor-pointer transition-all ${formData.funding_status === 'pre-seed' ? 'border-[#fd6a62] bg-[#fd6a62]/5' : 'border-gray-200 hover:border-[#fd6a62]/50'}`}>
-                <RadioGroupItem value="pre-seed" id="pre-seed" className="mt-1" />
-                <Label htmlFor="pre-seed" className="ml-4 cursor-pointer text-sm leading-relaxed">Pre-seed round in progress or secured (up to ~$250K)</Label>
-              </div>
-              <div className={`flex items-start p-4 border-2 rounded-xl cursor-pointer transition-all ${formData.funding_status === 'seed' ? 'border-[#fd6a62] bg-[#fd6a62]/5' : 'border-gray-200 hover:border-[#fd6a62]/50'}`}>
-                <RadioGroupItem value="seed" id="seed" className="mt-1" />
-                <Label htmlFor="seed" className="ml-4 cursor-pointer text-sm leading-relaxed">Seed round or beyond ($250K+)</Label>
-              </div>
-            </RadioGroup>
-          </div>
+          <Step>
+            <StepHeading eyebrow="Funding" title="What's your current funding status?" />
+            <Choices
+              name="funding_status"
+              value={formData.funding_status}
+              onChange={(value) => setFormData({ ...formData, funding_status: value })}
+              options={[
+                { value: 'idea-only', label: 'Idea only — no funding yet' },
+                { value: 'bootstrapped', label: 'Bootstrapped (personal savings, friends & family)' },
+                { value: 'pre-seed', label: 'Pre-seed round in progress or secured (up to ~$250K)' },
+                { value: 'seed', label: 'Seed round or beyond ($250K+)' },
+              ]}
+            />
+          </Step>
         );
 
       case 6:
@@ -395,31 +332,33 @@ const GetStartedModal: React.FC<GetStartedModalProps> = ({ isOpen, onClose }) =>
         return <Step7 formData={formData} setFormData={setFormData} />;
       case 10:
         return (
-          <div className="space-y-4 animate-in fade-in slide-in-from-bottom-4 duration-500 relative">
-            {/* Close button for Calendly step */}
-            <button
-              onClick={handleClose}
-              className="absolute -top-4 right-0 z-20 w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 border-2 border-gray-300 transition-all duration-300 group shadow-lg"
-              aria-label="Close modal"
-            >
-              <X className="w-5 h-5 text-gray-600 group-hover:text-gray-900 transition-colors" />
-            </button>
-
-            <div className="text-center mb-4 pr-12">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-brand-grad rounded-2xl mb-4 mx-auto shadow-lg shadow-[#fd6a62]/50">
-                <CheckCircle className="w-8 h-8 text-white" />
+          <Step>
+            <div className="mb-6 flex items-start justify-between gap-6">
+              <div>
+                <p className="paper-eyebrow mb-3">Last step</p>
+                <h3 className="paper-title text-[1.5rem] sm:text-[1.75rem]">
+                  Schedule your discovery call
+                </h3>
+                <p className="paper-hint mt-2.5 text-[0.9375rem] leading-relaxed">
+                  Pick a time that works for you. We'll have your answers in front of us.
+                </p>
               </div>
-              <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">Schedule Your Discovery Call</h3>
-              <p className="text-sm text-gray-600">Pick a time that works best for you. We'll review your answers and help you get started.</p>
+              <button
+                onClick={handleClose}
+                className="-mt-1 flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-[color:var(--p-hairline-strong)] transition-colors duration-150 hover:bg-[color:var(--p-surface)]"
+                aria-label="Close"
+              >
+                <X className="h-4 w-4 text-[color:var(--p-ink-muted)]" aria-hidden="true" />
+              </button>
             </div>
 
             {/* Calendly Embed */}
             <div
-              className="calendly-inline-widget rounded-lg overflow-hidden border-2 border-gray-200"
+              className="calendly-inline-widget overflow-hidden rounded-[var(--r-md)] border border-[color:var(--p-hairline)]"
               data-url={`https://calendly.com/joseph-bartholomewdevelopment/idea-sprint?name=${encodeURIComponent(formData.user_name || '')}&email=${encodeURIComponent(formData.user_email || '')}`}
               style={{ minWidth: '320px', height: '700px' }}
             />
-          </div>
+          </Step>
         );
 
       default:
@@ -443,78 +382,86 @@ const GetStartedModal: React.FC<GetStartedModalProps> = ({ isOpen, onClose }) =>
     }
   };
 
-  const progressPercentage = (step / 10) * 100;
-
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className={`${step === 10 ? 'sm:max-w-[900px]' : 'sm:max-w-[650px]'} max-w-[95vw] max-h-[90vh] overflow-hidden p-0 gap-0 bg-gradient-to-br from-white via-gray-50 to-white border-0 shadow-2xl`}>
-        {/* Header with Progress */}
-        {step < 10 && (
-          <div className="relative bg-gradient-to-r from-slate-900 via-gray-900 to-slate-900 px-6 py-6 border-b border-white/10">
-            <div className="absolute inset-0 bg-gradient-to-r from-[#fd6a62]/10 to-[#fc5951]/10 opacity-50"></div>
+      {/* hideCloseButton: the header renders its own close control (and the
+          scheduling step renders one inline), so the built-in one would stack
+          on top of it. */}
+      <DialogContent
+        hideCloseButton
+        className={`paper ${step === 10 ? 'sm:max-w-[900px]' : 'sm:max-w-[620px]'} max-h-[90vh] max-w-[95vw] overflow-hidden border-0 bg-white p-0 gap-0 shadow-2xl`}
+      >
+        {/* ——— Header: one flat plane of the site's own canvas colour, not a
+            three-stop gradient with a coral wash over it. The step is named,
+            counted in mono, and tracked on ten discrete segments. ——— */}
+        <div className="relative bg-[color:var(--canvas)] px-6 pb-5 pt-5">
+          <div className="flex items-start justify-between gap-4">
+            <div className="min-w-0">
+              <p className="eyebrow !text-[0.625rem]">
+                Step{' '}
+                <span className="tabular-nums text-[color:var(--accent-ink)]">
+                  {String(step).padStart(2, '0')}
+                </span>{' '}
+                / {TOTAL_STEPS}
+              </p>
+              <DialogTitle className="mt-2 truncate font-display text-lg font-semibold tracking-[-0.02em] text-ink">
+                {STEP_LABELS[step - 1]}
+              </DialogTitle>
+            </div>
 
-            {/* Close button */}
             <button
               onClick={handleClose}
-              className="absolute top-4 right-4 z-20 w-8 h-8 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 border border-white/20 transition-all duration-300 group"
-              aria-label="Close modal"
+              className="-mr-1 -mt-1 flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-hairline transition-colors duration-150 hover:bg-white/10"
+              aria-label="Close"
             >
-              <X className="w-4 h-4 text-gray-300 group-hover:text-white transition-colors" />
+              <X className="h-4 w-4 text-ink-subtle" aria-hidden="true" />
             </button>
-
-            <div className="relative">
-              <div className="flex items-center justify-between mb-4 pr-8">
-                <div>
-                  <h2 className="text-xl sm:text-2xl font-bold text-white">Get Started</h2>
-                  <p className="text-sm text-gray-300 mt-1">Step {step} of 10</p>
-                </div>
-                <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full border border-white/20">
-                  <Sparkles className="w-4 h-4 text-[#fd6a62]" />
-                  <span className="text-sm font-semibold text-white">{Math.round(progressPercentage)}%</span>
-                </div>
-              </div>
-
-              {/* Progress Bar */}
-              <div className="relative h-2 bg-white/10 rounded-full overflow-hidden backdrop-blur-sm">
-                <div
-                  className="absolute top-0 left-0 h-full bg-brand-grad rounded-full transition-all duration-500 ease-out shadow-lg shadow-[#fd6a62]/50"
-                  style={{ width: `${progressPercentage}%` }}
-                >
-                  <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/30 to-white/0 animate-pulse"></div>
-                </div>
-              </div>
-            </div>
           </div>
-        )}
 
-        {/* Content */}
-        <div className={`px-6 py-8 overflow-y-auto ${step === 10 ? 'max-h-[85vh]' : 'max-h-[calc(90vh-240px)]'}`}>
+          <div className="rail mt-5" role="presentation">
+            {Array.from({ length: TOTAL_STEPS }, (_, i) => (
+              <span
+                key={i}
+                className="rail-seg"
+                data-done={i + 1 < step}
+                data-current={i + 1 === step}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* ——— Content ——— */}
+        <div
+          className={`overflow-y-auto bg-white px-6 py-8 ${
+            step === 10 ? 'max-h-[85vh]' : 'max-h-[calc(90vh-232px)]'
+          }`}
+        >
           {renderStep()}
         </div>
 
-        {/* Footer */}
+        {/* ——— Footer: hairline, not a gray gradient slab ——— */}
         {step < 10 && (
-          <div className="bg-gradient-to-b from-gray-50 to-white px-6 py-6 border-t border-gray-200">
-            <div className="flex justify-between gap-4">
-              <Button
-                variant="outline"
-                onClick={handleBack}
-                disabled={step === 1}
-                className="flex items-center gap-2 px-6 h-12 border-2 border-gray-300 hover:border-gray-400 hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed transition-all duration-300 rounded-xl"
-              >
-                <ArrowLeft className="w-4 h-4" />
-                <span className="font-semibold">Back</span>
-              </Button>
-              <Button
-                onClick={handleNext}
-                disabled={!canProceed()}
-                className="group relative flex items-center gap-2 px-8 h-12 bg-brand-grad hover:from-[#fc5951] hover:to-[#fd6a62] text-white font-semibold disabled:opacity-40 disabled:cursor-not-allowed shadow-lg shadow-[#fd6a62]/30 hover:shadow-xl hover:shadow-[#fd6a62]/40 transition-all duration-300 rounded-xl overflow-hidden"
-              >
-                <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000"></div>
-                <span className="relative">Next</span>
-                <ArrowRight className="w-4 h-4 relative group-hover:translate-x-1 transition-transform" />
-              </Button>
-            </div>
+          <div className="flex items-center justify-between gap-4 border-t border-[color:var(--p-hairline)] bg-white px-6 py-5">
+            <button
+              onClick={handleBack}
+              disabled={step === 1}
+              className="inline-flex h-11 items-center gap-2 rounded-[var(--r-md)] px-4 text-sm font-medium text-[color:var(--p-ink-muted)] transition-colors duration-150 hover:bg-[color:var(--p-surface)] hover:text-[color:var(--p-ink)] disabled:pointer-events-none disabled:opacity-35"
+            >
+              <ArrowLeft className="h-4 w-4" aria-hidden="true" />
+              Back
+            </button>
+
+            <button
+              onClick={handleNext}
+              disabled={!canProceed()}
+              className="btn-brand group inline-flex h-11 items-center gap-2 px-7 text-sm font-semibold disabled:pointer-events-none disabled:opacity-40 disabled:shadow-none"
+            >
+              {step === 9 ? 'Book my call' : 'Continue'}
+              <ArrowRight
+                className="h-4 w-4 transition-transform duration-200 ease-signature group-hover:translate-x-0.5"
+                aria-hidden="true"
+              />
+            </button>
           </div>
         )}
       </DialogContent>

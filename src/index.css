@@ -256,6 +256,128 @@
 }
 .link-draw:hover::after { transform: scaleX(1); }
 
+/* ═══════════════════════════════════════════════════════════════════
+   2027 PAPER — the light counterpart to the dark canvas
+   The Get Started modal is deliberately white-on-black: a sheet of paper
+   laid over the dark site. It needs the same discipline as the canvas —
+   one ink ramp, hairlines instead of 2px borders, one radius family, one
+   accent spent once per view — so these mirror the dark tokens above
+   rather than reaching for ad-hoc grays. Contrast checked against white.
+   ═══════════════════════════════════════════════════════════════════ */
+.paper {
+  --p-ink:            #020617;             /* the canvas colour, role-inverted   19:1 */
+  --p-ink-muted:      #475569;             /* slate-600  body                    7.5:1 */
+  --p-ink-subtle:     #64748b;             /* slate-500  captions                5.0:1 */
+  --p-hairline:       rgba(2, 6, 23, 0.09);
+  --p-hairline-strong: rgba(2, 6, 23, 0.20);
+  --p-surface:        rgba(2, 6, 23, 0.028);
+  --p-accent-wash:    rgba(253, 106, 98, 0.07);
+  /* Coral is AA on white at this weight; the site's --accent-ink is for the dark side */
+  --p-accent-ink:     #d8443c;
+  color: var(--p-ink);
+}
+
+/* Display face carries into the modal — it's most of the "2027" signal */
+.paper-title {
+  font-family: 'Instrument Sans', 'Inter', sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.022em;
+  line-height: 1.15;
+  color: var(--p-ink);
+  text-wrap: balance;
+}
+
+.paper-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--p-ink-subtle);
+}
+
+.paper-hint {
+  color: var(--p-ink-muted);
+  text-wrap: pretty;
+  max-width: 54ch;
+}
+
+/* ——— Option row. One shape for all ten steps, so the questionnaire stops
+   alternating between padded cards and bare radio lists. Selection is a
+   coral hairline plus a wash — no coloured drop shadow, no 2px border. ——— */
+.choice {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.875rem;
+  width: 100%;
+  padding: 0.875rem 1rem;
+  text-align: left;
+  border: 1px solid var(--p-hairline);
+  border-radius: var(--r-md);
+  background: #fff;
+  cursor: pointer;
+  transition: background var(--t-fast) var(--ease),
+              border-color var(--t-fast) var(--ease),
+              transform var(--t-fast) var(--ease);
+}
+.choice:hover { background: var(--p-surface); border-color: var(--p-hairline-strong); }
+.choice:active { transform: scale(0.995); }
+.choice[data-selected='true'] {
+  border-color: var(--accent);
+  background: var(--p-accent-wash);
+  box-shadow: inset 0 0 0 1px var(--accent);
+}
+
+/* The radio glyph itself — shadcn's default paints it with the leftover
+   blue --primary, which is off-brand. Coral, hairline when unselected. */
+.paper [role='radio'] {
+  border-color: var(--p-hairline-strong);
+  color: var(--accent);
+  transition: border-color var(--t-fast) var(--ease);
+}
+.paper [role='radio'][data-state='checked'] { border-color: var(--accent); }
+
+/* ——— Text input ——— */
+.field {
+  width: 100%;
+  height: 3.25rem;
+  padding: 0 1rem;
+  font-size: 1rem;
+  color: var(--p-ink);
+  background: #fff;
+  border: 1px solid var(--p-hairline-strong);
+  border-radius: var(--r-md);
+  transition: border-color var(--t-fast) var(--ease), box-shadow var(--t-fast) var(--ease);
+}
+.field::placeholder { color: var(--p-ink-subtle); }
+.field:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-wash);
+}
+
+/* ——— Progress: ten discrete segments instead of a shimmering percentage
+   bar. Steps are countable, so show them as steps. ——— */
+.rail { display: flex; gap: 4px; }
+.rail-seg {
+  height: 3px;
+  flex: 1;
+  border-radius: 999px;
+  background: var(--hairline-strong);
+  transition: background var(--t-base) var(--ease);
+}
+.rail-seg[data-done='true'] { background: var(--accent); }
+.rail-seg[data-current='true'] { background: var(--accent); box-shadow: 0 0 12px -2px var(--accent); }
+
+/* Step entrance — one short, quiet move on the signature curve, replacing
+   the 500ms slide-in-from-bottom-4 on every step. */
+@keyframes paper-step-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: none; }
+}
+.step-in { animation: paper-step-in var(--t-slow) var(--ease) both; }
+
 /* ═══════════ Ambient atmosphere ═══════════
    One slow aurora for the whole page + a fine grain layer, replacing
    the per-section pulsing blur blobs. */
