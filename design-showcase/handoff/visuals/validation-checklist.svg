@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 720" width="1000" height="720" role="img" aria-labelledby="vc-title vc-desc">
+  <title id="vc-title">Is my idea validated? A five point checklist</title>
+  <desc id="vc-desc">Five conditions: you have spoken to twenty or more people who have the problem; sixty percent rate its severity eight out of ten or higher; half are already paying for a workaround; five to ten people have committed money; and you can say who the product is not for. The middle three are the numbers measured at the decision gate; the other two are judgement calls. All five must hold, or the idea is still an assumption.</desc>
+
+  
+
+  <g font-family="&#39;JetBrains Mono&#39;,ui-monospace,monospace" font-size="14" font-weight="500" letter-spacing="2.52" fill="#94a3b8">
+    <text x="64" y="92">IS MY IDEA VALIDATED?</text>
+  </g>
+
+  <g fill="none" stroke="#fd6a62" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M64 182 l11 12 l21 -24"></path>
+    <path d="M64 280 l11 12 l21 -24"></path>
+    <path d="M64 378 l11 12 l21 -24"></path>
+    <path d="M64 476 l11 12 l21 -24"></path>
+    <path d="M64 574 l11 12 l21 -24"></path>
+  </g>
+
+  <g font-family="&#39;Inter&#39;,system-ui,sans-serif" font-size="26" fill="#f8fafc" style="font-variant-numeric:tabular-nums lining-nums">
+    <text x="124" y="190">You have spoken with 20+ people who have the problem</text>
+    <text x="124" y="288">60% of them rate its severity 8/10 or higher</text>
+    <text x="124" y="386">Half are already paying for a workaround</text>
+    <text x="124" y="484">5–10 people have committed money, not praise</text>
+    <text x="124" y="582">You can say plainly who this is not for</text>
+  </g>
+
+  <line x1="64" y1="640" x2="936" y2="640" stroke="rgba(255,255,255,0.09)"></line>
+
+  <g font-family="&#39;JetBrains Mono&#39;,ui-monospace,monospace" font-size="14" font-weight="500" letter-spacing="2.52" fill="#ffb4ae">
+    <text x="64" y="682">THREE NUMBERS, TWO JUDGEMENT CALLS · ALL FIVE OR IT IS STILL AN ASSUMPTION</text>
+  </g>
+</svg>

@@ -1,6 +1,5 @@
-import React from "react";
-import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
+import React, { useEffect, useState } from "react";
+import { Menu, X, ArrowRight } from "lucide-react";
 import { useAppContext } from "@/contexts/AppContext";
 import { useActiveSection } from "@/hooks/useScrollAnimation";
 
@@ -23,64 +22,86 @@ const sectionIds = navItems.map((n) => n.id);
 const Navigation: React.FC<NavigationProps> = ({ isOpen, onToggle }) => {
   const { openGetStartedModal } = useAppContext();
   const activeSection = useActiveSection(sectionIds);
+  const [scrolled, setScrolled] = useState(false);
+
+  /* Transparent over the hero, then a hairline + blur once the page moves.
+     A bar that reacts to scroll position is a small thing that dates a site
+     quickly when it's missing. */
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
+    document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth" });
     if (isOpen) onToggle();
   };
 
   return (
     <>
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-slate-900 via-gray-900 to-slate-900 backdrop-blur-md border-b border-white/10 shadow-2xl">
+      <nav
+        aria-label="Primary"
+        className={`fixed inset-x-0 top-0 z-50 transition-all duration-200 ease-signature ${
+          scrolled
+            ? "border-b border-hairline bg-[rgba(8,9,12,0.82)] backdrop-blur-xl"
+            : "border-b border-transparent bg-transparent"
+        }`}
+      >
         <div className="container mx-auto px-4 sm:px-6">
-          <div className="flex items-center justify-between h-16 sm:h-20">
-            <div className="flex items-center group">
-              <div className="relative">
-                <div className="absolute inset-0 bg-[#fd6a62]/20 blur-xl rounded-full group-hover:bg-[#fd6a62]/30 transition-all duration-300" />
-                <img
-                  src="/images/mvp-applications-logo.png"
-                  alt="MVP Applications Logo"
-                  className="h-16 sm:h-20 w-auto relative z-10 object-contain transition-transform duration-300 group-hover:scale-105"
-                />
-              </div>
-            </div>
+          <div className="flex h-16 items-center justify-between sm:h-20">
+            <button
+              onClick={() => scrollToSection("hero")}
+              className="flex items-center"
+              aria-label="MVP Applications — back to top"
+            >
+              <img
+                src="/images/mvp-applications-logo.png"
+                alt="MVP Applications"
+                className="h-12 w-auto object-contain transition-opacity duration-150 hover:opacity-80 sm:h-14"
+              />
+            </button>
 
-            {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center space-x-1 lg:space-x-2">
-              {navItems.map((item) => (
-                <button
-                  key={item.id}
-                  onClick={() => scrollToSection(item.id)}
-                  className={`relative font-medium transition-all duration-300 text-sm lg:text-base px-3 lg:px-4 py-2 rounded-lg hover:bg-white/10 group ${
-                    activeSection === item.id ? "text-white" : "text-gray-300 hover:text-white"
-                  }`}
-                >
-                  <span className="relative z-10">{item.label}</span>
-                  <div
-                    className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 bg-[#fd6a62] rounded-full transition-all duration-300 ${
+            {/* ——— Desktop: pill-grouped links, one accent for the active item ——— */}
+            <div className="hidden items-center gap-1 md:flex">
+              <div className="mr-2 flex items-center gap-0.5 rounded-full border border-hairline bg-white/[0.03] p-1">
+                {navItems.map((item) => (
+                  <button
+                    key={item.id}
+                    onClick={() => scrollToSection(item.id)}
+                    aria-current={activeSection === item.id ? "true" : undefined}
+                    className={`rounded-full px-3.5 py-1.5 text-sm font-medium transition-colors duration-150 ease-signature lg:px-4 ${
                       activeSection === item.id
-                        ? "w-6 opacity-100"
-                        : "w-0 opacity-0 group-hover:w-full group-hover:opacity-100"
+                        ? "bg-white/[0.09] text-ink"
+                        : "text-ink-subtle hover:text-ink"
                     }`}
-                  />
-                </button>
-              ))}
-              <Button
+                  >
+                    {item.label}
+                  </button>
+                ))}
+              </div>
+
+              <button
                 onClick={openGetStartedModal}
-                className="ml-2 lg:ml-4 bg-gradient-to-r from-[#fd6a62] to-[#fc5951] hover:from-[#fc5951] hover:to-[#fd6a62] text-white text-sm px-5 lg:px-6 py-2.5 shadow-lg shadow-[#fd6a62]/50 hover:shadow-xl hover:shadow-[#fd6a62]/60 transform hover:scale-105 transition-all duration-300"
+                className="group inline-flex items-center gap-1.5 rounded-full btn-brand !rounded-full px-5 py-2.5 text-sm font-semibold"
               >
-                Get Started
-              </Button>
+                Get started
+                <ArrowRight
+                  className="h-3.5 w-3.5 transition-transform duration-200 ease-signature group-hover:translate-x-0.5"
+                  aria-hidden="true"
+                />
+              </button>
             </div>
 
             <button
               onClick={onToggle}
-              className="md:hidden p-2 rounded-lg hover:bg-white/10 transition-all duration-300 text-gray-300 hover:text-white"
+              aria-expanded={isOpen}
+              aria-controls="mobile-menu"
+              aria-label={isOpen ? "Close menu" : "Open menu"}
+              className="flex h-11 w-11 items-center justify-center rounded-[var(--r-md)] border border-hairline text-ink-muted transition-colors duration-150 hover:bg-white/[0.06] hover:text-ink md:hidden"
             >
-              {isOpen ? <X className="w-6 h-6 sm:w-7 sm:h-7" /> : <Menu className="w-6 h-6 sm:w-7 sm:h-7" />}
+              {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
           </div>
         </div>
@@ -88,28 +109,40 @@ const Navigation: React.FC<NavigationProps> = ({ isOpen, onToggle }) => {
 
       {isOpen && (
         <div className="fixed inset-0 z-40 md:hidden">
-          <div className="fixed inset-0 bg-black/70 backdrop-blur-md" onClick={onToggle} />
-          <div className="fixed top-16 sm:top-20 left-0 right-0 bg-gradient-to-b from-slate-900 to-gray-900 border-b border-white/10 shadow-2xl max-h-[calc(100vh-4rem)] sm:max-h-[calc(100vh-5rem)] overflow-y-auto">
-            <div className="px-4 sm:px-6 py-6 space-y-2">
+          <div
+            className="fixed inset-0 bg-black/70 backdrop-blur-sm"
+            onClick={onToggle}
+            aria-hidden="true"
+          />
+          <div
+            id="mobile-menu"
+            className="fixed inset-x-0 top-16 max-h-[calc(100vh-4rem)] overflow-y-auto border-b border-hairline bg-[rgba(12,14,19,0.96)] backdrop-blur-xl sm:top-20 sm:max-h-[calc(100vh-5rem)]"
+          >
+            <div className="space-y-1 px-4 py-6 sm:px-6">
               {navItems.map((item) => (
                 <button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
-                  className={`block w-full text-left font-medium py-3 px-4 rounded-lg transition-all duration-300 text-base ${
+                  aria-current={activeSection === item.id ? "true" : undefined}
+                  className={`block w-full rounded-[var(--r-md)] px-4 py-3.5 text-left text-base font-medium transition-colors duration-150 ${
                     activeSection === item.id
-                      ? "text-[#fd6a62] bg-[#fd6a62]/10"
-                      : "text-gray-300 hover:text-white hover:bg-white/10"
+                      ? "bg-white/[0.07] text-ink"
+                      : "text-ink-subtle hover:bg-white/[0.04] hover:text-ink"
                   }`}
                 >
                   {item.label}
                 </button>
               ))}
-              <Button
-                onClick={openGetStartedModal}
-                className="w-full bg-gradient-to-r from-[#fd6a62] to-[#fc5951] hover:from-[#fc5951] hover:to-[#fd6a62] text-white mt-4 py-4 text-base shadow-lg shadow-[#fd6a62]/50 hover:shadow-xl transition-all duration-300"
+              <button
+                onClick={() => {
+                  onToggle();
+                  openGetStartedModal();
+                }}
+                className="mt-4 flex w-full items-center justify-center gap-2 rounded-[var(--r-md)] btn-brand px-6 py-4 text-base font-semibold"
               >
-                Get Started
-              </Button>
+                Get started
+                <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </button>
             </div>
           </div>
         </div>

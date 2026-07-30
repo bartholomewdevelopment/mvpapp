@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 700" width="1600" height="700" role="img" aria-labelledby="pt-title pt-desc">
+  <title id="pt-title">Engagement timeline, scaled to real duration, with the validation decision gate</title>
+  <desc id="pt-desc">A single axis spans an eighteen week engagement. Discovery runs one to two weeks, Validation Coaching four weeks, Design two to three weeks, Build six to twelve weeks, and Handoff about one week plus thirty days of support. A decision gate sits at the end of validation: go, pivot or kill. Passing it requires all three measured numbers: sixty percent of interviewees rating severity eight out of ten or higher, fifty percent already paying for a workaround, and five to ten paying commitments secured.</desc>
+
+  
+  
+
+  <g font-family="&#39;JetBrains Mono&#39;,ui-monospace,monospace" font-size="16" font-weight="500" letter-spacing="2.88" fill="#94a3b8">
+    <text x="100" y="52">PROCESS · VALIDATE BEFORE YOU BUILD</text>
+    <text x="1500" y="40" text-anchor="end">TOTAL ENGAGEMENT</text>
+    <text x="100" y="544">PASSING THE GATE REQUIRES ALL THREE NUMBERS</text>
+    <text x="542" y="178" fill="#ffb4ae">DECISION GATE</text>
+    <text x="542" y="462" fill="#ffb4ae">GO · PIVOT · KILL</text>
+  </g>
+
+  <g font-family="&#39;Instrument Sans&#39;,&#39;Inter&#39;,system-ui,sans-serif" fill="#f8fafc" style="font-variant-numeric:tabular-nums lining-nums">
+    <text x="1500" y="92" font-size="44" font-weight="700" letter-spacing="-1.76" text-anchor="end">13–23 weeks</text>
+
+    <g font-size="26" font-weight="600" letter-spacing="-0.52">
+      <text x="112" y="288">Discovery</text>
+      <text x="540" y="288">Design</text>
+      <text x="1500" y="288" text-anchor="end">Handoff</text>
+      <text x="229" y="392">Validation</text>
+      <text x="734" y="392">Build</text>
+    </g>
+
+    <g font-size="92" font-weight="700" letter-spacing="-3.68">
+      <text x="100" y="632">60%</text>
+      <text x="600" y="632">50%</text>
+      <text x="1100" y="632">5–10</text>
+    </g>
+  </g>
+
+  <g font-family="&#39;Inter&#39;,system-ui,sans-serif" font-size="16" letter-spacing="1.6" style="font-variant-numeric:tabular-nums lining-nums" fill="#cbd5e1">
+    <text x="112" y="312">1–2 WEEKS</text>
+    <text x="540" y="312">2–3 WEEKS</text>
+    <text x="1500" y="312" text-anchor="end">~1 WEEK <tspan fill="#94a3b8">· +30 DAYS SUPPORT</tspan></text>
+    <text x="229" y="416">4 WEEKS</text>
+    <text x="734" y="416">6–12 WEEKS</text>
+  </g>
+
+  <g font-family="&#39;Inter&#39;,system-ui,sans-serif" font-size="16" letter-spacing="1.2" fill="#94a3b8">
+    <text x="100" y="666">Rate severity 8/10 or higher</text>
+    <text x="600" y="666">Already pay for a workaround</text>
+    <text x="1100" y="666">Paying commitments secured</text>
+  </g>
+
+  <line id="axis" x1="100" y1="344" x2="1500" y2="344" stroke="rgba(255,255,255,0.16)" stroke-width="1"></line>
+  <g stroke="#64748b" stroke-width="1">
+    <line x1="100" y1="335" x2="100" y2="353"></line>
+    <line x1="217" y1="335" x2="217" y2="353"></line>
+    <line x1="528" y1="335" x2="528" y2="353"></line>
+    <line x1="722" y1="335" x2="722" y2="353"></line>
+    <line x1="1422" y1="335" x2="1422" y2="353"></line>
+    <line x1="1500" y1="335" x2="1500" y2="353"></line>
+  </g>
+
+  <line id="gate" x1="528" y1="200" x2="528" y2="436" stroke="#fd6a62" stroke-width="1.5"></line>
+  <line x1="100" y1="508" x2="1500" y2="508" stroke="rgba(255,255,255,0.09)" stroke-width="1"></line>
+</svg>

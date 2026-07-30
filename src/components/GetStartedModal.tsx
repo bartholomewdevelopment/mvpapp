@@ -117,7 +117,7 @@ const GetStartedModal: React.FC<GetStartedModalProps> = ({ isOpen, onClose }) =>
         return (
           <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
             <div className="text-center mb-8">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-[#fd6a62] to-[#fc5951] rounded-2xl mb-4 mx-auto shadow-lg shadow-[#fd6a62]/50">
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-brand-grad rounded-2xl mb-4 mx-auto shadow-lg shadow-[#fd6a62]/50">
                 <Mail className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent mb-3">
@@ -149,7 +149,7 @@ const GetStartedModal: React.FC<GetStartedModalProps> = ({ isOpen, onClose }) =>
         return (
           <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
             <div className="text-center mb-6">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-[#fd6a62] to-[#fc5951] rounded-2xl mb-4 mx-auto shadow-lg shadow-[#fd6a62]/50">
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-brand-grad rounded-2xl mb-4 mx-auto shadow-lg shadow-[#fd6a62]/50">
                 <Sparkles className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3">
@@ -225,19 +225,19 @@ const GetStartedModal: React.FC<GetStartedModalProps> = ({ isOpen, onClose }) =>
               <div className={`relative flex items-start p-4 border-2 rounded-xl cursor-pointer transition-all duration-300 ${formData.validation_status === 'few-interviews' ? 'border-[#fd6a62] bg-[#fd6a62]/5 shadow-lg shadow-[#fd6a62]/20' : 'border-gray-200 hover:border-[#fd6a62]/50 bg-white'}`}>
                 <RadioGroupItem value="few-interviews" id="few-interviews" className="mt-1" />
                 <Label htmlFor="few-interviews" className="ml-4 cursor-pointer flex-1 text-sm leading-relaxed text-gray-700">
-                  Did a few interviews (less than 15 strangers)
+                  Did a few interviews (less than 20 strangers)
                 </Label>
               </div>
               <div className={`relative flex items-start p-4 border-2 rounded-xl cursor-pointer transition-all duration-300 ${formData.validation_status === 'validated-committed' ? 'border-green-500 bg-green-50 shadow-lg shadow-green-500/20' : 'border-gray-200 hover:border-green-500/50 bg-white'}`}>
                 <RadioGroupItem value="validated-committed" id="validated-committed" className="mt-1" />
                 <Label htmlFor="validated-committed" className="ml-4 cursor-pointer flex-1 text-sm leading-relaxed text-gray-700">
-                  15+ interviews with strangers + 5+ paying commitments
+                  20+ interviews with strangers + 5–10 paying commitments
                 </Label>
               </div>
               <div className={`relative flex items-start p-4 border-2 rounded-xl cursor-pointer transition-all duration-300 ${formData.validation_status === 'validated-paying' ? 'border-green-500 bg-green-50 shadow-lg shadow-green-500/20' : 'border-gray-200 hover:border-green-500/50 bg-white'}`}>
                 <RadioGroupItem value="validated-paying" id="validated-paying" className="mt-1" />
                 <Label htmlFor="validated-paying" className="ml-4 cursor-pointer flex-1 text-sm leading-relaxed text-gray-700">
-                  15+ interviews + paying customers already using a prototype
+                  20+ interviews + paying customers already using a prototype
                 </Label>
               </div>
             </RadioGroup>
@@ -252,7 +252,7 @@ const GetStartedModal: React.FC<GetStartedModalProps> = ({ isOpen, onClose }) =>
                 <div className="absolute top-0 right-0 w-32 h-32 bg-[#fd6a62]/10 rounded-full blur-3xl"></div>
                 <div className="relative">
                   <div className="flex items-start gap-4 mb-4">
-                    <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-[#fd6a62] to-[#fc5951] rounded-xl flex items-center justify-center shadow-lg shadow-[#fd6a62]/50">
+                    <div className="flex-shrink-0 w-12 h-12 bg-brand-grad rounded-xl flex items-center justify-center shadow-lg shadow-[#fd6a62]/50">
                       <AlertCircle className="w-6 h-6 text-white" />
                     </div>
                     <div className="flex-1">
@@ -406,7 +406,7 @@ const GetStartedModal: React.FC<GetStartedModalProps> = ({ isOpen, onClose }) =>
             </button>
 
             <div className="text-center mb-4 pr-12">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-[#fd6a62] to-[#fc5951] rounded-2xl mb-4 mx-auto shadow-lg shadow-[#fd6a62]/50">
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-brand-grad rounded-2xl mb-4 mx-auto shadow-lg shadow-[#fd6a62]/50">
                 <CheckCircle className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">Schedule Your Discovery Call</h3>
@@ -477,7 +477,7 @@ const GetStartedModal: React.FC<GetStartedModalProps> = ({ isOpen, onClose }) =>
               {/* Progress Bar */}
               <div className="relative h-2 bg-white/10 rounded-full overflow-hidden backdrop-blur-sm">
                 <div
-                  className="absolute top-0 left-0 h-full bg-gradient-to-r from-[#fd6a62] to-[#fc5951] rounded-full transition-all duration-500 ease-out shadow-lg shadow-[#fd6a62]/50"
+                  className="absolute top-0 left-0 h-full bg-brand-grad rounded-full transition-all duration-500 ease-out shadow-lg shadow-[#fd6a62]/50"
                   style={{ width: `${progressPercentage}%` }}
                 >
                   <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/30 to-white/0 animate-pulse"></div>
@@ -508,7 +508,7 @@ const GetStartedModal: React.FC<GetStartedModalProps> = ({ isOpen, onClose }) =>
               <Button
                 onClick={handleNext}
                 disabled={!canProceed()}
-                className="group relative flex items-center gap-2 px-8 h-12 bg-gradient-to-r from-[#fd6a62] to-[#fc5951] hover:from-[#fc5951] hover:to-[#fd6a62] text-white font-semibold disabled:opacity-40 disabled:cursor-not-allowed shadow-lg shadow-[#fd6a62]/30 hover:shadow-xl hover:shadow-[#fd6a62]/40 transition-all duration-300 rounded-xl overflow-hidden"
+                className="group relative flex items-center gap-2 px-8 h-12 bg-brand-grad hover:from-[#fc5951] hover:to-[#fd6a62] text-white font-semibold disabled:opacity-40 disabled:cursor-not-allowed shadow-lg shadow-[#fd6a62]/30 hover:shadow-xl hover:shadow-[#fd6a62]/40 transition-all duration-300 rounded-xl overflow-hidden"
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000"></div>
                 <span className="relative">Next</span>

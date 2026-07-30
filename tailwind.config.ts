@@ -25,6 +25,30 @@ export default {
           primary: '#fd6a62',
           secondary: '#fc5951',
         },
+        /* ——— 2027 design tokens (see src/index.css) ——— */
+        canvas: {
+          DEFAULT: 'var(--canvas)',
+          raised: 'var(--canvas-raised)',
+          deep: 'var(--canvas-deep)',
+        },
+        ink: {
+          DEFAULT: 'var(--ink)',
+          muted: 'var(--ink-muted)',
+          subtle: 'var(--ink-subtle)',
+          faint: 'var(--ink-faint)',
+        },
+        accent2027: {
+          DEFAULT: 'var(--accent)',
+          two: 'var(--accent-2)',
+          hover: 'var(--accent-hover)',
+          ink: 'var(--accent-ink)',
+          wash: 'var(--accent-wash)',
+          line: 'var(--accent-line)',
+        },
+        hairline: {
+          DEFAULT: 'var(--hairline)',
+          strong: 'var(--hairline-strong)',
+        },
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
@@ -72,11 +96,31 @@ export default {
       fontFamily: {
         mono: ['JetBrains Mono', 'monospace'],
         sans: ['Inter', 'sans-serif'],
+        display: ['Instrument Sans', 'Inter', 'sans-serif'],
       },
       borderRadius: {
         lg: 'calc(var(--radius) + 2px)',
         md: 'var(--radius)',
-        sm: 'calc(var(--radius) - 2px)'
+        sm: 'calc(var(--radius) - 2px)',
+        card: 'var(--r-lg)',
+        panel: 'var(--r-xl)',
+      },
+      boxShadow: {
+        lift: 'var(--lift)',
+        'lift-high': 'var(--lift-high)',
+        glow: 'var(--glow)',
+        'glow-high': 'var(--glow-high)',
+      },
+      backgroundImage: {
+        'brand-grad': 'var(--accent-grad)',
+        'brand-grad-soft': 'var(--accent-grad-soft)',
+      },
+      transitionTimingFunction: {
+        signature: 'cubic-bezier(0.16, 1, 0.3, 1)',
+        spring: 'cubic-bezier(0.34, 1.4, 0.64, 1)',
+      },
+      maxWidth: {
+        measure: '68ch',
       },
       keyframes: {
         'accordion-down': {

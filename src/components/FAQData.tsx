@@ -8,7 +8,7 @@ export const faqData: FAQData[] = [
   {
     id: 1,
     question: "What's included in the Complete Startup Package?",
-    answer: "One path, one package: Discovery, Validation Coaching, Design, and full MVP Development. Starting at $22,500 total, paid in phases over 13-23 weeks.\n\nEvery engagement runs through validation first—building before validating is the #1 reason 90% of startups fail. We don't sell build-only projects.\n\nAlready validated? If you've done 15+ interviews and have 5+ paying commitments, we review your evidence and fast-track you to build. Your validation phase becomes a quick paid review, credited toward your build."
+    answer: "One path, one package: Discovery, Validation Coaching, Design, and full MVP Development. Starting at $22,500 total, paid in phases over 13-23 weeks.\n\nEvery engagement runs through validation first—building before validating is the #1 reason 90% of startups fail. We don't sell build-only projects.\n\nAlready validated? If you've done 20+ interviews and have 5–10 paying commitments, we review your evidence and fast-track you to build. Your validation phase becomes a quick paid review, credited toward your build."
   },
   {
     id: 2,
@@ -18,7 +18,9 @@ export const faqData: FAQData[] = [
   {
     id: 3,
     question: "What if I'm not sure if my idea is validated yet?",
-    answer: "If you haven't done ALL of these, your idea is not validated:\n\n• Conducted 15-20 customer interviews with STRANGERS (not friends/family)\n• 60%+ rated the problem as 8/10 or higher in severity\n• 50%+ are currently spending money trying to solve this problem\n• Gotten 5-10 people to pre-pay, deposit, or commit with signed agreements\n• Tested pricing with 40%+ conversion rate\n\nIf you can't check all these boxes, you start with validation—that's the path. Building an unvalidated idea is how you waste $50K+ and 6-18 months on something nobody wants.\n\nIf you CAN check all of them, we review your evidence and fast-track you to build: your validation phase becomes a quick paid review, credited toward your build."
+    // Joey's five-item rewrite, kept for its framing: money not praise, and
+    // which items are measured at the gate vs judged.
+    answer: "If you haven't done ALL of these, your idea is not validated:\n\n• You have spoken with 20+ people who have the problem — strangers, not friends or family\n• 60% of them rate its severity 8/10 or higher\n• Half are already paying for a workaround\n• 5–10 people have committed money, not praise\n• You can say plainly who this is not for\n\nThe middle three are the numbers we measure at the decision gate. The other two are judgement calls. All five have to hold, or it is still an assumption.\n\nIf you can't check all five boxes, you start with validation—that's the path. Building an unvalidated idea is how you waste $50K+ and 6-18 months on something nobody wants.\n\nIf you CAN check all five, we review your evidence and fast-track you to build: your validation phase becomes a quick paid review, credited toward your build."
   },
   {
     id: 4,

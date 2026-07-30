@@ -3,6 +3,9 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Phone, FileText, Users, Code, Zap, GraduationCap, CheckCircle, Target, Rocket, ArrowRight } from 'lucide-react';
 import { useAppContext } from '@/contexts/AppContext';
+import SectionHeader from './SectionHeader';
+import InlineVisual from './InlineVisual';
+import timelineSvg from '@/assets/visuals/process-timeline.svg?raw';
 
 const Process: React.FC = () => {
   const { openGetStartedModal } = useAppContext();
@@ -27,7 +30,7 @@ const Process: React.FC = () => {
     {
       icon: Users,
       title: "Real Customer Evidence",
-      description: "Conduct 15-20 customer interviews with strangers (not friends who lie). Test pricing, get paying commitments, and prove people will pay BEFORE you build. We provide scripts, templates, and expert feedback on every interview. The thresholds are explicit: 60%+ rate the problem 8/10 or higher on severity, 50%+ already spend money trying to solve it, and 5-10 paying commitments before a line of code is written.",
+      description: "Conduct 20+ customer interviews with strangers (not friends who lie). Test pricing, get paying commitments, and prove people will pay BEFORE you build. We provide scripts, templates, and expert feedback on every interview. The thresholds are explicit: 60%+ rate the problem 8/10 or higher on severity, 50%+ already spend money trying to solve it, and 5–10 paying commitments before a line of code is written.",
       color: "from-gray-700 to-gray-900"
     },
     {
@@ -54,37 +57,21 @@ const Process: React.FC = () => {
 
   return (
     <>
-      <section className="py-24 bg-gradient-to-br from-slate-950 via-slate-900 to-gray-900 relative overflow-hidden">
-        {/* Animated background elements */}
-        <div className="absolute inset-0">
-          <div className="absolute top-20 left-20 w-96 h-96 bg-[#fd6a62]/15 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-20 right-20 w-[500px] h-[500px] bg-[#fd6a62]/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
-        </div>
+      <section className="relative py-24 sm:py-32">
+        <div className="container relative mx-auto px-6">
+          <SectionHeader
+            eyebrow="How it works"
+            title="Our process: validation before development"
+            lede="One sequence, start to finish: validate, design, build, hand off. Every engagement runs through validation first."
+            className="mb-16 sm:mb-20"
+          />
 
-        {/* Grid pattern overlay */}
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute inset-0" style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.15'%3E%3Cpath d='M0 0h80v1H0zM0 0v80h1V0z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-            backgroundSize: '80px 80px'
-          }}></div>
-        </div>
-
-        <div className="container mx-auto px-6 relative z-10">
-          <div className="text-center mb-20">
-            <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-white via-gray-100 to-[#fd6a62] bg-clip-text text-transparent mb-6">
-              Our Process: Validation Before Development
-            </h2>
-            <div className="flex justify-center items-center gap-3 mb-8">
-              <div className="w-12 h-0.5 bg-gradient-to-r from-transparent to-[#fd6a62]"></div>
-              <div className="w-2 h-2 rounded-full bg-[#fd6a62] animate-pulse"></div>
-              <div className="w-24 h-0.5 bg-gradient-to-r from-[#fd6a62] to-[#fc5951]"></div>
-              <div className="w-2 h-2 rounded-full bg-[#fc5951] animate-pulse" style={{ animationDelay: '0.5s' }}></div>
-              <div className="w-12 h-0.5 bg-gradient-to-r from-[#fc5951] to-transparent"></div>
-            </div>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-              One sequence, start to finish: validate, design, build, hand off. Every engagement runs through
-              validation first.
-            </p>
+          {/* The timeline diagram carries the method better than the prose does.
+              Kept outside the max-w-4xl column: its small type is 16px in a 1600px
+              canvas, so below ~1100px of display width the labels fall under 11px.
+              Narrow viewports scroll it rather than shrink it. */}
+          <div className="mb-16 -mx-6 overflow-x-auto px-6 sm:mx-0 sm:px-0">
+            <InlineVisual markup={timelineSvg} className="min-w-[1100px]" />
           </div>
 
           <div className="max-w-4xl mx-auto">
@@ -92,11 +79,11 @@ const Process: React.FC = () => {
               {currentSteps.map((step, index) => {
                 const IconComponent = step.icon;
                 return (
-                  <Card key={index} className="group hover:shadow-2xl hover:shadow-[#fd6a62]/20 transition-all duration-500 transform hover:-translate-y-1 border border-white/10 shadow-lg bg-gradient-to-br from-slate-800/90 to-gray-800/90 backdrop-blur-sm relative overflow-hidden">
+                  <Card key={index} className="group hover:shadow-lift-high transition-all duration-200 ease-signature transform hover:-translate-y-1 border border-hairline shadow-lg bg-white/[0.032] backdrop-blur-sm relative overflow-hidden">
                     <CardHeader className="pb-4">
                       <div className="flex items-start gap-4">
                         <div className="flex items-center gap-4">
-                          <span className={`bg-gradient-to-r ${step.color} text-white rounded-full w-12 h-12 flex items-center justify-center text-lg font-bold shadow-lg flex-shrink-0 group-hover:scale-110 transition-transform duration-300`}>
+                          <span className={`bg-gradient-to-r ${step.color} text-white rounded-full w-12 h-12 flex items-center justify-center text-lg font-bold shadow-lg flex-shrink-0 group-hover:scale-110 transition-transform duration-200 ease-signature`}>
                             {index + 1}
                           </span>
                           <div className={`w-8 h-8 bg-gradient-to-br ${step.color} rounded-lg flex items-center justify-center flex-shrink-0`}>
@@ -111,7 +98,7 @@ const Process: React.FC = () => {
                       </div>
                     </CardHeader>
                     <CardContent>
-                      <CardDescription className="text-gray-300 text-base leading-relaxed ml-20">
+                      <CardDescription className="text-ink-muted text-base leading-relaxed ml-20">
                         {step.description}
                       </CardDescription>
                     </CardContent>
@@ -129,18 +116,18 @@ const Process: React.FC = () => {
             </div>
 
             {/* Branch: already validated? Fast-track */}
-            <div className="bg-white/5 border-2 border-white/20 rounded-3xl p-8 mb-12">
+            <div className="bg-white/5 border border-hairline-strong rounded-panel p-8 mb-12">
               <div className="text-center">
                 <div className="inline-flex items-center justify-center gap-3 mb-4">
                   <CheckCircle className="w-7 h-7 text-[#fd6a62]" />
-                  <ArrowRight className="w-5 h-5 text-gray-400" />
+                  <ArrowRight className="w-5 h-5 text-ink-subtle" />
                   <Rocket className="w-7 h-7 text-white" />
                 </div>
                 <h3 className="text-2xl font-bold text-white mb-4">
                   Already Validated? Fast-Track Your Build
                 </h3>
-                <p className="text-gray-300 leading-relaxed max-w-2xl mx-auto">
-                  If you've already done 15+ interviews and have 5+ paying commitments, we review your evidence
+                <p className="text-ink-muted leading-relaxed max-w-2xl mx-auto">
+                  If you've already done 20+ interviews and have 5–10 paying commitments, we review your evidence
                   and fast-track you to build — your validation phase becomes a quick paid review, credited
                   toward your build. It's the same path, just a shorter first leg.
                 </p>
@@ -148,7 +135,7 @@ const Process: React.FC = () => {
             </div>
 
             {/* Validation → Build credit callout */}
-            <div className="bg-gradient-to-r from-[#fd6a62] to-[#fc5951] rounded-3xl p-8 mb-12 text-white relative overflow-hidden">
+            <div className="bg-brand-grad rounded-panel p-8 mb-12 text-white relative overflow-hidden">
               <div className="absolute inset-0 bg-black/10"></div>
               <div className="relative z-10">
                 <div className="flex items-center justify-center gap-4 mb-4">
@@ -176,10 +163,9 @@ const Process: React.FC = () => {
             </div>
             <Button
               size="lg"
-              className="group relative bg-gradient-to-r from-[#fd6a62] to-[#fc5951] hover:from-[#fc5951] hover:to-[#fd6a62] text-white px-12 py-4 text-lg font-semibold shadow-2xl shadow-[#fd6a62]/50 hover:shadow-[#fd6a62]/70 transform hover:scale-105 transition-all duration-300 rounded-xl overflow-hidden"
+              className="btn-brand px-12 py-4 text-lg font-semibold"
               onClick={handleGetStarted}
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000"></div>
               <span className="relative">Get Started</span>
             </Button>
           </div>
